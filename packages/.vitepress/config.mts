@@ -4,6 +4,7 @@ import UnoCSS from 'unocss/vite';
 export default defineConfig({
   title: 'SummerUse',
   description: 'A VitePress Site',
+  base: '/SummerUse/',
   vite: {
     plugins: [UnoCSS()],
     ssr: {
