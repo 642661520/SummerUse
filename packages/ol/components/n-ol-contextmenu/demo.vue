@@ -2,12 +2,12 @@
   import { Map as OLMap, View } from 'ol'
   import TileLayer from 'ol/layer/Tile';
   import { OSM } from 'ol/source';
-  import 'ol/ol.css';
   import { NOlContextmenu } from '@summeruse/ol';
   import { onMounted, ref, shallowRef } from 'vue';
   import type { Pixel } from 'ol/pixel';
   import type { Coordinate } from 'ol/coordinate';
   import type { FeatureLike } from 'ol/Feature';
+  import 'ol/ol.css';
   const mapRef = ref<HTMLDivElement>();
   const olMap = shallowRef<OLMap>();
   onMounted(() => {
@@ -34,6 +34,7 @@
       {
         key: '1',
         label: '1',
+        type: 'group',
         children: [
           {
             key: '1-1',

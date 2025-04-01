@@ -11,5 +11,5 @@
     "noUncheckedSideEffectImports": true
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.vue"],
-  "exclude": ["**.config.ts"]
+  "exclude": ["**.config.ts", "**/demo.vue"]
 }
