@@ -10,13 +10,25 @@
     "changeset_rc": "pnpm changeset pre enter rc",
     "changeset_pre_exit": "pnpm changeset version",
     "changeset_version": "pnpm changeset version",
-    "changeset_publish": "pnpm changeset publish --access public"
+    "changeset_publish": "pnpm changeset publish --access public",
+    "docs:dev": "vitepress dev packages",
+    "docs:build": "vitepress build packages",
+    "docs:preview": "vitepress preview packages"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.7.0",
   "devDependencies": {
-    "@changesets/cli": "catalog:"
+    "@changesets/cli": "catalog:",
+    "vitepress": "catalog:"
+  },
+  "dependencies": {
+    "@summeruse/ol": "workspace:*",
+    "naive-ui": "catalog:",
+    "ol": "catalog:",
+    "unocss": "catalog:",
+    "vue": "catalog:",
+    "@css-render/vue3-ssr": "catalog:"
   }
 }

@@ -1,3 +1,3 @@
-import NOlContextmenu from './ol-contextmenu/n-ol-contextmenu.vue';
+import NOlContextmenu from './n-ol-contextmenu/index.vue';
 export { NOlContextmenu };
-export * from './ol-contextmenu/props';
+export * from './n-ol-contextmenu/props';
