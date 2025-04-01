@@ -1,6 +1,6 @@
 {
   "name": "@summeruse/ol",
-  "version": "0.0.0",
+  "version": "0.0.1-beta.0",
   "description": "",
   "type": "module",
   "main": "lib/index.js",
@@ -22,21 +22,24 @@
   "license": "ISC",
   "packageManager": "pnpm@10.7.0",
   "dependencies": {
-    "vue": "^3.5.13"
+    "vue": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "^22.13.14",
-    "@vitejs/plugin-vue": "^5.2.1",
-    "@vue/tsconfig": "^0.7.0",
-    "naive-ui": "^2.41.0",
-    "ol": "^10.4.0",
-    "typescript": "~5.7.2",
-    "vite": "^6.2.0",
-    "vite-plugin-dts": "^4.5.3",
-    "vue-tsc": "^2.2.4"
+    "@types/node": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "@vue/tsconfig": "catalog:",
+    "naive-ui": "catalog:",
+    "ol": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-dts": "catalog:",
+    "vue-tsc": "catalog:"
   },
   "peerDependencies": {
-    "naive-ui": "^2.41.0",
-    "ol": "^10.4.0"
+    "naive-ui": "catalog:",
+    "ol": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

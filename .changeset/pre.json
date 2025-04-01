@@ -1,0 +1,11 @@
+{
+  "mode": "pre",
+  "tag": "beta",
+  "initialVersions": {
+    "@summeruse/ol": "0.0.1-beta.0",
+    "@summeruse/utils": "0.0.0"
+  },
+  "changesets": [
+    "fruity-poets-sin"
+  ]
+}

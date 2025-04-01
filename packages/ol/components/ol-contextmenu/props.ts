@@ -13,5 +13,7 @@ export interface Options {
 
 export interface Props {
   olMap: OLMap;
-  createDropdownOptions: (options: Options) => DropdownMixedOption[];
+  createDropdownOptions: (options: Options) => (DropdownMixedOption & {
+    onClick: (options: Options) => void;
+  })[];
 }

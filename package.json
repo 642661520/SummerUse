@@ -1,15 +1,22 @@
 {
   "name": "@summeruse/monorepo",
   "version": "0.0.0",
-  "descriptionu": "",
+  "description": "",
   "scripts": {
-    "build": "pnpm -r run build"
+    "build": "pnpm -r run build",
+    "changeset_add": "pnpm changeset add",
+    "changeset_alpha": "pnpm changeset pre enter alpha",
+    "changeset_beta": "pnpm changeset pre enter beta",
+    "changeset_rc": "pnpm changeset pre enter rc",
+    "changeset_pre_exit": "pnpm changeset version",
+    "changeset_version": "pnpm changeset version",
+    "changeset_publish": "pnpm changeset publish --access public"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.7.0",
   "devDependencies": {
-    "@changesets/cli": "^2.28.1"
+    "@changesets/cli": "catalog:"
   }
 }
