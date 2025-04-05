@@ -4,16 +4,16 @@ import type { Pixel } from 'ol/pixel';
 import type { Coordinate } from 'ol/coordinate';
 import type { FeatureLike } from 'ol/Feature';
 
-export interface Options {
+export interface NOlContextmenuOptions {
   event: MouseEvent;
   pixel: Pixel;
   coordinate: Coordinate;
   features: FeatureLike[];
 }
 
-export interface Props {
+export interface NOlContextmenuProps {
   olMap: OLMap;
-  createDropdownOptions: (options: Options) => (DropdownMixedOption & {
-    onClick?: (options: Options) => void;
+  createOptions: (options: NOlContextmenuOptions) => (DropdownMixedOption & {
+    onClick?: (options: NOlContextmenuOptions) => void;
   })[];
 }

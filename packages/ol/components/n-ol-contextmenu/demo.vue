@@ -1,40 +1,59 @@
 <script setup lang="ts">
-  import { Map as OLMap, View } from 'ol'
-  import TileLayer from 'ol/layer/Tile';
-  import { OSM } from 'ol/source';
-  import { NOlContextmenu } from '@summeruse/ol';
-  import { onMounted, ref, shallowRef } from 'vue';
+  import { NOlContextmenu, getTianDiTuLayer, EPSG_3857 } from '@summeruse/ol';
   import type { Pixel } from 'ol/pixel';
   import type { Coordinate } from 'ol/coordinate';
   import type { FeatureLike } from 'ol/Feature';
-  import 'ol/ol.css';
-  const mapRef = ref<HTMLDivElement>();
-  const olMap = shallowRef<OLMap>();
-  onMounted(() => {
-    olMap.value = new OLMap({
-      target: mapRef.value,
-      layers: [
-        new TileLayer({
-          source: new OSM(),
-        }),
-      ],
-      view: new View({
-        center: [0, 0],
-        zoom: 2,
-      }),
-    })
-  })
-  const createDropdownOptions = (data: {
+  import { OlMap, } from '@summeruse/ol';
+  import type { OlMapInst } from '@summeruse/ol';
+  import { computed, onMounted, ref } from 'vue';
+  import VectorLayer from 'ol/layer/Vector';
+  import VectorSource from 'ol/source/Vector';
+  import Feature from 'ol/Feature';
+  import { Point } from 'ol/geom';
+  const createOptions = (data: {
     event: MouseEvent;
     pixel: Pixel;
     coordinate: Coordinate;
     features: FeatureLike[];
   }) => {
+
+    if (data.features.length) {
+      const feature = data.features[0];
+      const type = feature.get('type');
+      if (type === 'point') {
+        return [
+          {
+            key: 'point',
+            label: 'point',
+            onClick: () => {
+              alert(type);
+            }
+          },
+          {
+            key: 'remove-point',
+            label: '删除点',
+            onClick: () => {
+              source.removeFeature(feature as Feature);
+            }
+          }
+        ]
+      }
+    }
+
     return [
+      {
+        key: 'add',
+        label: '添加点',
+        onClick: () => {
+          source.addFeature(new Feature({
+            geometry: new Point(data.coordinate),
+            type: 'point',
+          }))
+        }
+      },
       {
         key: '1',
         label: '1',
-        type: 'group',
         children: [
           {
             key: '1-1',
@@ -55,10 +74,37 @@
     ]
   }
 
+  const olMapRef = ref<OlMapInst>();
+
+  const olMap = computed(() => {
+    return olMapRef.value?.olMap;
+  });
+
+  const source = new VectorSource();
+  const layer = new VectorLayer({
+    source,
+  });
+
+  const feature = new Feature({
+    geometry: new Point([0, 0]),
+    type: 'point',
+  })
+  source.addFeature(feature);
+
+  onMounted(() => {
+    olMap.value?.addLayer(getTianDiTuLayer({
+      type: 'img',
+      key: '8a684acb7b9d38ba08adf8035d0262ee',
+      projection: EPSG_3857,
+    }));
+    olMap.value?.addLayer(layer);
+  });
 </script>
 
 <template>
-  <div ref="mapRef" class="w-100% h-400px">
-    <NOlContextmenu :createDropdownOptions v-if="olMap" :olMap></NOlContextmenu>
-  </div>
+  <OlMap ref="olMapRef" class="w-100% h-400px">
+    <template #default="{ olMap }">
+      <NOlContextmenu :createOptions v-if="olMap" :olMap></NOlContextmenu>
+    </template>
+  </OlMap>
 </template>
