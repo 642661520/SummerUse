@@ -1,7 +1,5 @@
-# OL 组件
+## OL 扩展组件
 
-<!-- 表格 -->
+[`ol-map`](./ol-map/index.md)
 
-| 组件名称         | 组件描述 | 组件链接                                |
-| ---------------- | -------- | --------------------------------------- |
-| n-ol-contextmenu | 右键菜单 | [组件链接](./n-ol-contextmenu/index.md) |
+[`n-ol-contextmenu`](./n-ol-contextmenu/index.md)
