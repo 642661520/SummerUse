@@ -2,4 +2,4 @@
 "@summeruse/ol": patch
 ---
 
-更新 Props 类型
+添加 useSwitchBaseLayer

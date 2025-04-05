@@ -2,10 +2,15 @@
   "mode": "pre",
   "tag": "beta",
   "initialVersions": {
-    "@summeruse/ol": "0.0.1-beta.0",
+    "@summeruse/ol": "0.0.1-beta.2",
     "@summeruse/utils": "0.0.0"
   },
   "changesets": [
-    "fruity-poets-sin"
+    "loose-seals-visit",
+    "neat-moles-slide",
+    "slick-laws-pull",
+    "slick-schools-kiss",
+    "tall-laws-wait",
+    "twelve-beers-push"
   ]
 }

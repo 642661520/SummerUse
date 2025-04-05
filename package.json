@@ -9,7 +9,7 @@
     "changeset_alpha": "pnpm changeset pre enter alpha",
     "changeset_beta": "pnpm changeset pre enter beta",
     "changeset_rc": "pnpm changeset pre enter rc",
-    "changeset_pre_exit": "pnpm changeset version",
+    "changeset_pre_exit": "changeset pre exit",
     "changeset_version": "pnpm changeset version",
     "changeset_publish": "pnpm changeset publish --access public",
     "docs:dev": "vitepress dev packages --host",

@@ -4,21 +4,27 @@ layout: home
 
 hero:
   name: 'SummerUse'
-  text: 'A VitePress Site'
-  tagline: My great project tagline
+  text: Same As Web
+  tagline: 一些用于 Web 的工具库
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Guide
+      link: /guide
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: View on GitHub
+      link: https://github.com/642661520/SummerUse
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: '@summeruse/ol'
+    icon:
+      light: https://openlayers.org/theme/img/logo-light.svg
+      dark: https://openlayers.org/theme/img/logo-dark.svg
+    details: 用于 OpenLayers 封装的工具库 (组件、组合式函数、常量)
+    link: /ol/
+  - title: 施工中
+    icon: 🛠️
+    details:
+  - title: 施工中
+    icon: 🛠️
+    details:
 ---

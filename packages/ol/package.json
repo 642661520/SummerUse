@@ -1,6 +1,6 @@
 {
   "name": "@summeruse/ol",
-  "version": "0.0.1-beta.0",
+  "version": "0.0.1-beta.3",
   "description": "",
   "type": "module",
   "main": "lib/index.js",
@@ -9,6 +9,7 @@
   "jsdelivr": "dist/index.js",
   "types": "es/index.d.ts",
   "files": [
+    "CHANGELOG.md",
     "README.md",
     "dist",
     "es",
@@ -33,7 +34,9 @@
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plugin-dts": "catalog:",
-    "vue-tsc": "catalog:"
+    "vue-tsc": "catalog:",
+    "sass": "catalog:",
+    "@turf/turf": "catalog:"
   },
   "peerDependencies": {
     "naive-ui": "catalog:",
