@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
+    "pnpm_install": "pnpm install",
     "build": "pnpm -r run build",
     "changeset_add": "pnpm changeset add",
     "changeset_alpha": "pnpm changeset pre enter alpha",
@@ -11,7 +12,7 @@
     "changeset_pre_exit": "pnpm changeset version",
     "changeset_version": "pnpm changeset version",
     "changeset_publish": "pnpm changeset publish --access public",
-    "docs:dev": "vitepress dev packages",
+    "docs:dev": "vitepress dev packages --host",
     "docs:build": "vitepress build packages",
     "docs:preview": "vitepress preview packages"
   },

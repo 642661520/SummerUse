@@ -9,7 +9,7 @@ catalog:
   '@vitejs/plugin-vue': ^5.2.1
   '@vue/tsconfig': ^0.7.0
   naive-ui: ^2.41.0
-  ol: ^10.4.0
+  ol: ^10.5.0
   typescript: ~5.7.2
   vite: ^6.2.0
   vite-plugin-dts: ^4.5.3
@@ -19,3 +19,5 @@ catalog:
   unocss: ^66.1.0-beta.8
   vitepress: '^1.6.3'
   '@css-render/vue3-ssr': '^0.15.14'
+  '@turf/turf': '^7.2.0'
+  sass: '^1.86.3'
