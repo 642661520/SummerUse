@@ -3,14 +3,17 @@ import { Stroke } from 'ol/style';
 import { ref, toValue, watch, type MaybeRef, type Ref } from 'vue';
 import type { Map as OLMap } from 'ol';
 
-export const useGraticule = (
-  olMapMaybeRef: MaybeRef<OLMap | null | undefined>,
-  strokeStyle?: Stroke
-) => {
-  const showGraticule: Ref<boolean> = ref(false);
+export type UseGraticuleOptions = {
+  olMap: MaybeRef<OLMap | null | undefined>;
+  strokeStyle?: Stroke;
+  defaultShow?: boolean;
+};
+
+export const useGraticule = (options: UseGraticuleOptions) => {
+  const showGraticule: Ref<boolean> = ref(options.defaultShow || false);
   let graticule = new Graticule({
     strokeStyle:
-      strokeStyle ||
+      options.strokeStyle ||
       new Stroke({
         color: '#000',
         width: 1.5,
@@ -36,7 +39,7 @@ export const useGraticule = (
           wrapX: false,
           zIndex: 1,
         });
-        const olMap = toValue(olMapMaybeRef);
+        const olMap = toValue(options.olMap);
         if (olMap) {
           graticule.setMap(olMap);
         }
@@ -52,3 +55,5 @@ export const useGraticule = (
     showGraticule,
   };
 };
+
+export type UseGraticuleReturn = ReturnType<typeof useGraticule>;
