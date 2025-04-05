@@ -13,11 +13,3 @@ pnpm i @summer/ol ol
 
 按需 [`navie-ui`](https://www.naiveui.com/)
 :::
-
-<!-- @include: ./components/index.md -->
-
-<!-- @include:./composables/index.md -->
-
-<!-- @include:./constants/index.md -->
-
-<!-- @include:./utils/index.md -->
