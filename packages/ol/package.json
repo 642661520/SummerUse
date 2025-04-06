@@ -35,7 +35,7 @@
     "vite": "catalog:",
     "vite-plugin-dts": "catalog:",
     "vue-tsc": "catalog:",
-    "sass": "catalog:",
+    "sass-embedded": "catalog:",
     "@turf/turf": "catalog:"
   },
   "peerDependencies": {
