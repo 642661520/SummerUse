@@ -19,7 +19,7 @@ export default defineConfig({
     },
   },
   themeConfig: {
-    logo: '/summeruse_logo_256.png',
+    logo: '/SummerUse/summeruse_logo_256.png',
     search: {
       provider: 'local',
     },
