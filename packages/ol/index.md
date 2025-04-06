@@ -5,7 +5,7 @@
 ## 安装
 
 ```bash
-pnpm i @summer/ol ol
+pnpm i @summeruse/ol ol
 ```
 
 ::: tip 依赖

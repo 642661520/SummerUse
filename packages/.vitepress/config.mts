@@ -81,6 +81,7 @@ export default defineConfig({
             {
               text: '工具函数',
               link: '/ol/utils/',
+              items: [{ text: '图层', link: '/ol/utils/layer/' }],
             },
             { text: '更新日志', link: '/ol/CHANGELOG' },
           ],
