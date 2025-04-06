@@ -72,16 +72,17 @@ export default defineConfig({
               items: [
                 { text: 'useGraticule', link: '/ol/composables/useGraticule/' },
                 { text: 'useSwitchBaseLayer', link: '/ol/composables/useSwitchBaseLayer/' },
+                { text: 'useDrawLineString', link: '/ol/composables/useDrawLineString/' },
               ],
-            },
-            {
-              text: '常量',
-              link: '/ol/constants/',
             },
             {
               text: '工具函数',
               link: '/ol/utils/',
               items: [{ text: '图层', link: '/ol/utils/layer/' }],
+            },
+            {
+              text: '常量',
+              link: '/ol/constants/',
             },
             { text: '更新日志', link: '/ol/CHANGELOG' },
           ],

@@ -8,8 +8,6 @@
 
 <!-- [距离单位](./distance/index.md) -->
 
-<!-- [真实圆](./realCircle/index.md) -->
+[地理圆形](./realCircle/index.md)
 
 <!-- [计算](./calculate/index.md) -->
-
-[绘制](./draw/index.md)
