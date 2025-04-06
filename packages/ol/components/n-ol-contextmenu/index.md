@@ -16,9 +16,10 @@ n-ol-contextmenu 组件是一个用于在 OpenLayers 地图上显示右键菜单
 
 <script setup>
 import Demo from './demo.vue'
-import DD from '../n-ol-pointermove/demo.vue'
 </script>
+<ClientOnly>
 <Demo />
+</ClientOnly>
 
 ::: details 点我查看代码
 <<< ./demo.vue
@@ -35,5 +36,3 @@ import DD from '../n-ol-pointermove/demo.vue'
 ::: details 点我查看代码
 <<<./props.ts
 :::
-
-<DD />

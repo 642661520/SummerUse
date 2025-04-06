@@ -9,8 +9,10 @@ import OSMLayerDemo from './osm-layer-demo.vue';
 ## 添加 OpenStreetMap 地图
 
 `getOSMLayer`
-
+<ClientOnly>
 <OSMLayerDemo />
+</ClientOnly>
+
 ::: details 点我查看代码
 <<<./osm-layer-demo.vue
 :::
@@ -19,7 +21,10 @@ import OSMLayerDemo from './osm-layer-demo.vue';
 
 `getTianDiTuLayer`
 
+<ClientOnly>
 <TLayerDemo />
+</ClientOnly>
+
 ::: details 点我查看代码
 <<<./t-layer-demo.vue
 :::
@@ -28,7 +33,10 @@ import OSMLayerDemo from './osm-layer-demo.vue';
 
 `getBingLayer`
 
+<ClientOnly>
 <BingLayerDemo />
+</ClientOnly>
+
 ::: details 点我查看代码
 <<<./bing-layer-demo.vue
 :::
