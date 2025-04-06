@@ -5,27 +5,33 @@ import { Draw, Modify } from 'ol/interaction';
 import type { Style } from 'ol/style';
 import { Feature, Overlay } from 'ol';
 import { LineString } from 'ol/geom';
-import { computed, onUnmounted, ref, render, type VNode } from 'vue';
-import { getExtentCenter } from '../calculate';
-import { mercatorExtentToWgs84, wgs84ToMercator } from '../projection';
+import { computed, onMounted, onUnmounted, ref, render, type VNode } from 'vue';
+import { getExtentCenter } from '../../utils/calculate';
+import { mercatorExtentToWgs84, wgs84ToMercator } from '../../utils/projection';
 import type { Coordinate } from 'ol/coordinate';
 
 export type DrawLineStringOptions = {
-  defaultCoordinates?: Coordinate[][];
-  deletePointLabel?: VNode;
-  deleteFeatureLabel?: VNode;
-  style?: Style;
-  drawStyle?: Style;
-  modifyStyle?: Style;
-  zIndex?: number;
-  size?: number;
-  // 不允许编辑
-  noEdit?: boolean;
-  // 不允许删除
-  noDelete?: boolean;
+  defaultCoordinates?: Coordinate[][]; // 默认线条坐标
+  deletePointLabel?: VNode; // 删除点的标签
+  deleteFeatureLabel?: VNode; // 删除线的标签
+  style?: Style; // 线条样式
+  drawStyle?: Style; // 绘制时的样式
+  modifyStyle?: Style; // 修改时的样式
+  zIndex?: number; // 图层z-index
+  size?: number; // 最大线条数量
 };
 
-export const drawLineString = (map: OLMap, options: DrawLineStringOptions) => {
+export const useDrawLineString = (map: OLMap, options: DrawLineStringOptions) => {
+  const inDraw = ref(true);
+
+  const features = ref<Feature<LineString>[]>([]);
+
+  const coordinates = computed(() => {
+    return features.value.map(feature => {
+      return feature.getGeometry()!.getCoordinates();
+    });
+  });
+
   const source = new VectorSource(); // 创建一个矢量图层
   const layer = new VectorLayer({
     source: source,
@@ -38,17 +44,16 @@ export const drawLineString = (map: OLMap, options: DrawLineStringOptions) => {
     style: options?.drawStyle || options?.style,
     type: 'LineString',
   });
+  draw.setActive(false); // 默认不激活
   const modify = new Modify({
     source: source,
     style: options?.modifyStyle || options?.style,
   });
+  const overlaySet = new Set<Overlay>();
   map.addInteraction(draw);
-  if (!options.noEdit) {
-    // map.addInteraction(modify);
-    setTimeout(() => {
-      map.addInteraction(modify);
-    });
-  }
+  onMounted(() => {
+    map.addInteraction(modify);
+  });
 
   source.on('addfeature', () => {
     if (options.size) {
@@ -64,8 +69,6 @@ export const drawLineString = (map: OLMap, options: DrawLineStringOptions) => {
       }
     }
   });
-
-  const overlaySet = new Set<Overlay>();
 
   const clearOverlay = () => {
     overlaySet.forEach(overlay => {
@@ -137,20 +140,13 @@ export const drawLineString = (map: OLMap, options: DrawLineStringOptions) => {
     });
   });
 
-  if (options.defaultCoordinates) {
-    options.defaultCoordinates.forEach(coordinate => {
-      if (coordinate.length < 2) return;
-      if (options.size && source.getFeatures().length >= options.size) return;
-      const feature = new Feature({
-        geometry: new LineString(coordinate),
-      });
-      source.addFeature(feature);
-    });
-  }
+  draw.on('change:active', () => {
+    inDraw.value = draw.getActive();
+  });
 
-  const getFeatures = () => {
-    return source.getFeatures();
-  };
+  source.on('change', () => {
+    features.value = source.getFeatures() as Feature<LineString>[];
+  });
 
   /** 销毁 */
   const destroy = () => {
@@ -160,32 +156,39 @@ export const drawLineString = (map: OLMap, options: DrawLineStringOptions) => {
     map.removeInteraction(modify);
   };
 
-  return {
-    draw,
-    source,
-    getFeatures,
-    destroy,
+  const start = () => {
+    if (options.size && features.value.length >= options.size) return;
+    draw.setActive(true);
   };
-};
 
-export const useDrawLineString = (map: OLMap, options: DrawLineStringOptions) => {
-  const inDraw = ref(true);
-  const { draw, source, getFeatures, destroy } = drawLineString(map, options);
-  draw.on('change:active', () => {
-    inDraw.value = draw.getActive();
-  });
+  const stop = () => {
+    draw.setActive(false);
+  };
 
-  const features = ref<Feature<LineString>[]>([]);
-
-  const coordinates = computed(() => {
-    return features.value.map(feature => {
-      return feature.getGeometry()?.getCoordinates();
+  /** 重新设置坐标 */
+  const setFeatures = (coordinates: Coordinate[][]) => {
+    source.clear();
+    coordinates.forEach(coordinate => {
+      if (coordinate.length < 2) return;
+      const feature = new Feature({
+        geometry: new LineString(coordinate),
+      });
+      source.addFeature(feature);
     });
-  });
+  };
 
-  source.on('change', () => {
-    features.value = getFeatures() as Feature<LineString>[];
-  });
+  /** 恢复到默认 */
+  const reset = () => {
+    setFeatures(options.defaultCoordinates || []);
+  };
+
+  reset(); // 初始化
+
+  /** 停止绘制并清空 */
+  const clear = () => {
+    source.clear();
+    stop();
+  };
 
   onUnmounted(() => {
     destroy();
@@ -193,7 +196,13 @@ export const useDrawLineString = (map: OLMap, options: DrawLineStringOptions) =>
 
   return {
     inDraw,
+    start,
+    stop,
+    clear,
+    setFeatures,
+    reset,
     features,
     coordinates,
+    destroy,
   };
 };
