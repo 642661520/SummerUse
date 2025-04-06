@@ -4,8 +4,8 @@ layout: home
 
 hero:
   name: 'SummerUse'
-  text: Same As Web
-  tagline: 一些用于 Web 的工具库
+  text: Same As Vue
+  tagline: 一些用于 Vue 的工具库
   actions:
     - theme: brand
       text: Guide
@@ -13,6 +13,9 @@ hero:
     - theme: alt
       text: View on GitHub
       link: https://github.com/642661520/SummerUse
+  image:
+    src: /summeruse_logo_256.png
+    alt: SummerUse
 
 features:
   - title: '@summeruse/ol'

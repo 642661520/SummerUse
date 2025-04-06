@@ -17,6 +17,8 @@
     "docs:preview": "vitepress preview packages"
   },
   "keywords": [],
+  "repository": "https://github.com/642661520/SummerUse",
+  "homepage": "https://642661520.github.io/SummerUse/",
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.7.0",
