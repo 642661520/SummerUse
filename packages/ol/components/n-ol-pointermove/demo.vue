@@ -1,6 +1,5 @@
 <script setup lang="ts">
-  import { getOSMLayer } from '@summeruse/ol';
-  import { OlMap } from '@summeruse/ol';
+  import { getOSMLayer, OlMap } from '@summeruse/ol';
   import { computed, h, onMounted, ref } from 'vue';
   import VectorLayer from 'ol/layer/Vector';
   import VectorSource from 'ol/source/Vector';

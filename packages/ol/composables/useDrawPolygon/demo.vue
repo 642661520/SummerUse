@@ -10,11 +10,10 @@
   </NConfigProvider>
 </template>
 <script lang="ts" setup>
-  import { getOSMLayer, wgs84ToMercator, OlMap } from '@summeruse/ol';
+  import { getOSMLayer, wgs84ToMercator, OlMap, useDrawPolygon } from '@summeruse/ol';
   import type { OlMapInst } from '@summeruse/ol';
   import { h, onMounted, ref, watch } from 'vue';
   import { Feature, Map as OLMap } from 'ol';
-  import { useDrawPolygon } from '.';
   import { Stroke, Style } from 'ol/style';
   import { NButton, NCard, NDataTable, NConfigProvider } from 'naive-ui';
   import type { Coordinate } from 'ol/coordinate';

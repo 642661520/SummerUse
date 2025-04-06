@@ -8,8 +8,7 @@
   <OlMap class="w-100% h-400px" v-bind="mapOptions" :olMap></OlMap>
 </template>
 <script lang="ts" setup>
-  import { getOSMLayer, wgs84ToMercator } from '@summeruse/ol';
-  import OlMap from './index.vue';
+  import { getOSMLayer, wgs84ToMercator, OlMap } from '@summeruse/ol';
   import type { OlMapProps } from './props';
   import { ref } from 'vue';
   import { NSwitch } from 'naive-ui';

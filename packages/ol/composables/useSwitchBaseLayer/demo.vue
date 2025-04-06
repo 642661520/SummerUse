@@ -15,7 +15,7 @@
   </OlMap>
 </template>
 <script lang="ts" setup>
-  import { Map as OLMap, View } from 'ol';
+  import { Map as OLMap } from 'ol';
   import { EPSG_3857, OlMap, getBingLayer, getOSMLayer, getTianDiTuLayer } from '@summeruse/ol';
   import { useSwitchBaseLayer } from '.'
   import { NSelect } from 'naive-ui';
