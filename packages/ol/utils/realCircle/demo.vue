@@ -1,5 +1,5 @@
 <template>
-  <OlMap :olMap class="w-100% h-300px" showZoom :center="wgs84ToMercator(center)" :zoom="6"></OlMap>
+  <OlMap :olMap class="w-100% h-300px" showZoom :center="formatCenter" :zoom="6"></OlMap>
 </template>
 <script lang="ts" setup>
   import { Feature, Map as OLMap, View } from 'ol';
@@ -9,6 +9,7 @@
   import VectorLayer from 'ol/layer/Vector';
   const olMap = new OLMap();
   const center = [120, 30];
+  const formatCenter = wgs84ToMercator(center);
   const circleCoordinates = getRealCircleCoordinates(
     center,
     100000,
