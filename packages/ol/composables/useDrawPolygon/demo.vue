@@ -1,53 +1,54 @@
 <template>
   <NConfigProvider>
-    <NCard title="航线列表" class="mb-2">
-      <NDataTable :columns :data="lineList" />
-      <NButton @click="addLine">添加航线</NButton>
+    <NCard title="区域列表" class="mb-2">
+      <NDataTable :columns :data="areaList" />
+      <NButton @click="addLine">添加区域</NButton>
       <NButton @click="saveLine" :disabled="!isDraw">保存</NButton>
     </NCard>
     <OlMap ref="olMapInst" class="w-100% h-400px" :zoom="10" :center :olMap></OlMap>
+    {{ coordinates }}
   </NConfigProvider>
 </template>
 <script lang="ts" setup>
-  import { getOSMLayer, OlMap, wgs84ToMercator } from '@summeruse/ol';
+  import { getOSMLayer, wgs84ToMercator, OlMap } from '@summeruse/ol';
   import type { OlMapInst } from '@summeruse/ol';
   import { h, onMounted, ref, watch } from 'vue';
   import { Feature, Map as OLMap } from 'ol';
-  import { useDrawLineString } from '.';
+  import { useDrawPolygon } from '.';
   import { Stroke, Style } from 'ol/style';
   import { NButton, NCard, NDataTable, NConfigProvider } from 'naive-ui';
   import type { Coordinate } from 'ol/coordinate';
   import VectorSource from 'ol/source/Vector';
   import VectorLayer from 'ol/layer/Vector';
-  import { LineString } from 'ol/geom';
+  import { Polygon } from 'ol/geom';
   const olMapInst = ref<OlMapInst>();
   const olMap = new OLMap();
   olMap.addLayer(getOSMLayer());
 
   const center = wgs84ToMercator([120, 30]);
 
-  type Line = {
+  type Area = {
     id: number;
     name: string;
-    coordinates: Coordinate[];
+    coordinates: Coordinate[][];
   }
 
-  const lineList = ref<Line[]>([]);
+  const areaList = ref<Area[]>([]);
 
   const getData = () => {
     // 模拟数据
-    return new Promise<Line[]>((resolve) => {
+    return new Promise<Area[]>((resolve) => {
       setTimeout(() => {
         resolve([
           {
             id: 1,
-            name: '航线1',
-            coordinates: [[13319814.6329371, 3473861.2239869847], [13324095.10652107, 3480281.9343629396], [13328834.20227475, 3483033.667381206], [13331127.313123306, 3487467.015021746], [13335713.534820417, 3488078.5112480274], [13340299.756517528, 3491900.3626622865], [13342592.867366083, 3496639.4584159674], [13346720.466893481, 3497709.57681196]],
+            name: '区域1',
+            coordinates: [[[13349319.325855177, 3521923.394178423], [13375307.91547214, 3510610.713992217], [13363077.99094651, 3487985.353619805], [13338618.141895253, 3501591.1446545664], [13349319.325855177, 3521923.394178423]]],
           },
           {
             id: 2,
-            name: '航线2',
-            coordinates: [[13382340.122074375, 3532777.4521949184], [13378824.018773258, 3530637.2154029333], [13374084.923019577, 3529108.47483723], [13371333.19000131, 3527579.7342715263], [13372250.434340732, 3523452.134744127], [13376989.530094413, 3519171.661160157], [13378365.396603547, 3516725.6762550315]]
+            name: '区域2',
+            coordinates: [[[13382340.122074375, 3532777.4521949184], [13378824.018773258, 3530637.2154029333], [13374084.923019577, 3529108.47483723], [13371333.19000131, 3527579.7342715263], [13372250.434340732, 3523452.134744127], [13376989.530094413, 3519171.661160157], [13378365.396603547, 3516725.6762550315], [13393347.05414744, 3525592.371536112], [13382340.122074375, 3532777.4521949184], [13382340.122074375, 3532777.4521949184]]]
           }
         ])
       }, 100)
@@ -83,7 +84,7 @@
             type: 'error',
             disabled: isDraw.value,
             onClick: () => {
-              lineList.value = lineList.value.filter(item => item.id !== row.id);
+              areaList.value = areaList.value.filter(item => item.id !== row.id);
             }
           },
           { default: () => '删除' }
@@ -105,11 +106,11 @@
   });
   olMap.addLayer(vectorLayer);
 
-  watch(() => lineList.value, (newVal) => {
+  watch(() => areaList.value, (newVal) => {
     source.clear();
     newVal.forEach((item) => {
       const feature = new Feature({
-        geometry: new LineString(item.coordinates),
+        geometry: new Polygon(item.coordinates),
       });
       source.addFeature(feature);
     })
@@ -122,15 +123,15 @@
 
   const drawId = ref<number>();
 
-  const { start, stop, coordinates, setFeatures, features } = useDrawLineString(olMap, {
+  const { start, stop, coordinates, setFeatures, features } = useDrawPolygon(olMap, {
     size: 1
   });
 
-  const editLine = (line?: Line) => {
+  const editLine = (area?: Area) => {
     vectorLayer.setOpacity(0.2);
     isDraw.value = true;
-    drawId.value = line?.id || undefined;
-    setFeatures(line ? [line.coordinates] : []);
+    drawId.value = area?.id || undefined;
+    setFeatures(area ? [area.coordinates] : undefined);
     start();
   }
 
@@ -139,18 +140,18 @@
   }
 
   const saveLine = () => {
-    if (features.value.length === 0) return alert('请先绘制航线');
+    if (features.value.length === 0) return alert('请先绘制多边形');
     if (drawId.value) {
-      const index = lineList.value.findIndex(item => item.id === drawId.value);
-      lineList.value[index].coordinates = coordinates.value[0];
+      const index = areaList.value.findIndex(item => item.id === drawId.value);
+      areaList.value[index].coordinates = coordinates.value[0];
     } else {
-      lineList.value.push({
-        id: lineList.value.length + 1,
-        name: `航线${lineList.value.length + 1}`,
+      areaList.value.push({
+        id: areaList.value.length + 1,
+        name: `航线${areaList.value.length + 1}`,
         coordinates: coordinates.value[0]
       })
     }
-    setFeatures([]);
+    setFeatures();
     stop();
     isDraw.value = false;
     drawId.value = undefined;
@@ -160,6 +161,6 @@
 
   onMounted(async () => {
     const res = await getData();
-    lineList.value = res;
+    areaList.value = res;
   })
 </script>

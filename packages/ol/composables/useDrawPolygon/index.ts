@@ -4,17 +4,17 @@ import VectorLayer from 'ol/layer/Vector';
 import { Draw, Modify } from 'ol/interaction';
 import type { Style } from 'ol/style';
 import { Feature, Overlay } from 'ol';
-import { LineString } from 'ol/geom';
+import { Polygon } from 'ol/geom';
 import { computed, onMounted, onUnmounted, ref, render, type VNode } from 'vue';
 import { getExtentCenter } from '../../utils/calculate';
 import { mercatorExtentToWgs84, wgs84ToMercator } from '../../utils/projection';
 import type { Coordinate } from 'ol/coordinate';
 import { createToolTipElement } from '../common';
 
-export type DrawLineStringOptions = {
-  defaultCoordinates?: Coordinate[][]; // 默认线条坐标
+export type DrawPolygonOptions = {
+  defaultCoordinates?: Coordinate[][][]; // 默认多边形坐标坐标
   deletePointLabel?: VNode; // 删除点的标签
-  deleteFeatureLabel?: VNode; // 删除线的标签
+  deleteFeatureLabel?: VNode; // 删除多边形的标签
   style?: Style; // 线条样式
   drawStyle?: Style; // 绘制时的样式
   modifyStyle?: Style; // 修改时的样式
@@ -22,10 +22,10 @@ export type DrawLineStringOptions = {
   size?: number; // 最大线条数量
 };
 
-export const useDrawLineString = (olMap: OLMap, options: DrawLineStringOptions) => {
+export const useDrawPolygon = (olMap: OLMap, options: DrawPolygonOptions) => {
   const inDraw = ref(true);
 
-  const features = ref<Feature<LineString>[]>([]);
+  const features = ref<Feature<Polygon>[]>([]);
 
   const coordinates = computed(() => {
     return features.value.map(feature => {
@@ -43,7 +43,7 @@ export const useDrawLineString = (olMap: OLMap, options: DrawLineStringOptions) 
   const draw = new Draw({
     source: source,
     style: options?.drawStyle || options?.style,
-    type: 'LineString',
+    type: 'Polygon',
   });
   draw.setActive(false); // 默认不激活
   const modify = new Modify({
@@ -81,13 +81,13 @@ export const useDrawLineString = (olMap: OLMap, options: DrawLineStringOptions) 
   source.on('change', () => {
     clearOverlay();
     source.getFeatures().forEach(feature => {
-      const geometry = feature.getGeometry() as LineString;
+      const geometry = feature.getGeometry() as Polygon;
       const center = getExtentCenter(mercatorExtentToWgs84(geometry.getExtent()));
       let element = document.createElement('div');
       if (options.deleteFeatureLabel) {
         render(options.deleteFeatureLabel, element);
       } else {
-        element = createToolTipElement('删除线');
+        element = createToolTipElement('删除区域');
       }
       element.addEventListener('click', () => {
         source.removeFeature(feature);
@@ -100,7 +100,7 @@ export const useDrawLineString = (olMap: OLMap, options: DrawLineStringOptions) 
       overlaySet.add(overlay);
       olMap.addOverlay(overlay);
 
-      const coordinates = geometry.getCoordinates();
+      const coordinates = geometry.getCoordinates()[0];
       if (coordinates.length < 3) return;
       coordinates.forEach((coordinate, index) => {
         let element = document.createElement('div');
@@ -110,7 +110,7 @@ export const useDrawLineString = (olMap: OLMap, options: DrawLineStringOptions) 
           element = createToolTipElement('删除点');
         }
         element.addEventListener('click', () => {
-          feature.setGeometry(new LineString(coordinates.filter((_, i) => i !== index)));
+          feature.setGeometry(new Polygon([coordinates.filter((_, i) => i !== index)]));
         });
         const overlay = new Overlay({
           position: coordinate,
@@ -129,7 +129,7 @@ export const useDrawLineString = (olMap: OLMap, options: DrawLineStringOptions) 
   });
 
   source.on('change', () => {
-    features.value = source.getFeatures() as Feature<LineString>[];
+    features.value = source.getFeatures() as Feature<Polygon>[];
   });
 
   /** 销毁 */
@@ -150,20 +150,25 @@ export const useDrawLineString = (olMap: OLMap, options: DrawLineStringOptions) 
   };
 
   /** 重新设置坐标 */
-  const setFeatures = (coordinates: Coordinate[][]) => {
+  const setFeatures = (coordinates?: Coordinate[][][]) => {
     source.clear();
-    coordinates.forEach(coordinate => {
-      if (coordinate.length < 2) return;
-      const feature = new Feature({
-        geometry: new LineString(coordinate),
+    coordinates?.forEach(coordinates => {
+      coordinates.forEach(coordinate => {
+        if (coordinate.length < 2) return;
+        if (coordinate[0] != coordinate[coordinate.length - 1]) {
+          coordinate.push(coordinate[0]);
+        }
+        const feature = new Feature({
+          geometry: new Polygon([coordinate]),
+        });
+        source.addFeature(feature);
       });
-      source.addFeature(feature);
     });
   };
 
   /** 恢复到默认 */
   const reset = () => {
-    setFeatures(options.defaultCoordinates || []);
+    setFeatures(options.defaultCoordinates);
   };
 
   reset(); // 初始化
