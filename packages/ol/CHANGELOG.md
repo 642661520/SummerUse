@@ -1,5 +1,12 @@
 # @summeruse/ol
 
+## 0.0.1-beta.4
+
+### Patch Changes
+
+- 添加 useDrawPolygon
+- 添加 useDrawLineString
+
 ## 0.0.1-beta.3
 
 ### Patch Changes
