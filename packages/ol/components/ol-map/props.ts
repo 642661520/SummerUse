@@ -4,7 +4,7 @@ import type { Extent } from 'ol/extent';
 import type { InjectionKey } from 'vue';
 
 export type OlMapProps = {
-  olMap?: OLMap; // ol map实例 非响应式
+  olMap?: OLMap; // ol map实例 使用传入是为了外部调用方便 非响应式 view会被内部替换，view参数请使用相关props
   center?: Coordinate; // 地图中心点 需要对应projection
   zoom?: number; // 地图缩放级别
   minZoom?: number; // 地图最小缩放级别
