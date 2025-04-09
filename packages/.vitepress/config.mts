@@ -118,7 +118,12 @@ export default defineConfig({
               link: '/ol/utils/',
               items: [
                 { text: '图层', link: '/ol/utils/layer/' },
+                { text: '投影', link: '/ol/utils/projection/' },
+                { text: '距离单位', link: '/ol/utils/distance/' },
                 { text: '地理圆形', link: '/ol/utils/realCircle/' },
+                { text: '计算', link: '/ol/utils/calculate/' },
+                { text: '样式', link: '/ol/utils/style/' },
+                { text: '要素', link: '/ol/utils/feature/' },
               ],
             },
             {
