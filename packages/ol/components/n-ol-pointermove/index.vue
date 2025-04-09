@@ -46,12 +46,9 @@
 
 <template>
   <NPopover :show-arrow :raw :placement :show="popoverConfig.visible" :x="popoverConfig.x" :y="popoverConfig.y"
-    trigger="manual" class="n-ol-pointermove">
+    trigger="manual" class="n-ol-pointermove" :theme-overrides="{
+      boxShadow: 'none'
+    }">
     <RenderVNode :dynamic-v-node="child" />
   </NPopover>
 </template>
-<style lang="scss">
-  .n-ol-pointermove.n-popover {
-    box-shadow: none !important;
-  }
-</style>
