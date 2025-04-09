@@ -34,17 +34,18 @@
     "vue": "catalog:"
   },
   "devDependencies": {
+    "@turf/turf": "catalog:",
     "@types/node": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "@vue/tsconfig": "catalog:",
     "naive-ui": "catalog:",
     "ol": "catalog:",
+    "sass-embedded": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
+    "vite-plugin-css-injected-by-js": "catalog:",
     "vite-plugin-dts": "catalog:",
-    "vue-tsc": "catalog:",
-    "sass-embedded": "catalog:",
-    "@turf/turf": "catalog:"
+    "vue-tsc": "catalog:"
   },
   "peerDependencies": {
     "naive-ui": "catalog:",
