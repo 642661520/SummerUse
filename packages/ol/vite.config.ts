@@ -3,11 +3,13 @@ import vue from '@vitejs/plugin-vue';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import dts from 'vite-plugin-dts';
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
+    cssInjectedByJsPlugin(),
     dts({
       tsconfigPath: './tsconfig.app.json',
       outDir: 'lib',
@@ -20,8 +22,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'index.ts'),
-      name: 'OlContextmenuVue',
-      fileName: format => `ol-contextmenu-vue.${format}.js`,
+      name: 'ol',
+      fileName: format => `ol.${format}.js`,
     },
     rollupOptions: {
       // 确保外部化处理那些
@@ -32,7 +34,7 @@ export default defineConfig({
           format: 'es',
           entryFileNames: '[name].js',
           exports: 'named',
-          name: 'OlContextmenuVue',
+          name: 'ol',
           dir: './dist',
         },
         {
