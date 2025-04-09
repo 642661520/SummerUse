@@ -1,6 +1,7 @@
 packages:
   - packages/**
   - '!**/test/**'
+  - '!**/public/**'
 ignoredBuiltDependencies:
   - esbuild
 catalog:
@@ -21,3 +22,4 @@ catalog:
   '@css-render/vue3-ssr': ^0.15.14
   '@turf/turf': 7.2.0
   sass-embedded: ^1.86.3
+  vite-plugin-css-injected-by-js: ^3.5.2
