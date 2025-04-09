@@ -2,6 +2,11 @@ import { Tile as TileLayer } from 'ol/layer';
 import type { ProjectionLike } from 'ol/proj';
 import { BingMaps, OSM, XYZ } from 'ol/source';
 import { WebMercatorProjection, WGS84Projection } from '../../constants/projection';
+import VectorSource from 'ol/source/Vector';
+import VectorLayer from 'ol/layer/Vector';
+import type { Geometry } from 'ol/geom';
+import type { Feature } from 'ol';
+import { createStyle, type StyleOptions } from '../style';
 
 /**
  * 天地图类型
@@ -85,4 +90,25 @@ export const getOSMLayer = (data?: { zIndex?: number; className?: string }) => {
     zIndex: data?.zIndex,
   });
   return layer;
+};
+
+export type _VectorLayerOptions = ConstructorParameters<typeof VectorLayer>[0];
+
+export type VectorLayerOptions = _VectorLayerOptions & {
+  styleOptions?: StyleOptions;
+};
+
+export const createVectorLayer = <T extends Geometry = Geometry>(options?: VectorLayerOptions) => {
+  const { styleOptions, ...restOptions } = options || {};
+  const style = styleOptions ? createStyle(styleOptions) : undefined;
+  const source = new VectorSource<Feature<T>>();
+  const layer = new VectorLayer({
+    source,
+    ...restOptions,
+    style: style || restOptions.style,
+  });
+  return {
+    source,
+    layer,
+  };
 };
