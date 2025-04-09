@@ -9,3 +9,5 @@ export const WebMercatorProjection = EPSG_3857;
 
 /** 4326坐标系 经纬度坐标系 */
 export const WGS84Projection = EPSG_4326;
+
+export type ProjectionLike = 'EPSG:3857' | 'EPSG:4326';

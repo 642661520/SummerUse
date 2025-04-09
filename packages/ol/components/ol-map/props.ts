@@ -2,6 +2,7 @@ import type { Map as OLMap } from 'ol';
 import type { Coordinate } from 'ol/coordinate';
 import type { Extent } from 'ol/extent';
 import type { InjectionKey } from 'vue';
+import type { ProjectionLike } from '../../constants/projection';
 
 export type OlMapProps = {
   olMap?: OLMap; // ol map实例 使用传入是为了外部调用方便 非响应式 view会被内部替换，view参数请使用相关props
@@ -10,7 +11,7 @@ export type OlMapProps = {
   minZoom?: number; // 地图最小缩放级别
   maxZoom?: number; // 地图最大缩放级别
   constrainResolution?: boolean; // 是否整数缩放级别 默认true
-  projection?: string; // 地图投影 默认EPSG:3857 非响应式
+  projection?: ProjectionLike; // 地图投影 默认EPSG:3857
   extent?: Extent; // 地图范围 需要对应projection 非响应式
   showZoom?: boolean; // 是否显示缩放控件 默认隐藏
   showAttribution?: boolean; // 是否显示版权控件 默认隐藏
