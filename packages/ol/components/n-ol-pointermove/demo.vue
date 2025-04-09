@@ -1,8 +1,6 @@
 <script setup lang="ts">
-  import { getOSMLayer, OlMap } from '@summeruse/ol';
+  import { createVectorLayer, getOSMLayer, OlMap } from '@summeruse/ol';
   import { computed, h, onMounted, ref } from 'vue';
-  import VectorLayer from 'ol/layer/Vector';
-  import VectorSource from 'ol/source/Vector';
   import Feature from 'ol/Feature';
   import { Point, Polygon } from 'ol/geom';
   import NOlPointermove from './index.vue'
@@ -14,10 +12,7 @@
     return olMapRef.value?.olMap;
   });
 
-  const source = new VectorSource();
-  const layer = new VectorLayer({
-    source,
-  });
+  const { source, layer } = createVectorLayer();
 
   const feature = new Feature({
     geometry: new Point([0, 0]),

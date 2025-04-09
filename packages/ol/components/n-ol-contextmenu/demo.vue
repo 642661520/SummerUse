@@ -1,13 +1,11 @@
 <script setup lang="ts">
-  import { NOlContextmenu, getTianDiTuLayer, EPSG_3857 } from '@summeruse/ol';
+  import { NOlContextmenu, getTianDiTuLayer, EPSG_3857, createVectorLayer } from '@summeruse/ol';
   import type { Pixel } from 'ol/pixel';
   import type { Coordinate } from 'ol/coordinate';
   import type { FeatureLike } from 'ol/Feature';
   import { OlMap, } from '@summeruse/ol';
   import type { OlMapInst } from '@summeruse/ol';
   import { computed, onMounted, ref } from 'vue';
-  import VectorLayer from 'ol/layer/Vector';
-  import VectorSource from 'ol/source/Vector';
   import Feature from 'ol/Feature';
   import { Point } from 'ol/geom';
   const createOptions = (data: {
@@ -80,10 +78,7 @@
     return olMapRef.value?.olMap;
   });
 
-  const source = new VectorSource();
-  const layer = new VectorLayer({
-    source,
-  });
+  const { source, layer } = createVectorLayer();
 
   const feature = new Feature({
     geometry: new Point([0, 0]),
