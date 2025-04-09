@@ -6,7 +6,9 @@ import Demo from './demo.vue';
 
 ## 坐标系转换
 
+<ClientOnly>
 <Demo />
+</ClientOnly>
 
 ::: details 点我查看代码
 <<<./demo.vue
