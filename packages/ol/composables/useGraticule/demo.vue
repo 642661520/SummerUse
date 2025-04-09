@@ -6,21 +6,11 @@
   </OlMap>
 </template>
 <script lang="ts" setup>
-  import { Map as OLMap, View } from 'ol';
-  import { OlMap, useGraticule } from '@summeruse/ol';
-  import { OSM } from 'ol/source';
-  import TileLayer from 'ol/layer/Tile';
+  import { Map as OLMap } from 'ol';
+  import { getOSMLayer, OlMap, useGraticule } from '@summeruse/ol';
   import { NButton } from 'naive-ui';
-  const olMap = new OLMap({
-    view: new View({
-      center: [0, 0],
-      zoom: 2,
-    }),
-    layers: [
-      new TileLayer({
-        source: new OSM(),
-      }),
-    ],
-  });
+  const olMap = new OLMap();
+  const layer = getOSMLayer();
+  olMap.addLayer(layer);
   const { showGraticule } = useGraticule({ olMap, defaultShow: true });
 </script>

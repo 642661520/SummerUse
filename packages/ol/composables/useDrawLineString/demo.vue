@@ -9,15 +9,12 @@
   </NConfigProvider>
 </template>
 <script lang="ts" setup>
-  import { getOSMLayer, OlMap, wgs84ToMercator, useDrawLineString } from '@summeruse/ol';
+  import { getOSMLayer, OlMap, wgs84ToMercator, useDrawLineString, createVectorLayer, createStyle } from '@summeruse/ol';
   import type { OlMapInst } from '@summeruse/ol';
   import { h, onMounted, ref, watch } from 'vue';
   import { Feature, Map as OLMap } from 'ol';
-  import { Stroke, Style } from 'ol/style';
   import { NButton, NCard, NDataTable, NConfigProvider } from 'naive-ui';
   import type { Coordinate } from 'ol/coordinate';
-  import VectorSource from 'ol/source/Vector';
-  import VectorLayer from 'ol/layer/Vector';
   import { LineString } from 'ol/geom';
   const olMapInst = ref<OlMapInst>();
   const olMap = new OLMap();
@@ -92,14 +89,12 @@
     }
   ]
 
-  const source = new VectorSource();
-  const vectorLayer = new VectorLayer({
-    source,
-    style: new Style({
-      stroke: new Stroke({
+  const { source, layer: vectorLayer } = createVectorLayer({
+    style: createStyle({
+      strokeOptions: {
         color: 'rgba(0, 0, 255, 1.0)',
-        width: 2,
-      }),
+        width: 2
+      }
     })
   });
   olMap.addLayer(vectorLayer);
