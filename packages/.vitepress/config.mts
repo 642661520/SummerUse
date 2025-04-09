@@ -8,7 +8,7 @@ export default defineConfig({
   base: '/SummerUse/',
   lang: 'zh-CN',
   head: [
-    ['link', { rel: 'icon', href: '/SummerUse/favicon.ico' }],
+    ['link', { rel: 'icon', href: '/favicon.ico' }],
     ['meta', { name: 'author', content: 'Summer' }],
     ['meta', { name: 'keywords', content: '前端, 地图, 工具库' }],
   ],
@@ -19,7 +19,7 @@ export default defineConfig({
     },
   },
   themeConfig: {
-    logo: '/SummerUse/summeruse_logo_256.png',
+    logo: '/summeruse_logo_256.png',
     search: {
       provider: 'local',
     },
