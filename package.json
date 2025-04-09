@@ -24,7 +24,8 @@
   "packageManager": "pnpm@10.7.0",
   "devDependencies": {
     "@changesets/cli": "catalog:",
-    "vitepress": "catalog:"
+    "vitepress": "catalog:",
+    "vite": "catalog:"
   },
   "dependencies": {
     "@summeruse/ol": "workspace:*",
