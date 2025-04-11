@@ -1,0 +1,23 @@
+import type { PopoverPlacement } from 'naive-ui';
+import type { Cesium3DTileFeature, Entity, Viewer } from 'cesium';
+
+import type { VNodeChild } from 'vue';
+
+export interface NCesiumPointermoveOptions {
+  movement: any; // TODO: type
+  feature?: Cesium3DTileFeature | Entity;
+}
+
+export type CreateOptions = (data: NCesiumPointermoveOptions) =>
+  | {
+      content: (() => VNodeChild) | VNodeChild | string;
+      raw?: boolean;
+      showArrow?: boolean;
+      placement?: PopoverPlacement;
+    }
+  | undefined;
+
+export interface NCesiumPointermoveProps {
+  viewer?: Viewer;
+  createOptions: CreateOptions;
+}
