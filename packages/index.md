@@ -24,9 +24,11 @@ features:
       dark: https://openlayers.org/theme/img/logo-dark.svg
     details: 用于 OpenLayers 封装的工具库 (组件、组合式函数、常量)
     link: /ol/
-  - title: 施工中
-    icon: 🛠️
-    details:
+  - title: '@summeruse/cesium'
+    icon:
+      src: https://cesium.com/cesium-logomark.svg
+    details: 用于 Cesium 封装的工具库
+    link: /cesium/
   - title: 施工中
     icon: 🛠️
     details:

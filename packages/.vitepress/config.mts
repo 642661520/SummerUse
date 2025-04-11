@@ -87,6 +87,10 @@ export default defineConfig({
           { text: 'Changelog', link: '/ol/CHANGELOG' },
         ],
       },
+      {
+        text: 'Cesium',
+        items: [{ text: 'components', link: '/cesium/components/' }],
+      },
     ],
     sidebar: {
       '/guide/': [
@@ -151,6 +155,29 @@ export default defineConfig({
               link: '/ol/constants/',
             },
             { text: '更新日志', link: '/ol/CHANGELOG' },
+          ],
+        },
+        {
+          text: 'cesium',
+          link: '/cesium/',
+        },
+      ],
+      '/cesium/': [
+        {
+          text: 'ol',
+          link: '/ol/',
+        },
+        {
+          text: 'cesium',
+          link: '/cesium/',
+          items: [
+            {
+              text: '组件',
+              link: '/cesium/components/',
+              items: [
+                { text: 'n-cesium-pointermove', link: '/cesium/components/n-cesium-pointermove/' },
+              ],
+            },
           ],
         },
       ],
