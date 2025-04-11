@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress';
 import UnoCSS from 'unocss/vite';
 import { repository } from '../../package.json';
+import { viteExternalsPlugin } from 'vite-plugin-externals';
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'SummerUse',
@@ -11,9 +12,28 @@ export default defineConfig({
     ['link', { rel: 'icon', href: '/favicon.ico' }],
     ['meta', { name: 'author', content: 'Summer' }],
     ['meta', { name: 'keywords', content: '前端, 地图, 工具库' }],
+    [
+      'script',
+      {
+        src: 'https://unpkg.com/cesium@1.128.0/Build/Cesium/Cesium.js',
+      },
+    ],
+    [
+      'link',
+      {
+        rel: 'stylesheet',
+        href: 'https://unpkg.com/cesium@1.128.0/Build/Cesium/Widgets/widgets.css',
+      },
+    ],
+    ['script', {}, 'window.CESIUM_BASE_URL = "https://unpkg.com/cesium@1.128.0/Build/Cesium"'],
   ],
   vite: {
-    plugins: [UnoCSS()],
+    plugins: [
+      UnoCSS(),
+      viteExternalsPlugin({
+        cesium: 'Cesium',
+      }),
+    ],
     ssr: {
       noExternal: ['naive-ui', 'vueuc', 'date-fns'],
     },

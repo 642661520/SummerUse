@@ -24,15 +24,16 @@
   "packageManager": "pnpm@10.7.0",
   "devDependencies": {
     "@changesets/cli": "catalog:",
-    "vitepress": "catalog:",
-    "vite": "catalog:"
+    "vite": "catalog:",
+    "vite-plugin-externals": "^0.6.2",
+    "vitepress": "catalog:"
   },
   "dependencies": {
+    "@css-render/vue3-ssr": "catalog:",
     "@summeruse/ol": "workspace:*",
     "naive-ui": "catalog:",
     "ol": "catalog:",
     "unocss": "catalog:",
-    "vue": "catalog:",
-    "@css-render/vue3-ssr": "catalog:"
+    "vue": "catalog:"
   }
 }
