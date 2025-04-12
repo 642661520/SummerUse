@@ -1,8 +1,12 @@
 {
   "name": "@summeruse/utils",
-  "version": "0.0.0",
-  "description": "",
   "type": "module",
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.7.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
   "main": "lib/index.js",
   "module": "es/index.mjs",
   "unpkg": "dist/index.js",
@@ -17,10 +21,6 @@
   "scripts": {
     "build": "vue-tsc -b && vite build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.7.0",
   "dependencies": {
     "vue": "catalog:"
   },

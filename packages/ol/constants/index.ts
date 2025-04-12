@@ -1,2 +1,2 @@
-export * from './distance';
-export * from './projection';
+export * from './distance'
+export * from './projection'

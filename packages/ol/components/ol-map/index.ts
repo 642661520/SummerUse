@@ -1,5 +1,6 @@
-import OlMap from './index.vue';
-export { OlMap };
-export * from './props';
+import OlMap from './index.vue'
 
-export type OlMapInst = InstanceType<typeof OlMap>;
+export { OlMap }
+export * from './props'
+
+export type OlMapInst = InstanceType<typeof OlMap>

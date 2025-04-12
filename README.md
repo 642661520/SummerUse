@@ -3,3 +3,7 @@
 </p>
 
 SummerUse 是一个基于 Vue3 和 TypeScript 的库集合。
+
+- `@summeruse/ol`：用于 OpenLayers 封装的工具库。
+
+- `@summeruse/cesium`：用于 Cesium 封装的工具库。(开发中)

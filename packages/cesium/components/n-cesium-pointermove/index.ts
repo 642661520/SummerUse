@@ -1,4 +1,5 @@
-import NCesiumPointermove from './index.vue';
-export { NCesiumPointermove };
+import NCesiumPointermove from './index.vue'
 
-export * from './props';
+export { NCesiumPointermove }
+
+export * from './props'

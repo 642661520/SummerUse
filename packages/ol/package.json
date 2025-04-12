@@ -1,8 +1,20 @@
 {
   "name": "@summeruse/ol",
-  "version": "0.0.1-beta.5",
-  "description": "",
   "type": "module",
+  "version": "0.0.1-beta.5",
+  "packageManager": "pnpm@10.7.0",
+  "description": "",
+  "author": "finalsummer",
+  "license": "ISC",
+  "homepage": "https://642661520.github.io/SummerUse/",
+  "repository": "https://github.com/642661520/SummerUse",
+  "keywords": [
+    "vue",
+    "ol",
+    "naive-ui",
+    "openlayers",
+    "vue3"
+  ],
   "main": "lib/index.js",
   "module": "es/index.mjs",
   "unpkg": "dist/index.js",
@@ -18,18 +30,11 @@
   "scripts": {
     "build": "vue-tsc -b && vite build"
   },
-  "repository": "https://github.com/642661520/SummerUse",
-  "homepage": "https://642661520.github.io/SummerUse/",
-  "keywords": [
-    "vue",
-    "ol",
-    "naive-ui",
-    "openlayers",
-    "vue3"
-  ],
-  "author": "finalsummer",
-  "license": "ISC",
-  "packageManager": "pnpm@10.7.0",
+  "peerDependencies": {
+    "@turf/turf": "catalog:",
+    "naive-ui": "catalog:",
+    "ol": "catalog:"
+  },
   "dependencies": {
     "vue": "catalog:"
   },
@@ -46,11 +51,6 @@
     "vite-plugin-css-injected-by-js": "catalog:",
     "vite-plugin-dts": "catalog:",
     "vue-tsc": "catalog:"
-  },
-  "peerDependencies": {
-    "naive-ui": "catalog:",
-    "ol": "catalog:",
-    "@turf/turf": "catalog:"
   },
   "publishConfig": {
     "access": "public"

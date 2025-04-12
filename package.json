@@ -1,7 +1,13 @@
 {
   "name": "@summeruse/monorepo",
   "version": "0.0.0",
+  "packageManager": "pnpm@10.7.0",
   "description": "",
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://642661520.github.io/SummerUse/",
+  "repository": "https://github.com/642661520/SummerUse",
+  "keywords": [],
   "scripts": {
     "pnpm_install": "pnpm install",
     "build": "pnpm -r run build",
@@ -14,19 +20,9 @@
     "changeset_publish": "pnpm run build && pnpm changeset publish --access public --registry https://registry.npmjs.org/",
     "docs:dev": "vitepress dev packages --host",
     "docs:build": "vitepress build packages",
-    "docs:preview": "vitepress preview packages"
-  },
-  "keywords": [],
-  "repository": "https://github.com/642661520/SummerUse",
-  "homepage": "https://642661520.github.io/SummerUse/",
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.7.0",
-  "devDependencies": {
-    "@changesets/cli": "catalog:",
-    "vite": "catalog:",
-    "vite-plugin-externals": "^0.6.2",
-    "vitepress": "catalog:"
+    "docs:preview": "vitepress preview packages",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "dependencies": {
     "@css-render/vue3-ssr": "catalog:",
@@ -35,5 +31,14 @@
     "ol": "catalog:",
     "unocss": "catalog:",
     "vue": "catalog:"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "catalog:",
+    "@changesets/cli": "catalog:",
+    "@unocss/eslint-plugin": "catalog:",
+    "eslint": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-externals": "catalog:",
+    "vitepress": "catalog:"
   }
 }

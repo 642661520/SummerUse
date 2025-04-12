@@ -1,8 +1,19 @@
 {
   "name": "@summeruse/cesium",
-  "version": "0.0.0",
-  "description": "",
   "type": "module",
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.7.0",
+  "description": "",
+  "author": "finalsummer",
+  "license": "ISC",
+  "homepage": "https://642661520.github.io/SummerUse/",
+  "repository": "https://github.com/642661520/SummerUse",
+  "keywords": [
+    "vue",
+    "cesium",
+    "naive-ui",
+    "vue3"
+  ],
   "main": "lib/index.js",
   "module": "es/index.mjs",
   "unpkg": "dist/index.js",
@@ -18,17 +29,11 @@
   "scripts": {
     "build": "vue-tsc -b && vite build"
   },
-  "repository": "https://github.com/642661520/SummerUse",
-  "homepage": "https://642661520.github.io/SummerUse/",
-  "keywords": [
-    "vue",
-    "cesium",
-    "naive-ui",
-    "vue3"
-  ],
-  "author": "finalsummer",
-  "license": "ISC",
-  "packageManager": "pnpm@10.7.0",
+  "peerDependencies": {
+    "@turf/turf": "catalog:",
+    "cesium": "catalog:",
+    "naive-ui": "catalog:"
+  },
   "dependencies": {
     "vue": "catalog:"
   },
@@ -37,19 +42,14 @@
     "@types/node": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "@vue/tsconfig": "catalog:",
+    "cesium": "catalog:",
     "naive-ui": "catalog:",
     "sass-embedded": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plugin-css-injected-by-js": "catalog:",
     "vite-plugin-dts": "catalog:",
-    "vue-tsc": "catalog:",
-    "cesium": "catalog:"
-  },
-  "peerDependencies": {
-    "naive-ui": "catalog:",
-    "@turf/turf": "catalog:",
-    "cesium": "catalog:"
+    "vue-tsc": "catalog:"
   },
   "publishConfig": {
     "access": "public"

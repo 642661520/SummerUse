@@ -1,9 +1,10 @@
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import dts from 'vite-plugin-dts';
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
+import dts from 'vite-plugin-dts'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -54,4 +55,4 @@ export default defineConfig({
       ],
     },
   },
-});
+})

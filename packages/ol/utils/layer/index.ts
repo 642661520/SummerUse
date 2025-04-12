@@ -1,12 +1,13 @@
-import { Tile as TileLayer } from 'ol/layer';
-import type { ProjectionLike } from 'ol/proj';
-import { BingMaps, OSM, XYZ } from 'ol/source';
-import { WebMercatorProjection, WGS84Projection } from '../../constants/projection';
-import VectorSource from 'ol/source/Vector';
-import VectorLayer from 'ol/layer/Vector';
-import type { Geometry } from 'ol/geom';
-import type { Feature } from 'ol';
-import { createStyle, type StyleOptions } from '../style';
+import type { Feature } from 'ol'
+import type { Geometry } from 'ol/geom'
+import type { ProjectionLike } from 'ol/proj'
+import type { StyleOptions } from '../style'
+import { Tile as TileLayer } from 'ol/layer'
+import VectorLayer from 'ol/layer/Vector'
+import { BingMaps, OSM, XYZ } from 'ol/source'
+import VectorSource from 'ol/source/Vector'
+import { WebMercatorProjection, WGS84Projection } from '../../constants/projection'
+import { createStyle } from '../style'
 
 /**
  * 天地图类型
@@ -18,35 +19,35 @@ import { createStyle, type StyleOptions } from '../style';
  * cta: 地形注记
  * ibo: 全球境界
  */
-export type T_MAP_TYPE = 'vec' | 'cva' | 'img' | 'cia' | 'ter' | 'cta' | 'ibo';
+export type T_MAP_TYPE = 'vec' | 'cva' | 'img' | 'cia' | 'ter' | 'cta' | 'ibo'
 
-export const getTianDiTuUrl = (data: {
-  url?: string;
-  type: T_MAP_TYPE;
-  projection: ProjectionLike;
-  key: string;
-}) => {
-  const { type = 'img', projection = WebMercatorProjection, key } = data;
-  const url = data.url || `https://t{0-4}.tianditu.gov.cn`;
-  const suffix =
-    '&tk=' +
-    key +
+export function getTianDiTuUrl(data: {
+  url?: string
+  type: T_MAP_TYPE
+  projection: ProjectionLike
+  key: string
+}) {
+  const { type = 'img', projection = WebMercatorProjection, key } = data
+  const url = data.url || `https://t{0-4}.tianditu.gov.cn`
+  const suffix
+    = `&tk=${
+      key
     // cSpell:disable-next-line
-    '&SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}';
-  const proj =
-    projection === WGS84Projection ? 'c' : projection === WebMercatorProjection ? 'w' : 'c';
-  return url + '/' + type + '_' + proj + '/wmts?LAYER=' + type + suffix;
-};
+    }&SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}`
+  const proj
+    = projection === WGS84Projection ? 'c' : projection === WebMercatorProjection ? 'w' : 'c'
+  return `${url}/${type}_${proj}/wmts?LAYER=${type}${suffix}`
+}
 
-export const getTianDiTuLayer = (data: {
-  url?: string;
-  projection: ProjectionLike;
-  zIndex?: number;
-  key: string;
-  type: T_MAP_TYPE;
-  className?: string;
-}) => {
-  const { zIndex, projection, className } = data;
+export function getTianDiTuLayer(data: {
+  url?: string
+  projection: ProjectionLike
+  zIndex?: number
+  key: string
+  type: T_MAP_TYPE
+  className?: string
+}) {
+  const { zIndex, projection, className } = data
   return new TileLayer({
     className,
     source: new XYZ({
@@ -55,60 +56,60 @@ export const getTianDiTuLayer = (data: {
       crossOrigin: 'Anonymous',
     }),
     zIndex,
-  });
-};
+  })
+}
 
-export const getBingLayer = ({
+export function getBingLayer({
   name,
   zIndex,
   key,
   className,
 }: {
-  name: string;
-  zIndex?: number;
-  key: string;
-  className?: string;
-}) => {
+  name: string
+  zIndex?: number
+  key: string
+  className?: string
+}) {
   const layer = new TileLayer({
     className,
     source: new BingMaps({
-      key: key,
+      key,
       imagerySet: name,
       placeholderTiles: false,
     }),
     zIndex,
-  });
-  return layer;
-};
+  })
+  return layer
+}
 
-export const getOSMLayer = (data?: { zIndex?: number; className?: string }) => {
+export function getOSMLayer(data?: { zIndex?: number, className?: string }) {
   const layer = new TileLayer({
     className: data?.className,
     source: new OSM({
       crossOrigin: 'Anonymous',
     }),
     zIndex: data?.zIndex,
-  });
-  return layer;
-};
+  })
+  return layer
+}
 
-export type _VectorLayerOptions = ConstructorParameters<typeof VectorLayer>[0];
+export type _VectorLayerOptions = ConstructorParameters<typeof VectorLayer>[0]
 
 export type VectorLayerOptions = _VectorLayerOptions & {
-  styleOptions?: StyleOptions;
-};
+  styleOptions?: StyleOptions
+}
 
-export const createVectorLayer = <T extends Geometry = Geometry>(options?: VectorLayerOptions) => {
-  const { styleOptions, ...restOptions } = options || {};
-  const style = styleOptions ? createStyle(styleOptions) : undefined;
-  const source = new VectorSource<Feature<T>>();
+export function createVectorLayer<T extends Geometry = Geometry>(options?: VectorLayerOptions) {
+  const { styleOptions, ...restOptions } = options || {}
+  const style = styleOptions ? createStyle(styleOptions) : undefined
+  const source = new VectorSource<Feature<T>>()
   const layer = new VectorLayer({
     source,
     ...restOptions,
     style: style || restOptions.style,
-  });
+  })
   return {
     source,
     layer,
-  };
-};
+  }
+}

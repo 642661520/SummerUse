@@ -1,7 +1,7 @@
-import { defineConfig } from 'vitepress';
-import UnoCSS from 'unocss/vite';
-import { repository } from '../../package.json';
-import { viteExternalsPlugin } from 'vite-plugin-externals';
+import UnoCSS from 'unocss/vite'
+import { viteExternalsPlugin } from 'vite-plugin-externals'
+import { defineConfig } from 'vitepress'
+import { repository } from '../../package.json'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'SummerUse',
@@ -9,7 +9,7 @@ export default defineConfig({
   base: '/SummerUse/',
   lang: 'zh-CN',
   head: [
-    ['link', { rel: 'icon', href: '/favicon.ico' }],
+    ['link', { rel: 'icon', href: '/SummerUse/favicon.ico' }],
     ['meta', { name: 'author', content: 'Summer' }],
     ['meta', { name: 'keywords', content: '前端, 地图, 工具库' }],
     [
@@ -183,4 +183,4 @@ export default defineConfig({
       ],
     },
   },
-});
+})
