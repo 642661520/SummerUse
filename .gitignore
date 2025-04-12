@@ -3,3 +3,4 @@ packages/**/es
 packages/**/lib
 packages/**/dist
 **/.vitepress/cache
+/.npmrc

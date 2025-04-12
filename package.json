@@ -17,7 +17,7 @@
     "changeset_rc": "pnpm changeset pre enter rc",
     "changeset_pre_exit": "changeset pre exit",
     "changeset_version": "pnpm changeset version",
-    "changeset_publish": "pnpm run build && pnpm changeset publish --access public --registry https://registry.npmjs.org/",
+    "changeset_publish": "pnpm changeset publish --access public --registry https://registry.npmjs.org/",
     "docs:dev": "vitepress dev packages --host",
     "docs:build": "vitepress build packages",
     "docs:preview": "vitepress preview packages",
