@@ -7,10 +7,7 @@ import 'virtual:uno.css'
 import 'ol/ol.css'
 import './index.scss'
 
-const requireModules = import.meta.glob('../components/**/*.vue') as Record<
-  string,
-  AsyncComponentLoader
->
+const requireModules = import.meta.glob('../components/**/*.vue') as Record<string, AsyncComponentLoader>
 
 export default {
   extends: DefaultTheme,

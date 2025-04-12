@@ -110,6 +110,10 @@ export default defineConfig({
               text: 'ol',
               link: '/ol/',
             },
+            {
+              text: 'Cesium',
+              link: '/cesium/',
+            },
           ],
         },
       ],
