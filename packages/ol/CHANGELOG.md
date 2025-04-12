@@ -4,12 +4,6 @@
 
 ### Minor Changes
 
-- 更新 0.1.0 正式版
-
-## 0.0.1
-
-### Patch Changes
-
 - 8e34a3f: 添加 useDrawLineString useDrawPolygon
 - b6b95dc: 添加创建几何要素的实用函数
 - 58c1e99: 添加坐标系相关函数的注释
