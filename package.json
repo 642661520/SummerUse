@@ -9,7 +9,7 @@
   "repository": "https://github.com/642661520/SummerUse",
   "keywords": [],
   "scripts": {
-    "pnpm_install": "pnpm install",
+    "pnpm_install": "pnpm install --registry https://registry.npmjs.org/",
     "build": "pnpm -r run build",
     "changeset_add": "pnpm changeset add",
     "changeset_alpha": "pnpm changeset pre enter alpha",
