@@ -29,13 +29,12 @@ export default defineConfig({
     rollupOptions: {
       // 确保外部化处理那些
       // 你不想打包进库的依赖
-      external: ['vue', 'naive-ui', /^ol.*/, /^@turf.*/],
+      external: ['vue', 'naive-ui', /^ol.*/, /^@turf.*/, /^@summeruse.*/],
       output: [
         {
           format: 'es',
           entryFileNames: '[name].js',
           exports: 'named',
-          name: 'ol',
           dir: './dist',
         },
         {

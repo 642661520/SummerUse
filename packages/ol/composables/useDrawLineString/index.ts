@@ -2,12 +2,14 @@ import type { Coordinate } from 'ol/coordinate'
 import type { Style } from 'ol/style'
 import type { VNode } from 'vue'
 import type { OLMap } from '../../types'
+import type { StyleOptions } from '../../utils'
 import { Feature, Overlay } from 'ol'
 import { LineString } from 'ol/geom'
 import { Draw, Modify } from 'ol/interaction'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import { computed, onMounted, onUnmounted, ref, render } from 'vue'
+import { createStyle } from '../../utils'
 import { getExtentCenter } from '../../utils/calculate'
 import { mercatorExtentToWgs84, wgs84ToMercator } from '../../utils/projection'
 import { createToolTipElement } from '../common'
@@ -17,8 +19,11 @@ export interface DrawLineStringOptions {
   deletePointLabel?: VNode // 删除点的标签
   deleteFeatureLabel?: VNode // 删除线的标签
   style?: Style // 线条样式
+  styleOptions?: StyleOptions
   drawStyle?: Style // 绘制时的样式
+  drawStyleOptions?: StyleOptions
   modifyStyle?: Style // 修改时的样式
+  modifyStyleOptions?: StyleOptions
   zIndex?: number // 图层z-index
   size?: number // 最大线条数量
 }
@@ -35,21 +40,24 @@ export function useDrawLineString(olMap: OLMap, options: DrawLineStringOptions) 
   })
 
   const source = new VectorSource() // 创建一个矢量图层
+  const style = options.styleOptions ? createStyle(options.styleOptions) : options?.style
   const layer = new VectorLayer({
     source,
-    style: options?.style,
+    style,
     zIndex: options?.zIndex,
   })
   olMap.addLayer(layer)
+  const drawStyle = options.drawStyleOptions ? createStyle(options.drawStyleOptions) : options?.drawStyle
   const draw = new Draw({
     source,
-    style: options?.drawStyle || options?.style,
+    style: drawStyle || style,
     type: 'LineString',
   })
   draw.setActive(false) // 默认不激活
+  const modifyStyle = options.modifyStyleOptions ? createStyle(options.modifyStyleOptions) : options?.modifyStyle
   const modify = new Modify({
     source,
-    style: options?.modifyStyle || options?.style,
+    style: modifyStyle || style,
   })
   const overlaySet = new Set<Overlay>()
   olMap.addInteraction(draw)

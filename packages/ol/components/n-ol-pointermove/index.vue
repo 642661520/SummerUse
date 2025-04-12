@@ -2,9 +2,9 @@
 import type { PopoverPlacement } from 'naive-ui'
 import type { VNodeChild } from 'vue'
 import type { NOlPointermoveProps } from './props'
+import { RenderVNode } from '@summeruse/common'
 import { NPopover } from 'naive-ui'
 import { onMounted, ref, shallowRef } from 'vue'
-import RenderVNode from '../../../common/components/render-v-node.vue'
 
 const props = defineProps<NOlPointermoveProps>()
 
