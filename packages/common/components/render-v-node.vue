@@ -3,6 +3,7 @@ import type { PropType, VNodeChild } from 'vue'
 import { defineComponent, h, isVNode } from 'vue'
 
 export default defineComponent({
+  name: 'RenderVNode',
   props: {
     dynamicVNode: {
       type: [Function, String, Object] as PropType<
