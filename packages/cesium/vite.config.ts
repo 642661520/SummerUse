@@ -29,7 +29,7 @@ export default defineConfig({
     rollupOptions: {
       // 确保外部化处理那些
       // 你不想打包进库的依赖
-      external: ['vue', 'naive-ui', /^cesium.*/, /^@turf.*/],
+      external: ['vue', 'naive-ui', /^cesium.*/, /^@turf.*/, /^@summeruse.*/],
       output: [
         {
           format: 'es',
