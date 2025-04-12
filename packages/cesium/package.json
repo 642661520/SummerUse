@@ -35,6 +35,7 @@
     "naive-ui": "catalog:"
   },
   "dependencies": {
+    "@summeruse/common": "workspace:*",
     "vue": "catalog:"
   },
   "devDependencies": {

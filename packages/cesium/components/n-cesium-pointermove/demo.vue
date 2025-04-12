@@ -18,9 +18,9 @@ const viewer = shallowRef<Viewer>()
 const cesiumRef = shallowRef<HTMLElement>()
 
 const entity = new Entity({
-  position: Cartesian3.fromDegrees(116.397428, 39.90923, 5000.0),
+  position: Cartesian3.fromDegrees(116.397428, 39.90923, 50.0),
   ellipsoid: {
-    radii: new Cartesian3(20000.0, 20000.0, 20000.0),
+    radii: new Cartesian3(100.0, 100.0, 100.0),
     innerRadii: new Cartesian3(1.0, 1.0, 1.0),
     material: Color.DARKCYAN.withAlpha(0.1),
     outline: true,
@@ -45,7 +45,6 @@ const createOptions: CreateOptions = ({ feature }) => {
         const name = properties.name as Property
         return {
           content: `${data.getValue().xx} - ${name}`,
-          placement: 'bottom-start',
           showArrow: false,
         }
       }

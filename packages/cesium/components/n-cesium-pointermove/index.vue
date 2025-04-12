@@ -2,10 +2,10 @@
 import type { PopoverPlacement } from 'naive-ui'
 import type { VNodeChild } from 'vue'
 import type { NCesiumPointermoveProps } from './props'
+import { RenderVNode } from '@summeruse/common'
 import { Cesium3DTileFeature, ScreenSpaceEventHandler, ScreenSpaceEventType } from 'cesium'
 import { NPopover } from 'naive-ui'
 import { ref, shallowRef, watchEffect } from 'vue'
-import RenderVNode from '../../../common/components/render-v-node.vue'
 
 const props = defineProps<NCesiumPointermoveProps>()
 
@@ -40,8 +40,8 @@ watchEffect(() => {
       })
       if (options) {
         const offset = viewer.container.getBoundingClientRect()
-        const clientX = movement.endPosition.x + offset.left
-        const clientY = movement.endPosition.y + offset.top
+        const clientX = movement.startPosition.x + offset.left
+        const clientY = movement.startPosition.y + offset.top
         child.value = options.content
         placement.value = options.placement || 'bottom-start'
         showArrow.value = options.showArrow || false
@@ -57,8 +57,9 @@ watchEffect(() => {
 
 <template>
   <NPopover
+    style="pointer-events: none;"
     :show-arrow :raw :placement :show="popoverConfig.visible" :x="popoverConfig.x" :y="popoverConfig.y"
-    trigger="manual" class="n-ol-pointermove" :theme-overrides="{
+    trigger="manual" :theme-overrides="{
       boxShadow: 'none',
     }"
   >

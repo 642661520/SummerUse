@@ -23,8 +23,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'index.ts'),
-      name: 'cesium',
-      fileName: format => `cesium.${format}.js`,
+      name: 'SummerUseCesium',
+      fileName: format => `summer-use-cesium.${format}.js`,
     },
     rollupOptions: {
       // 确保外部化处理那些
@@ -35,7 +35,7 @@ export default defineConfig({
           format: 'es',
           entryFileNames: '[name].js',
           exports: 'named',
-          name: 'cesium',
+          name: 'SummerUseCesium',
           dir: './dist',
         },
         {
