@@ -2,9 +2,11 @@
 
 SummerUse 是一个基于 pnpm workspace 管理的 monorepo，包含了多个子包。
 
-- `@summeruse/ol`：用于 OpenLayers 封装的工具库。
+- `@summeruse/ol`：用于 OpenLayers 的工具库。
 
-- `@summeruse/cesium`：用于 Cesium 封装的工具库。(开发中)
+- `@summeruse/cesium`：用于 Cesium 的工具库。
+
+- `@summeruse/common`：公共工具库。
 
 ## 安装
 

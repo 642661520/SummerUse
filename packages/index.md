@@ -22,14 +22,14 @@ features:
     icon:
       light: https://openlayers.org/theme/img/logo-light.svg
       dark: https://openlayers.org/theme/img/logo-dark.svg
-    details: 用于 OpenLayers 封装的工具库 (组件、组合式函数、常量)
+    details: <img src="https://img.shields.io/npm/v/@summeruse/ol" style="display:inline-block;vertical-align:middle;margin-right:10px"></img>用于 OpenLayers 的工具库
     link: /ol/
   - title: '@summeruse/cesium'
     icon:
       src: https://cesium.com/cesium-logomark.svg
-    details: 用于 Cesium 封装的工具库
+    details: <img src="https://img.shields.io/npm/v/@summeruse/cesium" style="display:inline-block;vertical-align:middle;margin-right:10px"></img>用于 Cesium 的工具库
     link: /cesium/
-  - title: 施工中
-    icon: 🛠️
-    details:
+  - title: '@summeruse/common'
+    icon: 📦
+    details: <img src="https://img.shields.io/npm/v/@summeruse/common" style="display:inline-block;vertical-align:middle;margin-right:10px"></img>一些通用的工具库
 ---

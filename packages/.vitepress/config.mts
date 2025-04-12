@@ -182,6 +182,7 @@ export default defineConfig({
                 { text: 'n-cesium-pointermove', link: '/cesium/components/n-cesium-pointermove/' },
               ],
             },
+            { text: '更新日志', link: '/cesium/CHANGELOG' },
           ],
         },
       ],
