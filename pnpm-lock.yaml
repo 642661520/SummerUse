@@ -36,6 +36,9 @@ catalogs:
     '@vue/tsconfig':
       specifier: ^0.7.0
       version: 0.7.0
+    '@vueuse/core':
+      specifier: ^13.1.0
+      version: 13.1.0
     cesium:
       specifier: ^1.128.0
       version: 1.128.0
@@ -92,9 +95,18 @@ importers:
       '@css-render/vue3-ssr':
         specifier: 'catalog:'
         version: 0.15.14(vue@3.5.13(typescript@5.8.2))
+      '@summeruse/cesium':
+        specifier: workspace:*
+        version: link:packages/cesium
+      '@summeruse/common':
+        specifier: workspace:*
+        version: link:packages/common
       '@summeruse/ol':
         specifier: workspace:*
         version: link:packages/ol
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 13.1.0(vue@3.5.13(typescript@5.8.2))
       naive-ui:
         specifier: 'catalog:'
         version: 2.41.0(vue@3.5.13(typescript@5.8.2))
@@ -166,6 +178,9 @@ importers:
       '@vue/tsconfig':
         specifier: 'catalog:'
         version: 0.7.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 13.1.0(vue@3.5.13(typescript@5.7.3))
       cesium:
         specifier: 'catalog:'
         version: 1.128.0
@@ -1995,6 +2010,11 @@ packages:
   '@vueuse/core@12.8.2':
     resolution: {integrity: sha512-HbvCmZdzAu3VGi/pWYm5Ut+Kd9mn1ZHnn4L5G8kOQTPs/IwIAmJoBrmYk2ckLArgMXZj0AW3n5CAejLUO+PhdQ==}
 
+  '@vueuse/core@13.1.0':
+    resolution: {integrity: sha512-PAauvdRXZvTWXtGLg8cPUFjiZEddTqmogdwYpnn60t08AA5a8Q4hZokBnpTOnVNqySlFlTcRYIC8OqreV4hv3Q==}
+    peerDependencies:
+      vue: ^3.5.0
+
   '@vueuse/integrations@12.8.2':
     resolution: {integrity: sha512-fbGYivgK5uBTRt7p5F3zy6VrETlV9RtZjBqd1/HxGdjdckBgBM4ugP8LHpjolqTj14TXTxSK1ZfgPbHYyGuH7g==}
     peerDependencies:
@@ -2039,8 +2059,16 @@ packages:
   '@vueuse/metadata@12.8.2':
     resolution: {integrity: sha512-rAyLGEuoBJ/Il5AmFHiziCPdQzRt88VxR+Y/A/QhJ1EWtWqPBBAxTAFaSkviwEuOEZNtW8pvkPgoCZQ+HxqW1A==}
 
+  '@vueuse/metadata@13.1.0':
+    resolution: {integrity: sha512-+TDd7/a78jale5YbHX9KHW3cEDav1lz1JptwDvep2zSG8XjCsVE+9mHIzjTOaPbHUAk5XiE4jXLz51/tS+aKQw==}
+
   '@vueuse/shared@12.8.2':
     resolution: {integrity: sha512-dznP38YzxZoNloI0qpEfpkms8knDtaoQ6Y/sfS0L7Yki4zh40LFHEhur0odJC6xTHG5dxWVPiUWBXn+wCG2s5w==}
+
+  '@vueuse/shared@13.1.0':
+    resolution: {integrity: sha512-IVS/qRRjhPTZ6C2/AM3jieqXACGwFZwWTdw5sNTSKk2m/ZpkuuN+ri+WCVUP8TqaKwJYt/KuMwmXspMAw8E6ew==}
+    peerDependencies:
+      vue: ^3.5.0
 
   '@zip.js/zip.js@2.7.60':
     resolution: {integrity: sha512-vA3rLyqdxBrVo1FWSsbyoecaqWTV+vgPRf0QKeM7kVDG0r+lHUqd7zQDv1TO9k4BcAoNzNDSNrrel24Mk6addA==}
@@ -7228,6 +7256,20 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
+  '@vueuse/core@13.1.0(vue@3.5.13(typescript@5.7.3))':
+    dependencies:
+      '@types/web-bluetooth': 0.0.21
+      '@vueuse/metadata': 13.1.0
+      '@vueuse/shared': 13.1.0(vue@3.5.13(typescript@5.7.3))
+      vue: 3.5.13(typescript@5.7.3)
+
+  '@vueuse/core@13.1.0(vue@3.5.13(typescript@5.8.2))':
+    dependencies:
+      '@types/web-bluetooth': 0.0.21
+      '@vueuse/metadata': 13.1.0
+      '@vueuse/shared': 13.1.0(vue@3.5.13(typescript@5.8.2))
+      vue: 3.5.13(typescript@5.8.2)
+
   '@vueuse/integrations@12.8.2(async-validator@4.2.5)(focus-trap@7.6.4)(typescript@5.8.2)':
     dependencies:
       '@vueuse/core': 12.8.2(typescript@5.8.2)
@@ -7241,11 +7283,21 @@ snapshots:
 
   '@vueuse/metadata@12.8.2': {}
 
+  '@vueuse/metadata@13.1.0': {}
+
   '@vueuse/shared@12.8.2(typescript@5.8.2)':
     dependencies:
       vue: 3.5.13(typescript@5.8.2)
     transitivePeerDependencies:
       - typescript
+
+  '@vueuse/shared@13.1.0(vue@3.5.13(typescript@5.7.3))':
+    dependencies:
+      vue: 3.5.13(typescript@5.7.3)
+
+  '@vueuse/shared@13.1.0(vue@3.5.13(typescript@5.8.2))':
+    dependencies:
+      vue: 3.5.13(typescript@5.8.2)
 
   '@zip.js/zip.js@2.7.60': {}
 

@@ -28,7 +28,10 @@
   },
   "dependencies": {
     "@css-render/vue3-ssr": "catalog:",
+    "@summeruse/cesium": "workspace:*",
+    "@summeruse/common": "workspace:*",
     "@summeruse/ol": "workspace:*",
+    "@vueuse/core": "catalog:",
     "naive-ui": "catalog:",
     "ol": "catalog:",
     "unocss": "catalog:",
