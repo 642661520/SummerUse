@@ -1,8 +1,9 @@
 import type { Map as OLMap } from 'ol'
 import type { Coordinate } from 'ol/coordinate'
 import type { Extent } from 'ol/extent'
-import { inject, type InjectionKey } from 'vue'
+import type { InjectionKey } from 'vue'
 import type { ProjectionLike } from '../../constants/projection'
+import { inject } from 'vue'
 
 export interface OlMapProps {
   olMap?: OLMap // ol map实例 使用传入是为了外部调用方便 非响应式 view会被内部替换，view参数请使用相关props
@@ -29,6 +30,6 @@ export interface OlMapProps {
 
 export const olMapInjectionKey = Symbol('olMapInjectionKey') as InjectionKey<OLMap>
 
-export const useOlMap = () => {
+export function useOlMap() {
   return inject(olMapInjectionKey)
 }
