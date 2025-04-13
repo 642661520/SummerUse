@@ -33,11 +33,11 @@
   "peerDependencies": {
     "@turf/turf": "catalog:",
     "naive-ui": "catalog:",
-    "ol": "catalog:"
+    "ol": "catalog:",
+    "vue": "catalog:"
   },
   "dependencies": {
-    "@summeruse/common": "workspace:*",
-    "vue": "catalog:"
+    "@summeruse/common": "workspace:*"
   },
   "devDependencies": {
     "@turf/turf": "catalog:",
