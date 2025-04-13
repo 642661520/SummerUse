@@ -21,19 +21,19 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'index.ts'),
-      name: 'OlContextmenuVue',
-      fileName: format => `ol-contextmenu-vue.${format}.js`,
+      name: 'SummerUseUtils',
+      fileName: format => `summer-use-utils.${format}.js`,
     },
     rollupOptions: {
       // 确保外部化处理那些
       // 你不想打包进库的依赖
-      external: ['vue', 'naive-ui', 'ol'],
+      // external: ['vue'],
       output: [
         {
           format: 'es',
           entryFileNames: '[name].js',
           exports: 'named',
-          name: 'OlContextmenuVue',
+          name: 'SummerUseUtils',
           dir: './dist',
         },
         {
