@@ -179,7 +179,22 @@ export default defineConfig({
               text: '组件',
               link: '/cesium/components/',
               items: [
+                { text: 'cesium-viewer', link: '/cesium/components/cesium-viewer/' },
                 { text: 'n-cesium-pointermove', link: '/cesium/components/n-cesium-pointermove/' },
+              ],
+            },
+            {
+              text: '组合式函数',
+              link: '/cesium/composables/',
+              items: [
+                { text: 'useSwitchBaseLayer', link: '/cesium/composables/useSwitchBaseLayer/' },
+              ],
+            },
+            {
+              text: '工具函数',
+              link: '/cesium/utils/',
+              items: [
+                { text: '图层', link: '/cesium/utils/layer/' },
               ],
             },
             { text: '更新日志', link: '/cesium/CHANGELOG' },
