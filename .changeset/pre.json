@@ -7,5 +7,9 @@
     "@summeruse/ol": "0.1.1",
     "@summeruse/utils": "0.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "clear-donkeys-mate",
+    "metal-brooms-chew",
+    "sharp-hoops-send"
+  ]
 }

@@ -1,21 +1,19 @@
 <script lang="ts" setup>
 import type { Property } from 'cesium'
 import type { CreateOptions } from './props'
+import { getOSMLayer, useCeiusmViewer } from '@summeruse/cesium'
 import {
   Cartesian3,
   Color,
   Entity,
   HeightReference,
-  ImageryLayer,
-  OpenStreetMapImageryProvider,
-  Viewer,
 } from 'cesium'
-import { nextTick, shallowRef, watchEffect } from 'vue'
 import NCesiumPointermove from './index.vue'
 
-const viewer = shallowRef<Viewer>()
+const viewer = useCeiusmViewer()!
 
-const cesiumRef = shallowRef<HTMLElement>()
+const layer = getOSMLayer()
+viewer.imageryLayers.add(layer)
 
 const entity = new Entity({
   position: Cartesian3.fromDegrees(116.397428, 39.90923, 50.0),
@@ -52,37 +50,10 @@ const createOptions: CreateOptions = ({ feature }) => {
   }
 }
 
-watchEffect(() => {
-  if (cesiumRef.value) {
-    viewer.value = new Viewer(cesiumRef.value, {
-      baseLayer: new ImageryLayer(
-        new OpenStreetMapImageryProvider({
-          url: 'https://a.tile.openstreetmap.org/',
-        }),
-      ),
-      shouldAnimate: true,
-      infoBox: false,
-      selectionIndicator: false,
-      baseLayerPicker: false,
-      timeline: false,
-      animation: false,
-      fullscreenButton: false,
-      geocoder: false,
-      homeButton: false,
-      navigationHelpButton: false,
-      sceneModePicker: false,
-      scene3DOnly: true,
-    })
-    viewer.value.entities.add(entity)
-    nextTick(() => {
-      viewer.value?.flyTo(entity)
-    })
-  }
-})
+viewer.entities.add(entity)
+viewer.flyTo(entity)
 </script>
 
 <template>
-  <div ref="cesiumRef">
-    <NCesiumPointermove :viewer :create-options />
-  </div>
+  <NCesiumPointermove :viewer :create-options />
 </template>

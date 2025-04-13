@@ -16,10 +16,16 @@ title: 移入显示
 import Demo from './demo.vue'
 </script>
 <ClientOnly>
-<Demo />
+<CesiumViewerWapper>
+<template #default="{ viewer }">
+<Demo :viewer="viewer" />
+</template>
+</CesiumViewerWapper>
 </ClientOnly>
 
 ::: details 点我查看代码
+::: code-group
+<<< @/.vitepress/components/cesium-viewer-wapper.vue
 <<< ./demo.vue
 :::
 

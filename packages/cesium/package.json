@@ -1,7 +1,7 @@
 {
   "name": "@summeruse/cesium",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.1.0-beta.0",
   "packageManager": "pnpm@10.7.0",
   "description": "",
   "author": "finalsummer",
@@ -32,17 +32,18 @@
   "peerDependencies": {
     "@turf/turf": "catalog:",
     "cesium": "catalog:",
-    "naive-ui": "catalog:"
+    "naive-ui": "catalog:",
+        "vue": "catalog:"
   },
   "dependencies": {
-    "@summeruse/common": "workspace:*",
-    "vue": "catalog:"
+    "@summeruse/common": "workspace:*"
   },
   "devDependencies": {
     "@turf/turf": "catalog:",
     "@types/node": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "@vue/tsconfig": "catalog:",
+    "@vueuse/core": "catalog:",
     "cesium": "catalog:",
     "naive-ui": "catalog:",
     "sass-embedded": "catalog:",
