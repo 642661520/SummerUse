@@ -1,5 +1,11 @@
 # @summeruse/ol
 
+## 0.1.0-beta.1
+
+### Minor Changes
+
+- b29a73c: 将天地图服务的 URL 从 HTTP 改为 HTTPS
+
 ## 0.1.0-beta.0
 
 ### Minor Changes
