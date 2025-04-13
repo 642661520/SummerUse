@@ -7,5 +7,7 @@
     "@summeruse/ol": "0.1.0",
     "@summeruse/utils": "0.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "gold-candies-kiss"
+  ]
 }
