@@ -10,7 +10,7 @@ const cesiumRef = shallowRef<HTMLElement>()
 watchEffect(() => {
   if (cesiumRef.value) {
     viewer.value = new Viewer(cesiumRef.value, {
-      baseLayer: undefined,
+      baseLayer: false,
       imageryProviderViewModels: undefined,
       shouldAnimate: true,
       infoBox: false,
