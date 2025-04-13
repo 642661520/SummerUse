@@ -17,7 +17,11 @@ export default {
     for (const [path, module] of Object.entries(requireModules)) {
       const initPath = path.replace('/index.vue', '.')
       const name = initPath.slice(initPath.lastIndexOf('/') + 1, initPath.lastIndexOf('.'))
-      app.component(name, defineAsyncComponent(module))
+      const componentName
+        = name.split('-').map((item) => {
+          return item[0].toUpperCase() + item.slice(1)
+        }).join('')
+      app.component(componentName, defineAsyncComponent(module))
     }
   },
 } satisfies Theme
