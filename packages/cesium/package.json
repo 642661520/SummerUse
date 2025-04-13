@@ -33,7 +33,7 @@
     "@turf/turf": "catalog:",
     "cesium": "catalog:",
     "naive-ui": "catalog:",
-        "vue": "catalog:"
+    "vue": "catalog:"
   },
   "dependencies": {
     "@summeruse/common": "workspace:*"

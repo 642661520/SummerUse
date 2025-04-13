@@ -6,7 +6,6 @@ import { computed } from 'vue'
 defineOptions({
   name: 'NProvider',
 })
-
 const { isDark } = useData()
 
 const theme = computed(() => {
