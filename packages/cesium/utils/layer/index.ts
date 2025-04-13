@@ -14,7 +14,7 @@ export interface GetTianDiTuLayerOptions {
 
 export function getTianDiTuLayer(data: GetTianDiTuLayerOptions) {
   const { key, type } = data
-  const url = `http://t0.tianditu.gov.cn/${type}_w/wmts?tk=${key}`
+  const url = `https://t0.tianditu.gov.cn/${type}_w/wmts?tk=${key}`
   return new ImageryLayer(new WebMapTileServiceImageryProvider({
     url,
     layer: type,
