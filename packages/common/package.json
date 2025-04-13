@@ -1,14 +1,16 @@
 {
   "name": "@summeruse/common",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "packageManager": "pnpm@10.7.0",
   "description": "",
   "author": "finalsummer",
   "license": "ISC",
   "homepage": "https://642661520.github.io/SummerUse/",
   "repository": "https://github.com/642661520/SummerUse",
-  "keywords": ["vue"],
+  "keywords": [
+    "vue"
+  ],
   "main": "lib/index.js",
   "module": "es/index.mjs",
   "unpkg": "dist/index.js",

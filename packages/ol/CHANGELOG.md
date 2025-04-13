@@ -1,9 +1,22 @@
 # @summeruse/ol
 
+## 0.1.1
+
+### Patch Changes
+
+- c26ae5a: 重构 useGraticule 以支持更灵活的样式配置
+- e651b52: 添加经纬度标签样式支持
+- b0985c6: 添加 useOlMap 函数以简化地图实例的注入
+- 9b9aeed: 移除`T_MAP_TYPE`类型的定义，改为从`@summeruse/common`导入
+- Updated dependencies [8619680]
+  - @summeruse/common@0.0.1
+
 ## 0.1.1-beta.2
 
 ### Patch Changes
 
+- Updated dependencies [8619680]
+  - @summeruse/common@0.0.1-beta.0
 - b0985c6: 添加 useOlMap 函数以简化地图实例的注入
 - 9b9aeed: 移除`T_MAP_TYPE`类型的定义，改为从`@summeruse/common`导入
 
