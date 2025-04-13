@@ -1,5 +1,11 @@
 # @summeruse/ol
 
+## 0.1.1-beta.1
+
+### Patch Changes
+
+- e651b52: 添加经纬度标签样式支持
+
 ## 0.1.1-beta.0
 
 ### Patch Changes

@@ -8,6 +8,7 @@
     "@summeruse/utils": "0.0.0"
   },
   "changesets": [
-    "gold-candies-kiss"
+    "gold-candies-kiss",
+    "many-trees-tap"
   ]
 }
