@@ -6,7 +6,19 @@ import { Map as OLMap } from 'ol'
 const olMap = new OLMap()
 const layer = getOSMLayer()
 olMap.addLayer(layer)
-const { showGraticule } = useGraticule({ olMap, defaultShow: true })
+const { showGraticule } = useGraticule({
+  olMap,
+  graticuleOptions: {
+    maxLines: 20,
+    strokeStyleOption: {
+      color: '#6f42c1',
+      width: 1,
+      lineDash: [10, 10],
+    },
+    showLabels: true,
+  },
+  defaultShow: true,
+})
 </script>
 
 <template>
