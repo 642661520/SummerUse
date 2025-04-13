@@ -4,5 +4,5 @@ export default antfu({
   unocss: true,
   vue: true,
   typescript: true,
-  ignores: ['dist', 'node_modules', '**/*.d.ts'],
+  ignores: ['dist', 'node_modules', '**/*.d.ts', '**/*.setup.ts'],
 })

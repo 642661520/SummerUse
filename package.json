@@ -22,7 +22,9 @@
     "docs:build": "vitepress build packages",
     "docs:preview": "vitepress preview packages",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@css-render/vue3-ssr": "catalog:",
@@ -36,9 +38,14 @@
     "@antfu/eslint-config": "catalog:",
     "@changesets/cli": "catalog:",
     "@unocss/eslint-plugin": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "@vue/test-utils": "catalog:",
     "eslint": "catalog:",
+    "jsdom": "catalog:",
     "vite": "catalog:",
     "vite-plugin-externals": "catalog:",
-    "vitepress": "catalog:"
+    "vitepress": "catalog:",
+    "vitest": "catalog:"
   }
 }

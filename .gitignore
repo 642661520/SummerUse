@@ -4,3 +4,4 @@ packages/**/lib
 packages/**/dist
 **/.vitepress/cache
 /.npmrc
+/coverage
