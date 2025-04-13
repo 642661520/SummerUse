@@ -1,5 +1,12 @@
 # @summeruse/ol
 
+## 0.1.1-beta.2
+
+### Patch Changes
+
+- b0985c6: 添加 useOlMap 函数以简化地图实例的注入
+- 9b9aeed: 移除`T_MAP_TYPE`类型的定义，改为从`@summeruse/common`导入
+
 ## 0.1.1-beta.1
 
 ### Patch Changes

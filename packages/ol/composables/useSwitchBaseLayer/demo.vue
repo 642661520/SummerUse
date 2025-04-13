@@ -31,22 +31,14 @@ const { visibleLayerName } = useSwitchBaseLayer({
   olMap,
   layers,
 })
+
+const options = Object.keys(layers).map(key => ({
+  value: key,
+  label: key,
+}))
 </script>
 
 <template>
-  <NSelect
-    v-model:value="visibleLayerName" class="w-200px" :options="[{
-                                                                  value: 'osm',
-                                                                  label: 'osm',
-                                                                }, {
-                                                                  value: 'bing',
-                                                                  label: 'bing',
-                                                                },
-                                                                {
-                                                                  value: '天地图卫星图',
-                                                                  label: '天地图卫星图',
-                                                                },
-    ]"
-  />
+  <NSelect v-model:value="visibleLayerName" class="w-200px" :options />
   <OlMap :ol-map class="w-100% h-400px" />
 </template>
