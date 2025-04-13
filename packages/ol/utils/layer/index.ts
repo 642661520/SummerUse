@@ -1,3 +1,4 @@
+import type { T_MAP_TYPE } from '@summeruse/common'
 import type { Feature } from 'ol'
 import type { Geometry } from 'ol/geom'
 import type { ProjectionLike } from 'ol/proj'
@@ -9,18 +10,6 @@ import VectorSource from 'ol/source/Vector'
 import { WebMercatorProjection, WGS84Projection } from '../../constants/projection'
 import { createStyle } from '../style'
 
-/**
- * 天地图类型
- * vec: 矢量底图
- * cva: 矢量注记
- * img: 影像底图
- * cia: 影像注记
- * ter: 地形晕渲
- * cta: 地形注记
- * ibo: 全球境界
- */
-export type T_MAP_TYPE = 'vec' | 'cva' | 'img' | 'cia' | 'ter' | 'cta' | 'ibo'
-
 export function getTianDiTuUrl(data: {
   url?: string
   type: T_MAP_TYPE
@@ -30,8 +19,7 @@ export function getTianDiTuUrl(data: {
   const { type = 'img', projection = WebMercatorProjection, key } = data
   const url = data.url || `https://t{0-4}.tianditu.gov.cn`
   const suffix
-    = `&tk=${
-      key
+    = `&tk=${key
     // cSpell:disable-next-line
     }&SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}`
   const proj
