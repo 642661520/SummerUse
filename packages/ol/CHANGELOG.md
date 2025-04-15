@@ -1,5 +1,11 @@
 # @summeruse/ol
 
+## 0.1.2-beta.0
+
+### Patch Changes
+
+- 007fa24: n-ol-pointermove 的 createOptions 添加 `followTarget` 参数
+
 ## 0.1.1
 
 ### Patch Changes
