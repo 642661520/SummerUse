@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { NOlPointermoveOptions, OlMapInst } from '@summeruse/ol'
+import type { OlMapInst } from '@summeruse/ol'
+import type { NOlPointermoveOption, NOlPointermoveParams } from './props'
 import { createVectorLayer, getOSMLayer, OlMap } from '@summeruse/ol'
 import Feature from 'ol/Feature'
 import { Point, Polygon } from 'ol/geom'
@@ -44,7 +45,7 @@ onMounted(() => {
   olMap.value?.addLayer(layer)
 })
 
-function createOptions(data: NOlPointermoveOptions) {
+function createOptions(data: NOlPointermoveParams): NOlPointermoveOption {
   if (data.features.length) {
     const feature = data.features[0]
     const type = feature.get('type')
@@ -58,6 +59,7 @@ function createOptions(data: NOlPointermoveOptions) {
       return {
         showArrow: false,
         raw: true,
+        followTarget: 'feature',
         content: h('div', {
           class: 'flex flex-col gap-2 bg-#bafc p-2 rounded-md',
         }, {

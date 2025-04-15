@@ -5,20 +5,22 @@ import type { FeatureLike } from 'ol/Feature'
 import type { Pixel } from 'ol/pixel'
 import type { VNodeChild } from 'vue'
 
-export interface NOlPointermoveOptions {
+export interface NOlPointermoveParams {
   pixel: Pixel
   coordinate: Coordinate
   features: FeatureLike[]
 }
 
+export type NOlPointermoveOption = {
+  content: (() => VNodeChild) | VNodeChild | string
+  raw?: boolean
+  showArrow?: boolean
+  placement?: PopoverPlacement
+  // 跟随鼠标 | 跟随要素
+  followTarget?: 'mouse' | 'feature'
+} | undefined
+
 export interface NOlPointermoveProps {
   olMap: OLMap
-  createOptions: (data: NOlPointermoveOptions) =>
-    | {
-      content: (() => VNodeChild) | VNodeChild | string
-      raw?: boolean
-      showArrow?: boolean
-      placement?: PopoverPlacement
-    }
-    | undefined
+  createOptions: (data: NOlPointermoveParams) => NOlPointermoveOption
 }

@@ -4,6 +4,7 @@ import type { VNodeChild } from 'vue'
 import type { NOlPointermoveProps } from './props'
 import { RenderVNode } from '@summeruse/common'
 import { NPopover } from 'naive-ui'
+import { getCenter } from 'ol/extent'
 import { onMounted, ref, shallowRef } from 'vue'
 
 const props = defineProps<NOlPointermoveProps>()
@@ -25,7 +26,6 @@ const showArrow = ref(false)
 onMounted(() => {
   props.olMap?.on('pointermove', (event) => {
     const features = props.olMap.getFeaturesAtPixel(event.pixel)
-    const { clientX, clientY } = event.originalEvent as PointerEvent
     popoverConfig.value.visible = false
     const options = props.createOptions({
       pixel: event.pixel,
@@ -38,6 +38,21 @@ onMounted(() => {
       showArrow.value = options.showArrow || false
       raw.value = options.raw || false
       popoverConfig.value.visible = true
+      if ((options.followTarget === 'feature') && (features.length > 0)) {
+        const feature = features[0]
+        const geometry = feature.getGeometry()
+        if (geometry) {
+          const extent = geometry.getExtent()
+          const center = getCenter(extent)
+          const pixel = props.olMap.getPixelFromCoordinate(center)
+          const { top, left } = props.olMap.getViewport().getBoundingClientRect()
+          popoverConfig.value.x = pixel[0] + left
+          popoverConfig.value.y = pixel[1] + top
+          return
+        }
+      }
+      // console.log(event)
+      const { clientX, clientY } = event.originalEvent as PointerEvent
       popoverConfig.value.x = clientX
       popoverConfig.value.y = clientY
     }
