@@ -31,6 +31,7 @@
     "@summeruse/cesium": "workspace:*",
     "@summeruse/common": "workspace:*",
     "@summeruse/ol": "workspace:*",
+    "@summeruse/ui": "workspace:*",
     "@vueuse/core": "catalog:",
     "naive-ui": "catalog:",
     "ol": "catalog:",

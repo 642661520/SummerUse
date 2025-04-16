@@ -104,6 +104,9 @@ importers:
       '@summeruse/ol':
         specifier: workspace:*
         version: link:packages/ol
+      '@summeruse/ui':
+        specifier: workspace:*
+        version: link:packages/ui
       '@vueuse/core':
         specifier: 'catalog:'
         version: 13.1.0(vue@3.5.13(typescript@5.8.2))
@@ -267,6 +270,46 @@ importers:
       ol:
         specifier: 'catalog:'
         version: 10.5.0
+      sass-embedded:
+        specifier: 'catalog:'
+        version: 1.86.3
+      typescript:
+        specifier: 'catalog:'
+        version: 5.7.3
+      vite:
+        specifier: 'catalog:'
+        version: 6.2.4(@types/node@22.13.15)(jiti@2.4.2)(sass-embedded@1.86.3)(sass@1.86.3)(yaml@2.7.1)
+      vite-plugin-css-injected-by-js:
+        specifier: 'catalog:'
+        version: 3.5.2(vite@6.2.4(@types/node@22.13.15)(jiti@2.4.2)(sass-embedded@1.86.3)(sass@1.86.3)(yaml@2.7.1))
+      vite-plugin-dts:
+        specifier: 'catalog:'
+        version: 4.5.3(@types/node@22.13.15)(rollup@4.38.0)(typescript@5.7.3)(vite@6.2.4(@types/node@22.13.15)(jiti@2.4.2)(sass-embedded@1.86.3)(sass@1.86.3)(yaml@2.7.1))
+      vue-tsc:
+        specifier: 'catalog:'
+        version: 2.2.8(typescript@5.7.3)
+
+  packages/ui:
+    dependencies:
+      '@summeruse/common':
+        specifier: workspace:*
+        version: link:../common
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.13(typescript@5.7.3)
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.13.15
+      '@vitejs/plugin-vue':
+        specifier: 'catalog:'
+        version: 5.2.3(vite@6.2.4(@types/node@22.13.15)(jiti@2.4.2)(sass-embedded@1.86.3)(sass@1.86.3)(yaml@2.7.1))(vue@3.5.13(typescript@5.7.3))
+      '@vue/tsconfig':
+        specifier: 'catalog:'
+        version: 0.7.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+      naive-ui:
+        specifier: 'catalog:'
+        version: 2.41.0(vue@3.5.13(typescript@5.7.3))
       sass-embedded:
         specifier: 'catalog:'
         version: 1.86.3
