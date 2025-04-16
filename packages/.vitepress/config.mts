@@ -91,6 +91,10 @@ export default defineConfig({
         text: 'Cesium',
         items: [{ text: 'components', link: '/cesium/components/' }],
       },
+      {
+        text: 'ui',
+        items: [{ text: 'components', link: '/ui/' }],
+      },
     ],
     sidebar: {
       '/guide/': [
@@ -199,6 +203,12 @@ export default defineConfig({
             },
             { text: '更新日志', link: '/cesium/CHANGELOG' },
           ],
+        },
+      ],
+      '/ui/': [
+        {
+          text: 'NProvider',
+          link: '/ui/n-provider/',
         },
       ],
     },

@@ -1,16 +1,16 @@
 <script setup>
 import DefaultTheme from 'vitepress/theme'
-import NProvider from './components/NProvider.vue'
+import NProviderWrapper from './components/NProviderWrapper.vue'
 
 const { Layout } = DefaultTheme
 </script>
 
 <template>
-  <NProvider>
+  <NProviderWrapper>
     <Layout v-bind="$attrs">
       <template v-for="(_, key) in $slots" #[key]="slotProps">
         <slot :name="key" v-bind="slotProps" />
       </template>
     </Layout>
-  </NProvider>
+  </NProviderWrapper>
 </template>

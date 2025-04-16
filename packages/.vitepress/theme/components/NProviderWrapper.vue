@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { darkTheme, lightTheme, NConfigProvider, NMessageProvider } from 'naive-ui'
+import { NProvider } from '@summeruse/ui'
+import { darkTheme, lightTheme } from 'naive-ui'
 import { useData } from 'vitepress'
 import { computed } from 'vue'
 
@@ -34,9 +35,7 @@ const themeOverrides = computed(() => {
 </script>
 
 <template>
-  <NConfigProvider :theme :theme-overrides>
-    <NMessageProvider>
-      <slot />
-    </NMessageProvider>
-  </NConfigProvider>
+  <NProvider :theme :theme-overrides>
+    <slot />
+  </NProvider>
 </template>
