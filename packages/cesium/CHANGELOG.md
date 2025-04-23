@@ -1,5 +1,11 @@
 # @summeruse/ol
 
+## 0.1.0-beta.2
+
+### Patch Changes
+
+- 118517e: 修正 useCesiumViewer 函数名拼写错误
+
 ## 0.1.0-beta.1
 
 ### Minor Changes
