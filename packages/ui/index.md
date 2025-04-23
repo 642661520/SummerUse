@@ -31,3 +31,7 @@ pnpm i @summeruse/ui
 
 按需 [`navie-ui`](https://www.naiveui.com/)
 :::
+
+## 组件
+
+- [NProvider](./n-provider/)
