@@ -12,7 +12,7 @@ viewer 实例有以下方式获取:
 
 1.通过组件实例获取
 
-2.后代组件通过 useCeiusmViewer 获取
+2.后代组件通过 useCesiumViewer 获取
 
 3.子组件通过 props 获取
 

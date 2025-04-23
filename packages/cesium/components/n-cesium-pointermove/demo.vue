@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Property } from 'cesium'
 import type { CreateOptions } from './props'
-import { getOSMLayer, useCeiusmViewer } from '@summeruse/cesium'
+import { getOSMLayer, useCesiumViewer } from '@summeruse/cesium'
 import {
   Cartesian3,
   Color,
@@ -10,7 +10,7 @@ import {
 } from 'cesium'
 import NCesiumPointermove from './index.vue'
 
-const viewer = useCeiusmViewer()!
+const viewer = useCesiumViewer()!
 
 const layer = getOSMLayer()
 viewer.imageryLayers.add(layer)

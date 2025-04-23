@@ -14,6 +14,6 @@ export interface CesiumViewerProps {
 
 export const cesiumViewerInjectionKey = Symbol('cesiumViewerInjectionKey') as InjectionKey<Viewer>
 
-export function useCeiusmViewer() {
+export function useCesiumViewer() {
   return inject(cesiumViewerInjectionKey)
 }
