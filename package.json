@@ -46,6 +46,7 @@
     "@vitest/coverage-v8": "catalog:",
     "@vue/test-utils": "catalog:",
     "eslint": "catalog:",
+    "globby": "catalog:",
     "jsdom": "catalog:",
     "vite": "catalog:",
     "vite-plugin-externals": "catalog:",
