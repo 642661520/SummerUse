@@ -2,7 +2,34 @@ import UnoCSS from 'unocss/vite'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
 import { defineConfig } from 'vitepress'
 import { repository } from '../../package.json'
+import { generateNavFromPackages } from './scripts/generateNav'
+import { generateSidebarFromPackages } from './scripts/generateSidebar'
 // https://vitepress.dev/reference/site-config
+
+const nav_sidebar_config = {
+  unifiedOrder: {
+    // 一级
+    guide: 0,
+    ol: 1,
+    cesium: 2,
+    ui: 3,
+    common: 4,
+    // 二级
+    components: 10,
+    composables: 11,
+    utils: 12,
+    constants: 13,
+
+    CHANGELOG: 200,
+
+  },
+  exclude: ['**/README.md'],
+  alias: {
+    CHANGELOG: '更新日志',
+    guide: '指南',
+  },
+}
+
 export default defineConfig({
   title: 'SummerUse',
   description: '自用的前端工具库',
@@ -72,145 +99,11 @@ export default defineConfig({
       },
     },
     // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      {
-        text: 'Guide',
-        link: '/guide/',
-      },
-      {
-        text: 'ol',
-        items: [
-          { text: 'components', link: '/ol/components/' },
-          { text: 'composables', link: '/ol/composables/' },
-          { text: 'utils', link: '/ol/utils/' },
-          { text: 'constants', link: '/ol/constants/' },
-          { text: 'Changelog', link: '/ol/CHANGELOG' },
-        ],
-      },
-      {
-        text: 'Cesium',
-        items: [{ text: 'components', link: '/cesium/components/' }],
-      },
-      {
-        text: 'ui',
-        items: [{ text: 'components', link: '/ui/' }],
-      },
-    ],
-    sidebar: {
-      '/guide/': [
-        {
-          text: '指南',
-          items: [
-            {
-              text: '入门',
-              link: '/guide/',
-            },
-          ],
-        },
-        {
-          text: 'packages',
-          items: [
-            {
-              text: 'ol',
-              link: '/ol/',
-            },
-            {
-              text: 'Cesium',
-              link: '/cesium/',
-            },
-          ],
-        },
-      ],
-      '/ol/': [
-        {
-          text: 'ol',
-          link: '/ol/',
-          items: [
-            {
-              text: '组件',
-              link: '/ol/components/',
-              items: [
-                { text: 'ol-map', link: '/ol/components/ol-map/' },
-                { text: 'n-ol-contextmenu', link: '/ol/components/n-ol-contextmenu/' },
-                { text: 'n-ol-pointermove', link: '/ol/components/n-ol-pointermove/' },
-              ],
-            },
-            {
-              text: '组合式函数',
-              link: '/ol/composables/',
-              items: [
-                { text: 'useGraticule', link: '/ol/composables/useGraticule/' },
-                { text: 'useSwitchBaseLayer', link: '/ol/composables/useSwitchBaseLayer/' },
-                { text: 'useDrawLineString', link: '/ol/composables/useDrawLineString/' },
-                { text: 'useDrawPolygon', link: '/ol/composables/useDrawPolygon/' },
-              ],
-            },
-            {
-              text: '工具函数',
-              link: '/ol/utils/',
-              items: [
-                { text: '图层', link: '/ol/utils/layer/' },
-                { text: '投影', link: '/ol/utils/projection/' },
-                { text: '距离单位', link: '/ol/utils/distance/' },
-                { text: '地理圆形', link: '/ol/utils/realCircle/' },
-                { text: '计算', link: '/ol/utils/calculate/' },
-                { text: '样式', link: '/ol/utils/style/' },
-                { text: '要素', link: '/ol/utils/feature/' },
-              ],
-            },
-            {
-              text: '常量',
-              link: '/ol/constants/',
-            },
-            { text: '更新日志', link: '/ol/CHANGELOG' },
-          ],
-        },
-        {
-          text: 'cesium',
-          link: '/cesium/',
-        },
-      ],
-      '/cesium/': [
-        {
-          text: 'ol',
-          link: '/ol/',
-        },
-        {
-          text: 'cesium',
-          link: '/cesium/',
-          items: [
-            {
-              text: '组件',
-              link: '/cesium/components/',
-              items: [
-                { text: 'cesium-viewer', link: '/cesium/components/cesium-viewer/' },
-                { text: 'n-cesium-pointermove', link: '/cesium/components/n-cesium-pointermove/' },
-              ],
-            },
-            {
-              text: '组合式函数',
-              link: '/cesium/composables/',
-              items: [
-                { text: 'useSwitchBaseLayer', link: '/cesium/composables/useSwitchBaseLayer/' },
-              ],
-            },
-            {
-              text: '工具函数',
-              link: '/cesium/utils/',
-              items: [
-                { text: '图层', link: '/cesium/utils/layer/' },
-              ],
-            },
-            { text: '更新日志', link: '/cesium/CHANGELOG' },
-          ],
-        },
-      ],
-      '/ui/': [
-        {
-          text: 'NProvider',
-          link: '/ui/n-provider/',
-        },
-      ],
-    },
+    nav: generateNavFromPackages({
+      ...nav_sidebar_config,
+    }),
+    sidebar: generateSidebarFromPackages({
+      ...nav_sidebar_config,
+    }),
   },
 })
