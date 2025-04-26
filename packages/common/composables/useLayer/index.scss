@@ -1,0 +1,85 @@
+.summer-use-resize {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  pointer-events: none;
+  left: 0;
+  top: 0;
+  * {
+    pointer-events: auto;
+    z-index: 99999;
+  }
+  .summer-use-resize-bottom-right {
+    position: absolute;
+    right: -5px;
+    bottom: -5px;
+    width: 10px;
+    height: 10px;
+    cursor: se-resize;
+  }
+  .summer-use-resize-bottom-left {
+    position: absolute;
+    left: -5px;
+    bottom: -5px;
+    width: 10px;
+    height: 10px;
+    cursor: sw-resize;
+  }
+  .summer-use-resize-top-right {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    width: 10px;
+    height: 10px;
+    cursor: ne-resize;
+  }
+  .summer-use-resize-top-left {
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    width: 10px;
+    height: 10px;
+    cursor: nw-resize;
+  }
+  .summer-use-resize-top {
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    top: -5px;
+    height: 10px;
+    cursor: n-resize;
+  }
+  .summer-use-resize-bottom {
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    bottom: -5px;
+    height: 10px;
+    cursor: s-resize;
+  }
+  .summer-use-resize-left {
+    position: absolute;
+    left: -5px;
+    top: 5px;
+    bottom: 5px;
+    width: 10px;
+    cursor: w-resize;
+  }
+  .summer-use-resize-right {
+    position: absolute;
+    right: -5px;
+    top: 5px;
+    bottom: 5px;
+    width: 10px;
+    cursor: e-resize;
+  }
+}
+
+.summer-use-resize.disabled {
+  * {
+    pointer-events: none;
+  }
+}
+.summer-use-un-select {
+  user-select: none;
+}
