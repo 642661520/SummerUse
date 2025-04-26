@@ -230,6 +230,9 @@ importers:
       '@vue/tsconfig':
         specifier: 'catalog:'
         version: 0.7.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 13.1.0(vue@3.5.13(typescript@5.7.3))
       sass-embedded:
         specifier: 'catalog:'
         version: 1.86.3
