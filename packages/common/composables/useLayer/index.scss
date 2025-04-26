@@ -75,11 +75,20 @@
   }
 }
 
-.summer-use-resize.disabled {
+.summer-use-resize-disabled {
   * {
     pointer-events: none;
   }
 }
+
+.summer-use-resize-direction-disabled{
+  pointer-events: none;
+}
+
 .summer-use-un-select {
   user-select: none;
+}
+
+.summer-use-drag {
+  cursor: move;
 }

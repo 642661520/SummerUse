@@ -1,9 +1,9 @@
-# useResizable
+# useLayer
 
-用于实现可调整各个方向大小的组件。
+用于实现可调整各个方向大小以及位置的组合式函数
 
 ::: tip 注意
-使用的元素必须是定位父元素
+目标元素需要开启[绝对定位](https://developer.mozilla.org/zh-CN/docs/Web/CSS/position) absolute 或 fixed
 :::
 
 ## 使用示例
@@ -25,6 +25,7 @@ import Demo from './demo.vue'
 ::: code-group
 <<<./index.ts
 <<<./resize.ts
+<<<./drag.ts
 <<<./index.scss
 :::
 

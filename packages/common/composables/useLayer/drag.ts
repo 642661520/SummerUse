@@ -18,6 +18,7 @@ export function drag(
   const width = rect.value.width
   const height = rect.value.height
 
+  document.body.classList.add('summer-use-un-select')
   const mouseMoveHandler = (e: MouseEvent) => {
     let x = e.clientX - startX + startLeft
     let y = e.clientY - startY + startTop
@@ -38,6 +39,7 @@ export function drag(
   }
 
   const mouseUpHandler = () => {
+    document.body.classList.remove('summer-use-un-select')
     document.removeEventListener('mousemove', mouseMoveHandler)
     document.removeEventListener('mouseup', mouseUpHandler)
   }

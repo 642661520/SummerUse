@@ -1,4 +1,4 @@
-import type { MaybeRefOrGetter, Ref } from 'vue'
+import type { MaybeRefOrGetter } from 'vue'
 
 export type ResizeDirection = 'left' | 'right' | 'top' | 'bottom' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 
@@ -20,15 +20,13 @@ export interface Rect {
   y: number
 }
 
-export type ExternalWidth = Ref<[number, number, number, number]>
-
 export interface LayerOptions {
   // 方向
   directions?: MaybeRefOrGetter<Directions>
   // 初始位置
   initRect?: MaybeRefOrGetter<Rect>
   // 拖动元素
-  dragElement?: MaybeRefOrGetter<HTMLElement>
+  dragElement?: MaybeRefOrGetter<HTMLElement | undefined>
   // 禁止拉伸
   disabledResize?: MaybeRefOrGetter<boolean>
   // 禁止拖动
@@ -42,9 +40,9 @@ export interface LayerOptions {
   // 最大高度
   maxHeight?: MaybeRefOrGetter<number>
   // 宽高比
-  ratio?: MaybeRefOrGetter<number>
+  ratio?: MaybeRefOrGetter<number | undefined>
   // 限位元素
-  parent?: MaybeRefOrGetter<HTMLElement>
+  parent?: MaybeRefOrGetter<HTMLElement | undefined>
   // 允许拉伸到父元素外面
   allowOverParent?: MaybeRefOrGetter<boolean>
 }

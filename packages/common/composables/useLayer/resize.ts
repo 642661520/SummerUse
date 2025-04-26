@@ -1,5 +1,5 @@
 import type { ComputedRef, Ref } from 'vue'
-import type { ExternalWidth, Rect } from './types'
+import type { Rect } from './types'
 
 function initMousedownData({
   e,
@@ -11,6 +11,7 @@ function initMousedownData({
   minX,
   minY,
   maxBottom,
+  maxRight,
   ratio,
 }:
 {
@@ -23,6 +24,7 @@ function initMousedownData({
   minX: Ref<number>
   minY: Ref<number>
   maxBottom: Ref<number>
+  maxRight: Ref<number>
   ratio: ComputedRef<number | undefined>
   isResize: Ref<boolean>
 }) {
@@ -36,6 +38,7 @@ function initMousedownData({
   const startTop = y + height
   const _minX = minX.value
   const _maxBottom = maxBottom.value
+  const _maxRight = maxRight.value
   const _minY = minY.value
   const _ratio = ratio.value
   const _minWidth = _ratio ? Math.max(minWidth.value, minHeight.value * _ratio) : minWidth.value
@@ -54,6 +57,7 @@ function initMousedownData({
     startTop,
     _minX,
     _maxBottom,
+    _maxRight,
     _minY,
     _ratio,
     _minWidth,
@@ -63,9 +67,23 @@ function initMousedownData({
   }
 }
 
-/**
- * @Description: 左边拉伸
- */
+function _initResize({ isResize }:
+{
+  isResize: Ref<boolean>
+}) {
+  isResize.value = true
+  document.body.classList.add('summer-use-un-select')
+
+  const close = () => {
+    isResize.value = false
+    document.body.classList.remove('summer-use-un-select')
+  }
+  return {
+    close,
+  }
+}
+
+/** @Description: 左边拉伸 */
 export function resizeLeft(
   data:
   {
@@ -78,6 +96,7 @@ export function resizeLeft(
     minX: Ref<number>
     minY: Ref<number>
     maxBottom: Ref<number>
+    maxRight: Ref<number>
     ratio: ComputedRef<number | undefined>
     isResize: Ref<boolean>
   },
@@ -95,14 +114,11 @@ export function resizeLeft(
     _ratio,
     _minWidth,
     _maxWidth,
-    _minHeight,
-    _maxHeight,
   } = initMousedownData(data)
 
   const { isResize, rect } = data
 
-  isResize.value = true
-  document.body.classList.add('summer-use-un-select')
+  const { close } = _initResize({ isResize })
 
   const mouseMoveHandler = (e: MouseEvent) => {
     const moveX = e.clientX - startX
@@ -112,33 +128,20 @@ export function resizeLeft(
     let nextY = y
 
     if (nextWidth > _maxWidth) {
-      nextWidth = Math.min(nextWidth, _maxWidth)
-      nextX = Math.max(startLeft - nextWidth, startLeft)
+      nextWidth = _maxWidth
+      nextX = startLeft - nextWidth
     }
     if (nextX < _minX) {
       nextX = _minX
       nextWidth = width - (nextX - x)
     }
-    if (nextWidth + nextX >= startLeft) {
-      nextWidth = Math.max(nextWidth, _minWidth)
-      nextX = Math.min(startLeft - nextWidth, startLeft)
+    if (nextWidth < _minWidth) {
+      nextWidth = _minWidth
+      nextX = startLeft - nextWidth
     }
     if (_ratio) {
       nextHeight = nextWidth / _ratio
       nextY = y - (nextHeight - height) / 2
-      if (nextHeight < _minHeight) {
-        nextHeight = _minHeight
-        nextWidth = nextHeight * _ratio
-        nextX = startLeft - nextWidth
-        nextY = y - (nextHeight - height) / 2
-      }
-      if (nextHeight > _maxHeight) {
-        nextHeight = Math.min(nextHeight, _maxHeight)
-        nextWidth = nextHeight * _ratio
-        nextX = startLeft - nextWidth
-        nextY = y - (nextHeight - height) / 2
-      }
-
       if (nextY < _minY) {
         nextY = _minY
         nextHeight = (y - nextY) * 2 + height
@@ -159,8 +162,7 @@ export function resizeLeft(
     rect.value.y = nextY
   }
   const mouseUpHandler = () => {
-    isResize.value = false
-    document.body.classList.remove('summer-use-un-select')
+    close()
     document.removeEventListener('mousemove', mouseMoveHandler)
     document.removeEventListener('mouseup', mouseUpHandler)
   }
@@ -169,37 +171,167 @@ export function resizeLeft(
   document.addEventListener('mouseup', mouseUpHandler)
 }
 
-/**
- * @Description: 上边拉伸
- */
-export function resizeTop({ e, rect, resizeElement, externalWidth, minHeight }: {
+/** @Description: 右边拉伸 */
+export function resizeRight(
+  data:
+  {
+    e: MouseEvent
+    rect: Ref<Rect>
+    minWidth: Ref<number>
+    minHeight: Ref<number>
+    maxWidth: Ref<number>
+    maxHeight: Ref<number>
+    minX: Ref<number>
+    minY: Ref<number>
+    maxBottom: Ref<number>
+    maxRight: Ref<number>
+    ratio: ComputedRef<number | undefined>
+    isResize: Ref<boolean>
+  },
+) {
+  const {
+    startX,
+    x,
+    y,
+    height,
+    width,
+    _maxRight,
+    _maxBottom,
+    _minY,
+    _ratio,
+    _minWidth,
+    _maxWidth,
+  } = initMousedownData(data)
+
+  const { isResize, rect } = data
+
+  const { close } = _initResize({ isResize })
+
+  const mouseMoveHandler = (e: MouseEvent) => {
+    const moveX = e.clientX - startX
+    let nextWidth = width + moveX
+    let nextHeight = height
+    let nextY = y
+
+    if (nextWidth > _maxWidth) {
+      nextWidth = _maxWidth
+    }
+    if (nextWidth < _minWidth) {
+      nextWidth = _minWidth
+    }
+    if (nextWidth + x > _maxRight) {
+      nextWidth = _maxRight - x
+    }
+
+    if (_ratio) {
+      nextHeight = nextWidth / _ratio
+      nextY = y - (nextHeight - height) / 2
+      if (nextY < _minY) {
+        nextY = _minY
+        nextHeight = (y - nextY) * 2 + height
+        nextWidth = nextHeight * _ratio
+      }
+      if ((nextY + nextHeight) > _maxBottom) {
+        nextY = y - (_maxBottom - y - height)
+        nextHeight = _maxBottom - nextY
+        nextWidth = nextHeight * _ratio
+      }
+    }
+
+    rect.value.height = nextHeight
+    rect.value.width = nextWidth
+    rect.value.y = nextY
+  }
+  const mouseUpHandler = () => {
+    close()
+    document.removeEventListener('mousemove', mouseMoveHandler)
+    document.removeEventListener('mouseup', mouseUpHandler)
+  }
+
+  document.addEventListener('mousemove', mouseMoveHandler)
+  document.addEventListener('mouseup', mouseUpHandler)
+}
+
+/** @Description: 上边拉伸 */
+export function resizeTop(data:
+{
   e: MouseEvent
-  resizeElement: HTMLDivElement
-  rect: Rect
-  externalWidth: ExternalWidth
-  minHeight: number
-  ratio?: number
+  rect: Ref<Rect>
+  minWidth: Ref<number>
+  minHeight: Ref<number>
+  maxWidth: Ref<number>
+  maxHeight: Ref<number>
+  minX: Ref<number>
+  minY: Ref<number>
+  maxBottom: Ref<number>
+  maxRight: Ref<number>
+  ratio: ComputedRef<number | undefined>
+  isResize: Ref<boolean>
 }) {
-  const startY = e.clientY
-  const startHeight = resizeElement.offsetHeight
-  const y = rect.y
-  const startTop = y + startHeight - externalWidth.value[0]
-  const _minHeight = externalWidth.value[0] + externalWidth.value[2] + minHeight
+  const {
+    startY,
+    x,
+    y,
+    height,
+    width,
+    startLeft,
+    startTop,
+    _minX,
+    _maxRight,
+    _minY,
+    _ratio,
+    _minHeight,
+    _maxHeight,
+  } = initMousedownData(data)
+
+  const { isResize, rect } = data
+
+  const { close } = _initResize({ isResize })
+
   const mouseMoveHandler = (e: MouseEvent) => {
     const moveY = e.clientY - startY
-    const nextHeight = startHeight - moveY
-    const nextY = y + moveY
+    let nextHeight = height - moveY
+    let nextY = y + moveY
+    let nextWidth = width
+    let nextX = x
     if (nextHeight + nextY >= startTop) {
-      rect.height = Math.max(nextHeight, _minHeight)
-      const nextY = startTop - rect.height
-      rect.y = Math.min(nextY, startTop)
+      nextHeight = Math.max(nextHeight, _minHeight)
+      nextY = startTop - nextHeight
+      nextY = Math.min(nextY, startTop)
     }
-    else {
-      rect.height = nextHeight
-      rect.y = nextY
+    if (nextY < _minY) {
+      nextY = _minY
+      nextHeight = startTop - nextY
     }
+    if (nextHeight > _maxHeight) {
+      nextHeight = Math.min(nextHeight, _maxHeight)
+      nextY = startTop - nextHeight
+    }
+
+    if (_ratio) {
+      nextWidth = nextHeight * _ratio
+      nextX = x - (nextWidth - width) / 2
+      if (nextX < _minX) {
+        nextX = _minX
+        nextWidth = (startLeft - _minX - width) * 2 + width
+        nextHeight = nextWidth / _ratio
+        nextY = startTop - nextHeight
+      }
+      if (nextX + nextWidth > _maxRight) {
+        nextWidth = (_maxRight - x - width) * 2 + width
+        nextX = _maxRight - nextWidth
+        nextHeight = nextWidth / _ratio
+        nextY = startTop - nextHeight
+      }
+    }
+
+    rect.value.height = nextHeight
+    rect.value.y = nextY
+    rect.value.width = nextWidth
+    rect.value.x = nextX
   }
   const mouseUpHandler = () => {
+    close()
     document.removeEventListener('mousemove', mouseMoveHandler)
     document.removeEventListener('mouseup', mouseUpHandler)
   }
@@ -207,23 +339,79 @@ export function resizeTop({ e, rect, resizeElement, externalWidth, minHeight }: 
   document.addEventListener('mouseup', mouseUpHandler)
 }
 
-/**
- * @Description: 下边拉伸
- * @param {MouseEvent} e
- * @param {HTMLDivElement} resizeElement 拉伸元素
- * @param {Rect} rect
- * @param {ExternalWidth} externalWidth 外部宽度
- */
-export function resizeBottom(e: MouseEvent, resizeElement: HTMLDivElement, rect: Rect, externalWidth: ExternalWidth, minHeight: number) {
-  const startY = e.clientY
-  const startHeight = resizeElement.offsetHeight
-  const _minHeight = externalWidth.value[0] + externalWidth.value[2] + minHeight
+/** @Description: 下边拉伸 */
+export function resizeBottom(data:
+{
+  e: MouseEvent
+  rect: Ref<Rect>
+  minWidth: Ref<number>
+  minHeight: Ref<number>
+  maxWidth: Ref<number>
+  maxHeight: Ref<number>
+  minX: Ref<number>
+  minY: Ref<number>
+  maxBottom: Ref<number>
+  maxRight: Ref<number>
+  ratio: ComputedRef<number | undefined>
+  isResize: Ref<boolean>
+}) {
+  const {
+    startY,
+    x,
+    y,
+    height,
+    width,
+    startLeft,
+    _minX,
+    _maxBottom,
+    _maxRight,
+    _ratio,
+    _minHeight,
+    _maxHeight,
+  } = initMousedownData(data)
+
+  const { isResize, rect } = data
+
+  const { close } = _initResize({ isResize })
   const mouseMoveHandler = (e: MouseEvent) => {
     const moveY = e.clientY - startY
-    const height = startHeight + moveY
-    rect.height = Math.max(height, _minHeight)
+    let nextHeight = height + moveY
+    let nextWidth = width
+    let nextX = x
+
+    if (nextHeight > _maxHeight) {
+      nextHeight = Math.min(nextHeight, _maxHeight)
+    }
+    if (nextHeight < _minHeight) {
+      nextHeight = Math.max(nextHeight, _minHeight)
+    }
+
+    if (nextHeight + y >= _maxBottom) {
+      nextHeight = _maxBottom - y
+    }
+
+    if (_ratio) {
+      nextWidth = nextHeight * _ratio
+      nextX = x - (nextWidth - width) / 2
+
+      if (nextX < _minX) {
+        nextX = _minX
+        nextWidth = (startLeft - _minX - width) * 2 + width
+        nextHeight = nextWidth / _ratio
+      }
+      if (nextX + nextWidth > _maxRight) {
+        nextWidth = (_maxRight - x - width) * 2 + width
+        nextX = _maxRight - nextWidth
+        nextHeight = nextWidth / _ratio
+      }
+    }
+
+    rect.value.height = nextHeight
+    rect.value.width = nextWidth
+    rect.value.x = nextX
   }
   const mouseUpHandler = () => {
+    close()
     document.removeEventListener('mousemove', mouseMoveHandler)
     document.removeEventListener('mouseup', mouseUpHandler)
   }
@@ -231,101 +419,208 @@ export function resizeBottom(e: MouseEvent, resizeElement: HTMLDivElement, rect:
   document.addEventListener('mouseup', mouseUpHandler)
 }
 
-/**
- * @Description: 左上角拉伸
- * @param {MouseEvent} e
- * @param {HTMLDivElement} resizeElement 拉伸元素
- * @param {Rect} rect
- * @param {ExternalWidth} externalWidth 外部宽度
- */
-export function resizeTopLeft(e: MouseEvent, resizeElement: HTMLDivElement, rect: Rect, externalWidth: ExternalWidth, minArea: {
-  minWidth: number
-  minHeight: number
+/* @Description: 左上角拉伸 */
+export function resizeTopLeft(data:
+{
+  e: MouseEvent
+  rect: Ref<Rect>
+  minWidth: Ref<number>
+  minHeight: Ref<number>
+  maxWidth: Ref<number>
+  maxHeight: Ref<number>
+  minX: Ref<number>
+  minY: Ref<number>
+  maxBottom: Ref<number>
+  maxRight: Ref<number>
+  ratio: ComputedRef<number | undefined>
+  isResize: Ref<boolean>
 }) {
-  const startX = e.clientX
-  const startY = e.clientY
-  const startWidth = resizeElement.offsetWidth
-  const startHeight = resizeElement.offsetHeight
-  const x = rect.x
-  const y = rect.y
-  const startLeft = x + startWidth - externalWidth.value[3]
-  const startTop = y + startHeight - externalWidth.value[0]
-  const minWidth = externalWidth.value[3] + externalWidth.value[1] + minArea.minWidth
-  const minHeight = externalWidth.value[0] + externalWidth.value[2] + minArea.minHeight
+  const {
+    startX,
+    startY,
+    x,
+    y,
+    height,
+    width,
+    startTop,
+    startLeft,
+    _maxWidth,
+    _minWidth,
+    _maxRight,
+    _minX,
+    _minY,
+    _ratio,
+    _minHeight,
+    _maxHeight,
+  } = initMousedownData(data)
+
+  const { isResize, rect } = data
+
+  const { close } = _initResize({ isResize })
+
   const mouseMoveHandler = (e: MouseEvent) => {
     const moveX = e.clientX - startX
     const moveY = e.clientY - startY
-    const nextWidth = startWidth - moveX
-    const nextHeight = startHeight - moveY
-    const nextX = x + moveX
-    const nextY = y + moveY
-    if (nextWidth + nextX >= startLeft) {
-      rect.width = Math.max(nextWidth, minWidth)
-      const nextX = startLeft - rect.width
-      rect.x = Math.min(nextX, startLeft)
+    let nextWidth = width - moveX
+    let nextHeight = height - moveY
+    let nextY = y + moveY
+    let nextX = x + moveX
+    if (nextWidth > _maxWidth) {
+      nextWidth = _maxWidth
+      nextX = startLeft - nextWidth
     }
-    else {
-      rect.width = nextWidth
-      rect.x = nextX
+    if (nextWidth < _minWidth) {
+      nextWidth = _minWidth
+      nextX = startLeft - nextWidth
     }
     if (nextHeight + nextY >= startTop) {
-      rect.height = Math.max(nextHeight, minHeight)
-      const nextY = startTop - rect.height
-      rect.y = Math.min(nextY, startTop)
+      nextHeight = Math.max(nextHeight, _minHeight)
+      nextY = startTop - nextHeight
+      nextY = Math.min(nextY, startTop)
     }
-    else {
-      rect.height = nextHeight
-      rect.y = nextY
+    if (nextY < _minY) {
+      nextY = _minY
+      nextHeight = startTop - nextY
     }
+    if (nextHeight > _maxHeight) {
+      nextHeight = Math.min(nextHeight, _maxHeight)
+      nextY = startTop - nextHeight
+    }
+
+    if (_ratio) {
+      const _nextWidth = nextHeight * _ratio
+      nextWidth = Math.max(_nextWidth, nextWidth)
+      nextHeight = nextWidth / _ratio
+      nextY = startTop - nextHeight
+      nextX = startLeft - nextWidth
+
+      if (nextWidth + x > _maxRight) {
+        nextWidth = _maxRight - x
+        nextHeight = nextWidth / _ratio
+        nextY = startTop - nextHeight
+      }
+
+      if (nextY < _minY) {
+        nextY = _minY
+        nextHeight = startTop - nextY
+        nextWidth = nextHeight * _ratio
+        nextX = startLeft - nextWidth
+      }
+
+      if (nextX < _minX) {
+        nextX = _minX
+        nextWidth = (startLeft - _minX - width) + width
+        nextHeight = nextWidth / _ratio
+        nextY = startTop - nextHeight
+      }
+    }
+
+    rect.value.height = nextHeight
+    rect.value.width = nextWidth
+    rect.value.x = nextX
+    rect.value.y = nextY
   }
   const mouseUpHandler = () => {
+    close()
     document.removeEventListener('mousemove', mouseMoveHandler)
     document.removeEventListener('mouseup', mouseUpHandler)
   }
   document.addEventListener('mousemove', mouseMoveHandler)
   document.addEventListener('mouseup', mouseUpHandler)
 }
-
-/**
- * @Description: 右上角拉伸
- * @param {MouseEvent} e
- * @param {HTMLDivElement} resizeElement 拉伸元素
- * @param {Rect} rect
- * @param {ExternalWidth} externalWidth 外部宽度
- */
-export function resizeTopRight(e: MouseEvent, resizeElement: HTMLDivElement, rect: Rect, externalWidth: ExternalWidth, minArea: {
-  minWidth: number
-  minHeight: number
+/** @Description: 右上角拉伸 */
+export function resizeTopRight(data:
+{
+  e: MouseEvent
+  rect: Ref<Rect>
+  minWidth: Ref<number>
+  minHeight: Ref<number>
+  maxWidth: Ref<number>
+  maxHeight: Ref<number>
+  minX: Ref<number>
+  minY: Ref<number>
+  maxBottom: Ref<number>
+  maxRight: Ref<number>
+  ratio: ComputedRef<number | undefined>
+  isResize: Ref<boolean>
 }) {
-  const startX = e.clientX
-  const startY = e.clientY
-  const startWidth = resizeElement.offsetWidth
-  const startHeight = resizeElement.offsetHeight
-  const x = rect.x
-  const y = rect.y
-  const startRight = x + externalWidth.value[1]
-  const startTop = y + startHeight - externalWidth.value[0]
-  const minWidth = externalWidth.value[3] + externalWidth.value[1] + minArea.minWidth
-  const minHeight = externalWidth.value[0] + externalWidth.value[2] + minArea.minHeight
+  const {
+    startX,
+    startY,
+    x,
+    y,
+    height,
+    width,
+    startTop,
+    _maxWidth,
+    _minWidth,
+    _maxRight,
+    _minY,
+    _ratio,
+    _minHeight,
+    _maxHeight,
+  } = initMousedownData(data)
+
+  const { isResize, rect } = data
+
+  const { close } = _initResize({ isResize })
+
   const mouseMoveHandler = (e: MouseEvent) => {
     const moveX = e.clientX - startX
     const moveY = e.clientY - startY
-    const nextWidth = startWidth + moveX
-    const nextHeight = startHeight - moveY
-    const nextY = y + moveY
-    rect.width
-      = nextWidth + x >= startRight ? Math.max(nextWidth, minWidth) : nextWidth
+    let nextWidth = width + moveX
+    let nextHeight = height - moveY
+    let nextY = y + moveY
+
+    if (nextWidth > _maxWidth) {
+      nextWidth = _maxWidth
+    }
+    if (nextWidth < _minWidth) {
+      nextWidth = _minWidth
+    }
+    if (nextWidth + x > _maxRight) {
+      nextWidth = _maxRight - x
+    }
+
     if (nextHeight + nextY >= startTop) {
-      rect.height = Math.max(nextHeight, minHeight)
-      const nextY = startTop - rect.height
-      rect.y = Math.min(nextY, startTop)
+      nextHeight = Math.max(nextHeight, _minHeight)
+      nextY = startTop - nextHeight
+      nextY = Math.min(nextY, startTop)
     }
-    else {
-      rect.height = nextHeight
-      rect.y = nextY
+    if (nextY < _minY) {
+      nextY = _minY
+      nextHeight = startTop - nextY
     }
+    if (nextHeight > _maxHeight) {
+      nextHeight = Math.min(nextHeight, _maxHeight)
+      nextY = startTop - nextHeight
+    }
+
+    if (_ratio) {
+      const _nextWidth = nextHeight * _ratio
+      nextWidth = Math.max(_nextWidth, nextWidth)
+      nextHeight = nextWidth / _ratio
+      nextY = startTop - nextHeight
+
+      if (nextWidth + x > _maxRight) {
+        nextWidth = _maxRight - x
+        nextHeight = nextWidth / _ratio
+        nextY = startTop - nextHeight
+      }
+
+      if (nextY < _minY) {
+        nextY = _minY
+        nextHeight = startTop - nextY
+        nextWidth = nextHeight * _ratio
+      }
+    }
+
+    rect.value.height = nextHeight
+    rect.value.width = nextWidth
+    rect.value.y = nextY
   }
   const mouseUpHandler = () => {
+    close()
     document.removeEventListener('mousemove', mouseMoveHandler)
     document.removeEventListener('mouseup', mouseUpHandler)
   }
@@ -333,48 +628,98 @@ export function resizeTopRight(e: MouseEvent, resizeElement: HTMLDivElement, rec
   document.addEventListener('mouseup', mouseUpHandler)
 }
 
-/**
- * @Description: 左下角拉伸
- * @param {MouseEvent} e
- * @param {HTMLDivElement} resizeElement 拉伸元素
- * @param {Rect} rect
- * @param {ExternalWidth} externalWidth 外部宽度
- */
-export function resizeBottomLeft(e: MouseEvent, resizeElement: HTMLDivElement, rect: Rect, externalWidth: ExternalWidth, minArea: {
-  minWidth: number
-  minHeight: number
+/** @Description: 左下角拉伸 */
+export function resizeBottomLeft(data:
+{
+  e: MouseEvent
+  rect: Ref<Rect>
+  minWidth: Ref<number>
+  minHeight: Ref<number>
+  maxWidth: Ref<number>
+  maxHeight: Ref<number>
+  minX: Ref<number>
+  minY: Ref<number>
+  maxBottom: Ref<number>
+  maxRight: Ref<number>
+  ratio: ComputedRef<number | undefined>
+  isResize: Ref<boolean>
 }) {
-  const startX = e.clientX
-  const startY = e.clientY
-  const startWidth = resizeElement.offsetWidth
-  const startHeight = resizeElement.offsetHeight
-  const x = rect.x
-  const y = rect.y
-  const startLeft = x + startWidth - externalWidth.value[3]
-  const startBottom = y + externalWidth.value[2]
-  const minWidth = externalWidth.value[3] + externalWidth.value[1] + minArea.minWidth
-  const minHeight = externalWidth.value[0] + externalWidth.value[2] + minArea.minHeight
+  const {
+    startX,
+    startY,
+    x,
+    y,
+    height,
+    width,
+    startLeft,
+    _maxWidth,
+    _minWidth,
+    _maxBottom,
+    _minX,
+    _ratio,
+    _minHeight,
+    _maxHeight,
+  } = initMousedownData(data)
+
+  const { isResize, rect } = data
+
+  const { close } = _initResize({ isResize })
+
   const mouseMoveHandler = (e: MouseEvent) => {
     const moveX = e.clientX - startX
     const moveY = e.clientY - startY
-    const nextWidth = startWidth - moveX
-    const nextHeight = startHeight + moveY
-    const nextX = x + moveX
-    if (nextWidth + nextX >= startLeft) {
-      rect.width = Math.max(nextWidth, minWidth)
-      const nextX = startLeft - rect.width
-      rect.x = Math.min(nextX, startLeft)
+    let nextWidth = width - moveX
+    let nextHeight = height + moveY
+    const nextY = y
+    let nextX = x + moveX
+
+    if (nextWidth > _maxWidth) {
+      nextWidth = _maxWidth
+      nextX = startLeft - nextWidth
     }
-    else {
-      rect.width = nextWidth
-      rect.x = nextX
+    if (nextWidth < _minWidth) {
+      nextWidth = _minWidth
+      nextX = startLeft - nextWidth
     }
-    rect.height
-      = nextHeight + y >= startBottom
-        ? Math.max(nextHeight, minHeight)
-        : nextHeight
+    if (nextHeight < _minHeight) {
+      nextHeight = _minHeight
+    }
+
+    if (nextHeight > _maxHeight) {
+      nextHeight = Math.min(nextHeight, _maxHeight)
+    }
+
+    if (nextHeight + y > _maxBottom) {
+      nextHeight = _maxBottom - y
+    }
+
+    if (_ratio) {
+      const _nextWidth = nextHeight * _ratio
+      nextWidth = Math.max(_nextWidth, nextWidth)
+      nextHeight = nextWidth / _ratio
+      nextX = startLeft - nextWidth
+
+      if (nextHeight + y > _maxBottom) {
+        nextHeight = _maxBottom - y
+        nextWidth = nextHeight * _ratio
+        nextX = startLeft - nextWidth
+      }
+
+      if (nextX < _minX) {
+        nextX = _minX
+        nextWidth = (startLeft - _minX - width) + width
+        nextHeight = nextWidth / _ratio
+        nextX = startLeft - nextWidth
+      }
+    }
+
+    rect.value.height = nextHeight
+    rect.value.width = nextWidth
+    rect.value.y = nextY
+    rect.value.x = nextX
   }
   const mouseUpHandler = () => {
+    close()
     document.removeEventListener('mousemove', mouseMoveHandler)
     document.removeEventListener('mouseup', mouseUpHandler)
   }
@@ -382,67 +727,93 @@ export function resizeBottomLeft(e: MouseEvent, resizeElement: HTMLDivElement, r
   document.addEventListener('mouseup', mouseUpHandler)
 }
 
-/**
- * @Description: 右下角拉伸
- * @param {MouseEvent} e
- * @param {HTMLDivElement} resizeElement 拉伸元素
- * @param {Rect} rect
- * @param {ExternalWidth} externalWidth 外部宽度
- */
-export function resizeBottomRight(e: MouseEvent, resizeElement: HTMLDivElement, rect: Rect, externalWidth: ExternalWidth, minArea: {
-  minWidth: number
-  minHeight: number
+/** @Description: 右下角拉伸 */
+export function resizeBottomRight(data:
+{
+  e: MouseEvent
+  rect: Ref<Rect>
+  minWidth: Ref<number>
+  minHeight: Ref<number>
+  maxWidth: Ref<number>
+  maxHeight: Ref<number>
+  minX: Ref<number>
+  minY: Ref<number>
+  maxBottom: Ref<number>
+  maxRight: Ref<number>
+  ratio: ComputedRef<number | undefined>
+  isResize: Ref<boolean>
 }) {
-  const startX = e.clientX
-  const startY = e.clientY
-  const startWidth = resizeElement.offsetWidth
-  const startHeight = resizeElement.offsetHeight
-  const x = rect.x
-  const y = rect.y
-  const startRight = x + externalWidth.value[1]
-  const startBottom = y + externalWidth.value[2]
-  const minWidth = externalWidth.value[3] + externalWidth.value[1] + minArea.minWidth
-  const minHeight = externalWidth.value[0] + externalWidth.value[2] + minArea.minHeight
+  const {
+    startX,
+    startY,
+    x,
+    y,
+    height,
+    width,
+    _maxRight,
+    _maxWidth,
+    _minWidth,
+    _maxBottom,
+
+    _ratio,
+    _minHeight,
+    _maxHeight,
+  } = initMousedownData(data)
+
+  const { isResize, rect } = data
+
+  const { close } = _initResize({ isResize })
+
   const mouseMoveHandler = (e: MouseEvent) => {
     const moveX = e.clientX - startX
     const moveY = e.clientY - startY
-    const nextWidth = startWidth + moveX
-    const nextHeight = startHeight + moveY
-    rect.width
-      = nextWidth + x >= startRight ? Math.max(nextWidth, minWidth) : nextWidth
-    rect.height
-      = nextHeight + y >= startBottom
-        ? Math.max(nextHeight, minHeight)
-        : nextHeight
-  }
-  const mouseUpHandler = () => {
-    document.removeEventListener('mousemove', mouseMoveHandler)
-    document.removeEventListener('mouseup', mouseUpHandler)
-  }
-  document.addEventListener('mousemove', mouseMoveHandler)
-  document.addEventListener('mouseup', mouseUpHandler)
-}
+    let nextWidth = width + moveX
+    let nextHeight = height + moveY
+    const nextY = y
 
-/**
- * @Description: 右边拉伸
- * @param {MouseEvent} e
- * @param {HTMLDivElement} resizeElement 拉伸元素
- * @param {Rect} rect
- * @param {ExternalWidth} externalWidth 外部宽度
- */
-export function resizeRight(e: MouseEvent, resizeElement: HTMLDivElement, rect: Rect, externalWidth: ExternalWidth, minWidth: number) {
-  const startX = e.clientX
-  const startWidth = resizeElement.offsetWidth
-  const x = rect.x
-  const startRight = x + externalWidth.value[1]
-  const _minWidth = externalWidth.value[3] + externalWidth.value[1] + minWidth
-  const mouseMoveHandler = (e: MouseEvent) => {
-    const moveX = e.clientX - startX
-    const nextWidth = startWidth + moveX
-    rect.width
-      = nextWidth + x >= startRight ? Math.max(nextWidth, _minWidth) : nextWidth
+    if (nextWidth > _maxWidth) {
+      nextWidth = _maxWidth
+    }
+    if (nextWidth < _minWidth) {
+      nextWidth = _minWidth
+    }
+    if (nextHeight < _minHeight) {
+      nextHeight = _minHeight
+    }
+
+    if (nextHeight > _maxHeight) {
+      nextHeight = Math.min(nextHeight, _maxHeight)
+    }
+
+    if (nextHeight + y > _maxBottom) {
+      nextHeight = _maxBottom - y
+    }
+
+    if (nextWidth + x > _maxRight) {
+      nextWidth = _maxRight - x
+    }
+
+    if (_ratio) {
+      const _nextWidth = nextHeight * _ratio
+      nextWidth = Math.max(_nextWidth, nextWidth)
+      nextHeight = nextWidth / _ratio
+
+      if (nextHeight + y > _maxBottom) {
+        nextHeight = _maxBottom - y
+        nextWidth = nextHeight * _ratio
+      }
+      if (nextWidth + x > _maxRight) {
+        nextWidth = _maxRight - x
+        nextHeight = nextWidth / _ratio
+      }
+    }
+
+    rect.value.height = nextHeight
+    rect.value.width = nextWidth
+    rect.value.y = nextY
   }
   const mouseUpHandler = () => {
+    close()
     document.removeEventListener('mousemove', mouseMoveHandler)
     document.removeEventListener('mouseup', mouseUpHandler)
   }

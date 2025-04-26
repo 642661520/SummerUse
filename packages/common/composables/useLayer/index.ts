@@ -2,7 +2,6 @@ import type { MaybeRefOrGetter } from 'vue'
 
 import type {
   Directions,
-  ExternalWidth,
   LayerOptions,
   ResizeDirection,
 } from './types'
@@ -12,10 +11,9 @@ import {
   unrefElement,
   useEventListener,
   useResizeObserver,
-  useWindowSize,
 } from '@vueuse/core'
 
-import { computed, ref, toValue, watch } from 'vue'
+import { computed, ref, toValue, watch, watchEffect } from 'vue'
 
 import { drag } from './drag'
 
@@ -83,11 +81,22 @@ function createResizeElement() {
   }
 }
 
+function getParentRect(el: Element) {
+  const rect = el.getBoundingClientRect()
+  // 获取页面的宽高
+  const { innerHeight, innerWidth } = window
+  return {
+    width: Math.min(innerWidth, rect.width),
+    height: Math.min(innerHeight, rect.height),
+    left: Math.max(0, rect.left),
+    top: Math.max(0, rect.top),
+  }
+}
+
 export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | null | undefined>, options?: LayerOptions) {
   const rect = ref((toValue(options?.initRect) || defaultOptions.initRect))
-  const externalWidth: ExternalWidth = ref([0, 0, 0, 0])
   const { resizeElement, resizeElementChildren } = createResizeElement()
-  const _parentRect = ref((unrefElement(options?.parent) || document.body).getBoundingClientRect())
+  const _parentRect = ref((getParentRect(unrefElement(options?.parent) || document.body)))
 
   const isResize = ref(false)
 
@@ -99,11 +108,15 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
     return unrefElement(options?.parent) || document.body
   })
 
+  const allowOverParent = computed(() => {
+    return toValue(options?.allowOverParent) || false
+  })
+
   const parentRect = computed(() => {
-    return toValue(options?.allowOverParent)
+    return allowOverParent.value
       ? {
-          width: window.screen.width * 2,
-          height: window.screen.height * 2,
+          width: window.screen.width * 3,
+          height: window.screen.height * 3,
           top: -window.screen.height,
           left: -window.screen.width,
         }
@@ -123,29 +136,29 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
   })
 
   const minWidth = computed(() => {
-    return (toValue(options?.minWidth) || defaultOptions.minArea.width) + externalWidth.value[3] + externalWidth.value[1]
+    return (toValue(options?.minWidth) || defaultOptions.minArea.width)
   })
 
   const minHeight = computed(() => {
-    return (toValue(options?.minHeight) || defaultOptions.minArea.height) + externalWidth.value[0] + externalWidth.value[2]
+    return (toValue(options?.minHeight) || defaultOptions.minArea.height)
   })
 
   const maxWidth = computed(() => {
-    const _maxWidth = (toValue(options?.maxWidth) || defaultOptions.maxArea.width) + externalWidth.value[3] + externalWidth.value[1]
+    const _maxWidth = (toValue(options?.maxWidth) || defaultOptions.maxArea.width)
     return Math.min(_maxWidth, parentRect.value.width)
   })
 
   const maxHeight = computed(() => {
-    const _maxHeight = (toValue(options?.maxHeight) || defaultOptions.maxArea.height) + externalWidth.value[0] + externalWidth.value[2]
+    const _maxHeight = (toValue(options?.maxHeight) || defaultOptions.maxArea.height)
     return Math.min(_maxHeight, parentRect.value.height)
   })
   // 左边界
   const minX = computed(() => {
-    return parentRect.value.left + externalWidth.value[3] + externalWidth.value[1]
+    return parentRect.value.left
   })
   // 上边界
   const minY = computed(() => {
-    return parentRect.value.top + externalWidth.value[0] + externalWidth.value[2]
+    return parentRect.value.top
   })
   // 下边界
   const maxBottom = computed(() => {
@@ -194,6 +207,7 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
       minX,
       minY,
       maxBottom,
+      maxRight,
       isResize,
     })
   })
@@ -203,7 +217,20 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
       return
     if (directions.value.right === false)
       return
-    resizeRight(e, resizeElement, rect.value, externalWidth, minWidth.value)
+    resizeRight({
+      e,
+      rect,
+      minWidth,
+      minHeight,
+      ratio,
+      maxWidth,
+      maxHeight,
+      minX,
+      minY,
+      maxBottom,
+      maxRight,
+      isResize,
+    })
   })
   const TopElement = resizeElementChildren.top
   useEventListener(TopElement, 'mousedown', (e: MouseEvent) => {
@@ -213,10 +240,17 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
       return
     resizeTop({
       e,
-      resizeElement,
-      rect: rect.value,
-      externalWidth,
-      minHeight: minHeight.value,
+      rect,
+      minWidth,
+      minHeight,
+      ratio,
+      maxWidth,
+      maxHeight,
+      minX,
+      minY,
+      maxBottom,
+      maxRight,
+      isResize,
     })
   })
   const BottomElement = resizeElementChildren.bottom
@@ -225,7 +259,20 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
       return
     if (directions.value.bottom === false)
       return
-    resizeBottom(e, resizeElement, rect.value, externalWidth, minHeight.value)
+    resizeBottom({
+      e,
+      rect,
+      minWidth,
+      minHeight,
+      ratio,
+      maxWidth,
+      maxHeight,
+      minX,
+      minY,
+      maxBottom,
+      maxRight,
+      isResize,
+    })
   })
   const TopLeftElement = resizeElementChildren['top-left']
   useEventListener(TopLeftElement, 'mousedown', (e: MouseEvent) => {
@@ -233,9 +280,19 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
       return
     if (directions.value['top-left'] === false)
       return
-    resizeTopLeft(e, resizeElement, rect.value, externalWidth, {
-      minHeight: minHeight.value,
-      minWidth: minWidth.value,
+    resizeTopLeft({
+      e,
+      rect,
+      minWidth,
+      minHeight,
+      ratio,
+      maxWidth,
+      maxHeight,
+      minX,
+      minY,
+      maxBottom,
+      maxRight,
+      isResize,
     })
   })
   const TopRightElement = resizeElementChildren['top-right']
@@ -244,9 +301,19 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
       return
     if (directions.value['top-right'] === false)
       return
-    resizeTopRight(e, resizeElement, rect.value, externalWidth, {
-      minHeight: minHeight.value,
-      minWidth: minWidth.value,
+    resizeTopRight({
+      e,
+      rect,
+      minWidth,
+      minHeight,
+      ratio,
+      maxWidth,
+      maxHeight,
+      minX,
+      minY,
+      maxBottom,
+      maxRight,
+      isResize,
     })
   })
   const BottomLeftElement = resizeElementChildren['bottom-left']
@@ -255,9 +322,19 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
       return
     if (directions.value['bottom-left'] === false)
       return
-    resizeBottomLeft(e, resizeElement, rect.value, externalWidth, {
-      minHeight: minHeight.value,
-      minWidth: minWidth.value,
+    resizeBottomLeft({
+      e,
+      rect,
+      minWidth,
+      minHeight,
+      ratio,
+      maxWidth,
+      maxHeight,
+      minX,
+      minY,
+      maxBottom,
+      maxRight,
+      isResize,
     })
   })
   const BottomRightElement = resizeElementChildren['bottom-right']
@@ -266,9 +343,19 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
       return
     if (directions.value['bottom-right'] === false)
       return
-    resizeBottomRight(e, resizeElement, rect.value, externalWidth, {
-      minHeight: minHeight.value,
-      minWidth: minWidth.value,
+    resizeBottomRight({
+      e,
+      rect,
+      minWidth,
+      minHeight,
+      ratio,
+      maxWidth,
+      maxHeight,
+      minX,
+      minY,
+      maxBottom,
+      maxRight,
+      isResize,
     })
   })
 
@@ -278,16 +365,6 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
       el.removeChild(resizeElement)
     }
   }
-
-  const stopExternalWidth = watch(
-    () => externalWidth.value,
-    ([top, right, bottom, left]) => {
-      resizeElement.style.width = `calc(100% + ${left + right}px)`
-      resizeElement.style.height = `calc(100% + ${top + bottom}px)`
-      resizeElement.style.top = `-${top}px`
-      resizeElement.style.left = `-${left}px`
-    },
-  )
 
   const stopRect = watch(
     initRect,
@@ -303,49 +380,80 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
     (el) => {
       if (!el)
         return
+      if (el.lastChild === resizeElement)
+        return
       el.append(resizeElement)
-      stopElement()
     },
   )
 
-  const externalWidthResizeObserver = useResizeObserver(target, (entries) => {
-    if (!entries[0])
-      return
-    const {
-      borderLeftWidth,
-      borderRightWidth,
-      borderTopWidth,
-      borderBottomWidth,
-      marginBottom,
-      marginLeft,
-      marginTop,
-      marginRight,
-    } = getComputedStyle(entries[0].target)
-    externalWidth.value = [
-      Number.parseFloat(borderTopWidth) + Number.parseFloat(marginTop),
-      Number.parseFloat(borderRightWidth) + Number.parseFloat(marginRight),
-      Number.parseFloat(borderBottomWidth) + Number.parseFloat(marginBottom),
-      Number.parseFloat(borderLeftWidth) + Number.parseFloat(marginLeft),
-    ]
+  watch(dragElement, (dragElement, oldDragElement) => {
+    oldDragElement?.classList.remove('summer-use-drag')
+    if (!disabledDrag.value) {
+      dragElement?.classList.add('summer-use-drag')
+    }
+  }, {
+    immediate: true,
+  })
+
+  watch(disabledDrag, (disabledDrag) => {
+    if (disabledDrag) {
+      dragElement.value?.classList.remove('summer-use-drag')
+    }
+    else {
+      dragElement.value?.classList.add('summer-use-drag')
+    }
+  }, {
+    immediate: true,
+  })
+
+  watchEffect(() => {
+    const directionList = Object.entries(directions.value)
+    const disabledDirection = directionList
+      .filter(([_, status]) => {
+        return !status
+      })
+      .map(([key]) => {
+        return `.summer-use-resize-${key}`
+      })
+    const openDirection = directionList
+      .filter(([_, status]) => {
+        return status
+      })
+      .map(([key]) => {
+        return `.summer-use-resize-${key}`
+      })
+    openDirection.forEach((key) => {
+      resizeElement.querySelector(key)?.classList.remove('summer-use-resize-direction-disabled')
+    })
+
+    disabledDirection.forEach((key) => {
+      resizeElement.querySelector(key)?.classList.add('summer-use-resize-direction-disabled')
+    })
+  })
+
+  watchEffect(() => {
+    if (disabledResize.value) {
+      resizeElement.classList.add('summer-use-resize-disabled')
+    }
+    else {
+      resizeElement.classList.remove('summer-use-resize-disabled')
+    }
   })
 
   const parentResizeObserver = useResizeObserver(parent, (entries) => {
     if (!entries[0])
       return
-    const rect = entries[0].target.getBoundingClientRect()
-    _parentRect.value = rect
+    _parentRect.value = getParentRect(entries[0].target)
   })
 
   tryOnScopeDispose(() => {
-    externalWidthResizeObserver.stop()
     parentResizeObserver.stop()
-    stopExternalWidth()
+    stopElement()
     stopRect()
     close()
   })
 
   return {
     rect,
-    externalWidth,
   }
 }
