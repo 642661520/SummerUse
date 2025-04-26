@@ -1,10 +1,10 @@
 import type { Ref } from 'vue'
-import type { OutRect } from './types'
+import type { Rect } from './types'
 
 export function drag(
   { e, rect, minX, maxRight, minY, maxBottom }: {
     e: MouseEvent
-    rect: Ref<OutRect>
+    rect: Ref<Rect>
     minX: Ref<number>
     maxRight: Ref<number>
     minY: Ref<number>

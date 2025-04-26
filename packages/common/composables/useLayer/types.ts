@@ -14,12 +14,6 @@ export interface Directions {
 }
 
 export interface Rect {
-  height: number | string
-  width: number | string
-  x: number | string
-  y: number | string
-}
-export interface OutRect {
   height: number
   width: number
   x: number

@@ -1,5 +1,5 @@
 import type { ComputedRef, Ref } from 'vue'
-import type { ExternalWidth, OutRect } from './types'
+import type { ExternalWidth, Rect } from './types'
 
 function initMousedownData({
   e,
@@ -15,7 +15,7 @@ function initMousedownData({
 }:
 {
   e: MouseEvent
-  rect: Ref<OutRect>
+  rect: Ref<Rect>
   minWidth: Ref<number>
   minHeight: Ref<number>
   maxWidth: Ref<number>
@@ -70,7 +70,7 @@ export function resizeLeft(
   data:
   {
     e: MouseEvent
-    rect: Ref<OutRect>
+    rect: Ref<Rect>
     minWidth: Ref<number>
     minHeight: Ref<number>
     maxWidth: Ref<number>
@@ -175,7 +175,7 @@ export function resizeLeft(
 export function resizeTop({ e, rect, resizeElement, externalWidth, minHeight }: {
   e: MouseEvent
   resizeElement: HTMLDivElement
-  rect: OutRect
+  rect: Rect
   externalWidth: ExternalWidth
   minHeight: number
   ratio?: number
@@ -214,7 +214,7 @@ export function resizeTop({ e, rect, resizeElement, externalWidth, minHeight }: 
  * @param {Rect} rect
  * @param {ExternalWidth} externalWidth 外部宽度
  */
-export function resizeBottom(e: MouseEvent, resizeElement: HTMLDivElement, rect: OutRect, externalWidth: ExternalWidth, minHeight: number) {
+export function resizeBottom(e: MouseEvent, resizeElement: HTMLDivElement, rect: Rect, externalWidth: ExternalWidth, minHeight: number) {
   const startY = e.clientY
   const startHeight = resizeElement.offsetHeight
   const _minHeight = externalWidth.value[0] + externalWidth.value[2] + minHeight
@@ -238,7 +238,7 @@ export function resizeBottom(e: MouseEvent, resizeElement: HTMLDivElement, rect:
  * @param {Rect} rect
  * @param {ExternalWidth} externalWidth 外部宽度
  */
-export function resizeTopLeft(e: MouseEvent, resizeElement: HTMLDivElement, rect: OutRect, externalWidth: ExternalWidth, minArea: {
+export function resizeTopLeft(e: MouseEvent, resizeElement: HTMLDivElement, rect: Rect, externalWidth: ExternalWidth, minArea: {
   minWidth: number
   minHeight: number
 }) {
@@ -293,7 +293,7 @@ export function resizeTopLeft(e: MouseEvent, resizeElement: HTMLDivElement, rect
  * @param {Rect} rect
  * @param {ExternalWidth} externalWidth 外部宽度
  */
-export function resizeTopRight(e: MouseEvent, resizeElement: HTMLDivElement, rect: OutRect, externalWidth: ExternalWidth, minArea: {
+export function resizeTopRight(e: MouseEvent, resizeElement: HTMLDivElement, rect: Rect, externalWidth: ExternalWidth, minArea: {
   minWidth: number
   minHeight: number
 }) {
@@ -340,7 +340,7 @@ export function resizeTopRight(e: MouseEvent, resizeElement: HTMLDivElement, rec
  * @param {Rect} rect
  * @param {ExternalWidth} externalWidth 外部宽度
  */
-export function resizeBottomLeft(e: MouseEvent, resizeElement: HTMLDivElement, rect: OutRect, externalWidth: ExternalWidth, minArea: {
+export function resizeBottomLeft(e: MouseEvent, resizeElement: HTMLDivElement, rect: Rect, externalWidth: ExternalWidth, minArea: {
   minWidth: number
   minHeight: number
 }) {
@@ -389,7 +389,7 @@ export function resizeBottomLeft(e: MouseEvent, resizeElement: HTMLDivElement, r
  * @param {Rect} rect
  * @param {ExternalWidth} externalWidth 外部宽度
  */
-export function resizeBottomRight(e: MouseEvent, resizeElement: HTMLDivElement, rect: OutRect, externalWidth: ExternalWidth, minArea: {
+export function resizeBottomRight(e: MouseEvent, resizeElement: HTMLDivElement, rect: Rect, externalWidth: ExternalWidth, minArea: {
   minWidth: number
   minHeight: number
 }) {
@@ -430,7 +430,7 @@ export function resizeBottomRight(e: MouseEvent, resizeElement: HTMLDivElement, 
  * @param {Rect} rect
  * @param {ExternalWidth} externalWidth 外部宽度
  */
-export function resizeRight(e: MouseEvent, resizeElement: HTMLDivElement, rect: OutRect, externalWidth: ExternalWidth, minWidth: number) {
+export function resizeRight(e: MouseEvent, resizeElement: HTMLDivElement, rect: Rect, externalWidth: ExternalWidth, minWidth: number) {
   const startX = e.clientX
   const startWidth = resizeElement.offsetWidth
   const x = rect.x

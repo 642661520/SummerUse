@@ -4,8 +4,6 @@ import type {
   Directions,
   ExternalWidth,
   LayerOptions,
-  OutRect,
-  Rect,
   ResizeDirection,
 } from './types'
 
@@ -32,40 +30,6 @@ import {
   resizeTopRight,
 } from './resize'
 import './index.scss'
-
-function RectToOutRect(rect: Rect): OutRect {
-  const { width, height, x, y } = rect
-  return {
-    width: unitStringToNumber(width, 'x'),
-    height: unitStringToNumber(height, 'y'),
-    x: unitStringToNumber(x, 'x'),
-    y: unitStringToNumber(y, 'y'),
-  }
-}
-
-function unitStringToNumber(value: number | string, axis: 'x' | 'y') {
-  const { width, height } = useWindowSize()
-  if (typeof value === 'string') {
-    const unit = value.replace(/\d/g, '') || 'px'
-    switch (unit) {
-      case '%': {
-        return axis === 'x'
-          ? (Number.parseFloat(value) * width.value) / 100
-          : (Number.parseFloat(value) * height.value) / 100
-      }
-      case 'vh': {
-        return (Number.parseFloat(value) * height.value) / 100
-      }
-      case 'vw': {
-        return (Number.parseFloat(value) * width.value) / 100
-      }
-      default: {
-        return Number.parseFloat(value)
-      }
-    }
-  }
-  return value
-}
 
 const defaultOptions = {
   initRect: {
@@ -120,7 +84,7 @@ function createResizeElement() {
 }
 
 export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | null | undefined>, options?: LayerOptions) {
-  const rect = ref(RectToOutRect(toValue(options?.initRect) || defaultOptions.initRect))
+  const rect = ref((toValue(options?.initRect) || defaultOptions.initRect))
   const externalWidth: ExternalWidth = ref([0, 0, 0, 0])
   const { resizeElement, resizeElementChildren } = createResizeElement()
   const _parentRect = ref((unrefElement(options?.parent) || document.body).getBoundingClientRect())
@@ -329,7 +293,7 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
     initRect,
     (initRect) => {
       if (initRect) {
-        rect.value = RectToOutRect(initRect)
+        rect.value = initRect
       }
     },
   )
