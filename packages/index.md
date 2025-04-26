@@ -19,17 +19,22 @@ hero:
 
 features:
   - title: '@summeruse/ol'
+    link: /ol/
     icon:
       light: https://openlayers.org/theme/img/logo-light.svg
       dark: https://openlayers.org/theme/img/logo-dark.svg
     details: <img src="https://img.shields.io/npm/v/@summeruse/ol" style="display:inline-block;vertical-align:middle;margin-right:10px"></img>用于 OpenLayers 的工具库
-    link: /ol/
   - title: '@summeruse/cesium'
+    link: /cesium/
     icon:
       src: https://cesium.com/cesium-logomark.svg
     details: <img src="https://img.shields.io/npm/v/@summeruse/cesium" style="display:inline-block;vertical-align:middle;margin-right:10px"></img>用于 Cesium 的工具库
-    link: /cesium/
+  - title: '@summeruse/ui'
+    link: /ui/
+    icon: 🖼️
+    details: <img src="https://img.shields.io/npm/v/@summeruse/ui" style="display:inline-block;vertical-align:middle;margin-right:10px"></img> UI 组件库
   - title: '@summeruse/common'
+    link: /common/
     icon: 📦
     details: <img src="https://img.shields.io/npm/v/@summeruse/common" style="display:inline-block;vertical-align:middle;margin-right:10px"></img>一些通用的工具库
 ---
