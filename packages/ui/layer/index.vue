@@ -83,7 +83,7 @@ function handleTop() {
 </script>
 
 <template>
-  <Teleport :to :disabled="!teleport">
+  <Teleport :to="to" :disabled="!teleport">
     <div v-if="show" ref="layer" :style @mousedown="handleTop">
       <slot :close />
     </div>

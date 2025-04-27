@@ -20,7 +20,7 @@ olMap.addLayer(getOSMLayer())
 
 const center = wgs84ToMercator([120, 30])
 
-const messsage = useMessage()
+const message = useMessage()
 
 interface Line {
   id: number
@@ -78,7 +78,7 @@ const columns = [
   {
     title: '操作',
     key: 'action',
-    render(row) {
+    render(row: any) {
       return h(
         'div',
         {
@@ -160,7 +160,7 @@ function addLine() {
 
 function saveLine() {
   if (features.value.length === 0)
-    return messsage.error('请绘制航线')
+    return message.error('请绘制航线')
   if (drawId.value) {
     const index = lineList.value.findIndex(item => item.id === drawId.value)
     lineList.value[index].coordinates = coordinates.value[0]

@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import type { Viewer } from 'cesium'
-import { getTianDiTuLayer } from '@summeruse/cesium'
+import { getTianDiTuLayer, useCesiumViewer } from '@summeruse/cesium'
 import { Cartesian3 } from 'cesium'
-import { useCesiumViewer } from './props'
 
 const props = defineProps<{
   viewer: Viewer

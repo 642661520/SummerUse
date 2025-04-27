@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import type { OlMapInst } from '@summeruse/ol'
-import type { NOlPointermoveOption, NOlPointermoveParams } from './props'
-import { createVectorLayer, getOSMLayer, OlMap } from '@summeruse/ol'
+import type { NOlPointermoveOption, NOlPointermoveParams, OlMapInst } from '@summeruse/ol'
+
+import { createVectorLayer, getOSMLayer, NOlPointermove, OlMap } from '@summeruse/ol'
 import Feature from 'ol/Feature'
 import { Point, Polygon } from 'ol/geom'
 import { computed, h, onMounted, ref } from 'vue'
-import NOlPointermove from './index.vue'
 
 const olMapRef = ref<OlMapInst>()
 

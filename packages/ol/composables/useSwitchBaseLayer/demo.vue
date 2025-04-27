@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import { EPSG_3857, getBingLayer, getOSMLayer, getTianDiTuLayer, OlMap } from '@summeruse/ol'
+import { EPSG_3857, getBingLayer, getOSMLayer, getTianDiTuLayer, OlMap, useSwitchBaseLayer } from '@summeruse/ol'
 import { NSelect } from 'naive-ui'
 import { Map as OLMap } from 'ol'
-import { useSwitchBaseLayer } from '.'
 
 const olMap = new OLMap()
 

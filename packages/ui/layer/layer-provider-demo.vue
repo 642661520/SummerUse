@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { LayerProvider } from '@summeruse/ui'
 import { NCard } from 'naive-ui'
 import Demo from './demo.vue'
-import { LayerProvider } from './layer-provider'
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
+import { useLayer } from '@summeruse/common'
 import { NCheckbox, NForm, NFormItem, NInputNumber, NSelect } from 'naive-ui'
 import { computed, ref } from 'vue'
-import { useLayer } from '.'
 
 const container = ref<HTMLElement>()
 

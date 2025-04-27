@@ -82,7 +82,7 @@ const columns = [
   {
     title: '操作',
     key: 'action',
-    render(row) {
+    render(row: any) {
       return h(
         'div',
         {
