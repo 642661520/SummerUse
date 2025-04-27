@@ -36,14 +36,6 @@ const defaultOptions = {
     x: 0,
     y: 0,
   },
-  minArea: {
-    width: 200,
-    height: 200,
-  },
-  maxArea: {
-    width: 200,
-    height: 200,
-  },
 }
 
 const defaultDirections: Directions = {
@@ -136,20 +128,20 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
   })
 
   const minWidth = computed(() => {
-    return (toValue(options?.minWidth) || defaultOptions.minArea.width)
+    return (toValue(options?.minWidth) || 0)
   })
 
   const minHeight = computed(() => {
-    return (toValue(options?.minHeight) || defaultOptions.minArea.height)
+    return (toValue(options?.minHeight) || 0)
   })
 
   const maxWidth = computed(() => {
-    const _maxWidth = (toValue(options?.maxWidth) || defaultOptions.maxArea.width)
+    const _maxWidth = (toValue(options?.maxWidth) || parentRect.value.width)
     return Math.min(_maxWidth, parentRect.value.width)
   })
 
   const maxHeight = computed(() => {
-    const _maxHeight = (toValue(options?.maxHeight) || defaultOptions.maxArea.height)
+    const _maxHeight = (toValue(options?.maxHeight) || parentRect.value.height)
     return Math.min(_maxHeight, parentRect.value.height)
   })
   // 左边界

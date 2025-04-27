@@ -22,7 +22,7 @@ export interface Rect {
 
 export interface LayerOptions {
   // 方向
-  directions?: MaybeRefOrGetter<Directions>
+  directions?: MaybeRefOrGetter<Directions | undefined>
   // 初始位置
   initRect?: MaybeRefOrGetter<Rect>
   // 拖动元素
@@ -32,13 +32,13 @@ export interface LayerOptions {
   // 禁止拖动
   disabledDrag?: MaybeRefOrGetter<boolean>
   // 最小宽度
-  minWidth?: MaybeRefOrGetter<number>
+  minWidth?: MaybeRefOrGetter<number | undefined>
   // 最小高度
-  minHeight?: MaybeRefOrGetter<number>
+  minHeight?: MaybeRefOrGetter<number | undefined>
   // 最大宽度
-  maxWidth?: MaybeRefOrGetter<number>
+  maxWidth?: MaybeRefOrGetter<number | undefined>
   // 最大高度
-  maxHeight?: MaybeRefOrGetter<number>
+  maxHeight?: MaybeRefOrGetter<number | undefined>
   // 宽高比
   ratio?: MaybeRefOrGetter<number | undefined>
   // 限位元素
