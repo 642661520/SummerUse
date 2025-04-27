@@ -40,4 +40,4 @@ pnpm i @summeruse/ui
 
 - [Layer](./layer/)
 
-- [LayerProvider](./layer/LayerProvider/)
+- [LayerProvider](./layer/LayerProvider)
