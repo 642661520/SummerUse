@@ -20,7 +20,7 @@ const nav_sidebar_config = {
     utils: 12,
     constants: 13,
 
-    CHANGELOG: 200,
+    CHANGELOG: 999,
 
   },
   exclude: ['**/README.md'],
