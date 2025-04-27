@@ -1,5 +1,7 @@
 # @summeruse/ui
 
+前端组件库
+
 <div class="flex flex-wrap gap-2">
 
 ![NPM Version (with dist tag)](https://img.shields.io/npm/v/%40summeruse%2Fui/beta)
@@ -35,3 +37,7 @@ pnpm i @summeruse/ui
 ## 组件
 
 - [NProvider](./n-provider/)
+
+- [Layer](./layer/)
+
+- [LayerProvider](./layer/LayerProvider/)
