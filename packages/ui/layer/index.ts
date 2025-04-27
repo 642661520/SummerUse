@@ -1,4 +1,4 @@
-import Layer from './Layer.vue'
+import Layer from './index.vue'
 
 export {
   Layer,
