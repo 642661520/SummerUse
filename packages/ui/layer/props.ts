@@ -1,5 +1,5 @@
-import type { Directions } from '@summeruse/common'
-import type { RendererElement } from 'vue'
+import type { Directions, Rect } from '@summeruse/common'
+import type { RendererElement, VNode } from 'vue'
 
 export interface LayerProps {
   to?: string | RendererElement | null | undefined
@@ -29,4 +29,9 @@ export interface LayerProps {
   allowOverParent?: boolean
   // 保持置顶
   onTop?: boolean
+}
+
+export type UseLayerOptions = LayerProps & {
+  initRect: Rect
+  content?: ((close: () => void) => VNode) | string
 }

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type { Rect } from 'packages/common'
-import { Layer } from '@summeruse/ui'
+import type { Rect } from '@summeruse/common'
 import { NButton, NCard } from 'naive-ui'
 import { ref } from 'vue'
+import Layer from './index.vue'
 
 const props = defineProps<{
   initRect?: Rect

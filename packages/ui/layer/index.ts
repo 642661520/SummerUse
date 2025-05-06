@@ -7,3 +7,5 @@ export {
 export * from './layer-provider'
 
 export * from './props'
+
+export * from './useLayer'

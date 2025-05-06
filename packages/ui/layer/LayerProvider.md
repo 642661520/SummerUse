@@ -15,3 +15,7 @@ import LayerProviderDemo from './layer-provider-demo.vue'
 <ClientOnly>
 <LayerProviderDemo />
 </ClientOnly>
+
+::: details 点我查看代码
+<<< ./layer-provider-demo.vue
+:::
