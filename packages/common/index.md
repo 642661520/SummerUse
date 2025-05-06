@@ -1,5 +1,7 @@
 # @summeruse/common
 
+提供基础函数/组件等给@summeruse库使用。
+
 <div class="flex flex-wrap gap-2">
 
 ![NPM Version (with dist tag)](https://img.shields.io/npm/v/%40summeruse%2Fol/beta)

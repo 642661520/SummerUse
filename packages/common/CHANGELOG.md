@@ -1,5 +1,15 @@
 # @summeruse/common
 
+## 0.1.0
+
+### Minor Changes
+
+- d3d0faf: 新增 `useLayer` 组合式函数
+
+### Patch Changes
+
+- dbeece1: 添加 extendComponent
+
 ## 0.0.1
 
 ### Patch Changes

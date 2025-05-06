@@ -1,6 +1,6 @@
 <script lang="ts" setup>
+import { CesiumViewer } from '@summeruse/cesium'
 import ContentDemo from './content-demo.vue'
-import CesiumViewer from './index.vue'
 </script>
 
 <template>

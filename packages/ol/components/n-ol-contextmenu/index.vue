@@ -2,7 +2,7 @@
 import type { DropdownMixedOption, DropdownOption } from 'naive-ui/es/dropdown/src/interface'
 import type { NOlContextmenuProps } from './props'
 import { NDropdown } from 'naive-ui'
-import { defineProps, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 const props = defineProps<NOlContextmenuProps>()
 const { olMap } = props

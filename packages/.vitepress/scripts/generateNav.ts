@@ -3,6 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { cwd } from 'node:process'
 import { globbySync } from 'globby'
+import { getMdFrontmatter } from './common'
 
 interface NavItem {
   order: number
@@ -34,38 +35,6 @@ function getGitignoreDirs(gitignorePath: string): string[] {
     dirs.push(line)
   }
   return dirs
-}
-
-// 读取 index.md 的 title 字段（支持 yaml frontmatter）
-function getMdFrontmatter(mdFilePath: string, key: string): string | null {
-  if (!fs.existsSync(mdFilePath))
-    return null
-  const content = fs.readFileSync(mdFilePath, 'utf-8')
-  // 安全提取 frontmatter 块
-  let inFrontmatter = false
-  let value: string | null = null
-  const lines = content.split('\n')
-  for (const line of lines) {
-    const trimmed = line.trim()
-    if (trimmed === '---') {
-      if (!inFrontmatter) {
-        inFrontmatter = true
-        continue
-      }
-      else {
-        break
-      }
-    }
-    if (inFrontmatter) {
-      if (trimmed.startsWith(`${key}:`)) {
-        value = trimmed.slice(6).replace(/^['"]|['"]$/g, '').trim()
-        break
-      }
-    }
-  }
-  if (value)
-    return value
-  return null
 }
 
 function sortNavRecursively(nav: NavItem[]): NavItem[] {
@@ -135,11 +104,13 @@ export function generateNavFromPackages(options: GenerateNavOptions = {}) {
         const fullPath = path.join(cwd(), dir)
         const modelName = path.basename(dir.replace(/\/index\.md$/, '').replace('.md', ''))
         const title = getMdFrontmatter(fullPath, 'title') || alias[modelName] || modelName
+        const _order = getMdFrontmatter(fullPath, 'order')
+        const order = unifiedOrder[modelName] ?? (_order ? Number(_order) : 100)
         items.push({
           text: title,
           link: `/${packageName}/${modelName}`,
           path: fullPath,
-          order: unifiedOrder[modelName] ?? 100,
+          order,
         })
       })
     }
@@ -148,7 +119,8 @@ export function generateNavFromPackages(options: GenerateNavOptions = {}) {
     const hasIndex = fs.existsSync(indexPth)
     const pkgTitle = hasIndex ? getMdFrontmatter(indexPth, 'title') : undefined
     const link = packageName.replace(`${root}/`, '')
-    const pkgOrder = unifiedOrder[packageName] ?? 100 // 默认100，越小越靠前
+    const _order = getMdFrontmatter(indexPth, 'order')
+    const pkgOrder = unifiedOrder[packageName] ?? (_order ? Number(_order) : 100)
     if (items.length > 0) {
       nav.push({ text: pkgTitle || alias[link] || link, items, order: pkgOrder })
     }

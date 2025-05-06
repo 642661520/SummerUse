@@ -1,5 +1,14 @@
 # @summeruse/ol
 
+## 0.1.3
+
+### Patch Changes
+
+- e682b46: fix: 移除 defineProps 导入
+- Updated dependencies [dbeece1]
+- Updated dependencies [d3d0faf]
+  - @summeruse/common@0.1.0
+
 ## 0.1.2
 
 ### Patch Changes

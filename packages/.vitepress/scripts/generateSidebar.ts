@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { cwd } from 'node:process'
 import { globbySync } from 'globby'
+import { getMdFrontmatter } from './common'
 
 interface SidebarItem {
   text: string
@@ -23,34 +24,6 @@ function getGitignoreDirs(gitignorePath: string): string[] {
     return []
   const content = fs.readFileSync(gitignorePath, 'utf-8')
   return content.split('\n').map(line => line.trim()).filter(Boolean)
-}
-
-function getMdFrontmatter(mdFilePath: string, key: string): string | null {
-  if (!fs.existsSync(mdFilePath))
-    return null
-  const content = fs.readFileSync(mdFilePath, 'utf-8')
-  let inFrontmatter = false
-  let value: string | null = null
-  const lines = content.split('\n')
-  for (const line of lines) {
-    const trimmed = line.trim()
-    if (trimmed === '---') {
-      if (!inFrontmatter) {
-        inFrontmatter = true
-        continue
-      }
-      else {
-        break
-      }
-    }
-    if (inFrontmatter) {
-      if (trimmed.startsWith(`${key}:`)) {
-        value = trimmed.slice(key.length + 1).replace(/^['"]|['"]$/g, '').trim()
-        break
-      }
-    }
-  }
-  return value
 }
 
 function sortSidebar(items: SidebarItem[]): SidebarItem[] {
@@ -129,10 +102,12 @@ export function generateSidebarFromPackages(options: GenerateSidebarOptions = {}
         const indexMd = path.join(thirdDir, 'index.md')
         if (fs.existsSync(indexMd)) {
           const title = getMdFrontmatter(indexMd, 'title') || alias[thirdName] || thirdName
+          const _order = getMdFrontmatter(indexMd, 'order')
+          const order = unifiedOrder[thirdName] ?? (_order ? Number(_order) : 100)
           subItems.push({
             text: title,
             link: `/${pkgName}/${subName}/${thirdName}/`,
-            order: unifiedOrder[thirdName] ?? 100,
+            order,
           })
         }
       }
@@ -144,10 +119,12 @@ export function generateSidebarFromPackages(options: GenerateSidebarOptions = {}
       for (const file of subFiles) {
         const fileName = path.basename(file, '.md')
         const title = getMdFrontmatter(file, 'title') || alias[fileName] || fileName
+        const _order = getMdFrontmatter(file, 'order')
+        const order = unifiedOrder[fileName] ?? (_order ? Number(_order) : 100)
         subItems.push({
           text: title,
           link: `/${pkgName}/${subName}/${fileName}`,
-          order: unifiedOrder[fileName] ?? 100,
+          order,
         })
       }
 
@@ -156,11 +133,13 @@ export function generateSidebarFromPackages(options: GenerateSidebarOptions = {}
 
       const hasIndexMd = fs.existsSync(subIndexMd)
       const title = getMdFrontmatter(subIndexMd, 'title') || alias[subName] || subName
+      const _order = getMdFrontmatter(subIndexMd, 'order')
+      const order = unifiedOrder[subName] ?? (_order ? Number(_order) : 100)
       items.push({
         text: title,
         link: hasIndexMd ? `/${pkgName}/${subName}/` : undefined,
         items: subItems.length ? subItems : undefined,
-        order: unifiedOrder[subName] ?? 100,
+        order,
       })
     }
 
@@ -172,10 +151,12 @@ export function generateSidebarFromPackages(options: GenerateSidebarOptions = {}
     for (const file of files) {
       const fileName = path.basename(file, '.md')
       const title = getMdFrontmatter(file, 'title') || alias[fileName] || fileName
+      const _order = getMdFrontmatter(file, 'order')
+      const order = unifiedOrder[fileName] ?? (_order ? Number(_order) : 100)
       items.push({
         text: title,
         link: `/${pkgName}/${fileName}`,
-        order: unifiedOrder[fileName] ?? 100,
+        order,
       })
     }
     const menu = JSON.parse(JSON.stringify(allPackagesMenu)) as SidebarItem[]

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
+import { getTianDiTuLayer, useSwitchBaseLayer } from '@summeruse/cesium'
+
 import { Viewer } from 'cesium'
 import { NSelect } from 'naive-ui'
 import { shallowRef, watchEffect } from 'vue'
-import { useSwitchBaseLayer } from '.'
-import { getTianDiTuLayer } from '../../utils/layer'
 
 const div = document.createElement('div')
 div.style.width = '100%'

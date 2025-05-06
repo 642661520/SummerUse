@@ -1,14 +1,14 @@
 <script lang="ts" setup>
+import type { CreateOptions } from '@summeruse/cesium'
 import type { Property } from 'cesium'
-import type { CreateOptions } from './props'
-import { getOSMLayer, useCesiumViewer } from '@summeruse/cesium'
+import { getOSMLayer, NCesiumPointermove, useCesiumViewer } from '@summeruse/cesium'
+
 import {
   Cartesian3,
   Color,
   Entity,
   HeightReference,
 } from 'cesium'
-import NCesiumPointermove from './index.vue'
 
 const viewer = useCesiumViewer()!
 

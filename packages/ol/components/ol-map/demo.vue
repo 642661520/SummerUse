@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { OlMapProps } from './props'
+import type { OlMapProps } from '@summeruse/ol'
 import {
   getOSMLayer,
   OlMap,
