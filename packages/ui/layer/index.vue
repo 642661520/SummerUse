@@ -22,7 +22,7 @@ const zIndex = ref(propsRef.onTop.value ? layerIndexManager.nextZIndex() : layer
 
 const disabledDrag = computed(() => {
   if (!propsRef.teleport.value) {
-    return false
+    return true
   }
 
   return propsRef.disabledDrag.value
@@ -30,7 +30,7 @@ const disabledDrag = computed(() => {
 
 const disabledResize = computed(() => {
   if (!propsRef.teleport.value) {
-    return false
+    return true
   }
 
   return propsRef.disabledResize.value
