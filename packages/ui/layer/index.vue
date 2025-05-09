@@ -36,13 +36,13 @@ const disabledResize = computed(() => {
   return propsRef.disabledResize.value
 })
 
-const layer = useTemplateRef('layer')
+const layerRef = useTemplateRef('layer')
 
 const rectModel = defineModel<Rect>('initRect', {
   required: true,
 })
 
-const { rect } = useLayer(layer, {
+const { rect } = useLayer(layerRef, {
   ...propsRef,
   disabledDrag,
   disabledResize,
