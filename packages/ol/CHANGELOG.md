@@ -1,5 +1,13 @@
 # @summeruse/ol
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [7ad4250]
+- Updated dependencies [e972e37]
+  - @summeruse/common@0.1.2
+
 ## 0.1.4
 
 ### Patch Changes

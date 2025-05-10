@@ -1,5 +1,12 @@
 # @summeruse/common
 
+## 0.1.2
+
+### Patch Changes
+
+- 7ad4250: refactor(extendComponent): 优化组件扩展函数的类型推断和默认属性处理
+- e972e37: fix(useLayer): 修复当存在比例时调整宽度和高度不一致的问题
+
 ## 0.1.1
 
 ### Patch Changes
