@@ -169,6 +169,44 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
     return toValue(options?.ratio) || undefined
   })
 
+  const check = () => {
+    const _minX = minX.value
+    const _minY = minY.value
+    const _maxBottom = maxBottom.value
+    const _maxRight = maxRight.value
+    const _ratio = ratio.value
+    const _minWidth = _ratio ? Math.max(minWidth.value, minHeight.value * _ratio) : minWidth.value
+    const _maxWidth = _ratio ? Math.min(maxWidth.value, maxHeight.value * _ratio) : maxWidth.value
+    const _minHeight = _ratio ? Math.max(minHeight.value, minWidth.value / _ratio) : minHeight.value
+    const _maxHeight = _ratio ? Math.min(maxHeight.value, maxWidth.value / _ratio) : maxHeight.value
+    if (rect.value.width < _minWidth) {
+      rect.value.width = _minWidth
+    }
+    if (rect.value.height < _minHeight) {
+      rect.value.height = _minHeight
+    }
+    if (rect.value.width > _maxWidth) {
+      rect.value.width = _maxWidth
+    }
+    if (rect.value.height > _maxHeight) {
+      rect.value.height = _maxHeight
+    }
+    if (rect.value.x < _minX) {
+      rect.value.x = _minX
+    }
+    if (rect.value.y < _minY) {
+      rect.value.y = _minY
+    }
+    if (rect.value.x + rect.value.width > _maxRight) {
+      rect.value.x = _maxRight - rect.value.width
+    }
+    if (rect.value.y + rect.value.height > _maxBottom) {
+      rect.value.y = _maxBottom - rect.value.height
+    }
+  }
+
+  check()
+
   useEventListener(dragElement, 'mousedown', (e: MouseEvent) => {
     if (disabledDrag.value)
       return
@@ -447,5 +485,6 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
 
   return {
     rect,
+    check,
   }
 }
