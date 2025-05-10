@@ -1,5 +1,14 @@
 # @summeruse/ui
 
+## 0.1.3
+
+### Patch Changes
+
+- 0e0d376: 修复图层拖拽和调整大小功能的默认值
+- 321e4f7: feat(Layer): 在 teleport 属性变化且组件显示时，调用 check 方法
+- Updated dependencies [9e56bea]
+  - @summeruse/common@0.1.1
+
 ## 0.1.2
 
 ### Patch Changes

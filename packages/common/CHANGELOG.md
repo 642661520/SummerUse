@@ -1,5 +1,11 @@
 # @summeruse/common
 
+## 0.1.1
+
+### Patch Changes
+
+- 9e56bea: feat(useLayer): 添加 check 函数以确保图层尺寸和位置在范围内
+
 ## 0.1.0
 
 ### Minor Changes
