@@ -27,7 +27,10 @@ const teleport = ref(true)
   <NButton @click="teleport = !teleport">
     {{ teleport ? '返回' : "弹出" }}
   </NButton>
-  <Layer v-model:show="show" v-model:init-rect="initRect" :teleport="teleport" on-top>
+  <Layer
+    v-model:show="show" v-model:init-rect="initRect" :teleport="teleport" on-top
+    :min-height="300" :ratio="600 / 300"
+  >
     <template #default="{ close }">
       <slot :close :show>
         <NCard header-class="layer-header" title="标题" class="w-100% h-100%">

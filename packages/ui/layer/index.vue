@@ -3,7 +3,7 @@ import type { Rect } from '@summeruse/common'
 import type { StyleValue } from 'vue'
 import type { LayerProps } from './props'
 import { useLayer } from '@summeruse/common'
-import { computed, ref, toRefs, useTemplateRef } from 'vue'
+import { computed, ref, toRefs, useTemplateRef, watch } from 'vue'
 import { useLayerIndexManager } from './layer-provider'
 
 const props = withDefaults(defineProps<LayerProps>(), {
@@ -42,28 +42,31 @@ const rectModel = defineModel<Rect>('initRect', {
   required: true,
 })
 
-const { rect } = useLayer(layerRef, {
+const { rect, check } = useLayer(layerRef, {
   ...propsRef,
   disabledDrag,
   disabledResize,
   initRect: computed(() => rectModel.value),
 })
 
-const style = computed<StyleValue>(() => {
-  if (!propsRef.teleport.value) {
-    return {
+watch(propsRef.teleport, (teleport) => {
+  if (teleport && show.value) {
+    check()
+  }
+})
 
+const style = computed<StyleValue>(() => {
+  if (propsRef.teleport.value) {
+    return {
+      position: 'fixed',
+      zIndex: zIndex.value,
+      width: `${rect.value.width}px`,
+      height: `${rect.value.height}px`,
+      left: `${rect.value.x}px`,
+      top: `${rect.value.y}px`,
     }
   }
-
-  return {
-    position: 'fixed',
-    zIndex: zIndex.value,
-    width: `${rect.value.width}px`,
-    height: `${rect.value.height}px`,
-    left: `${rect.value.x}px`,
-    top: `${rect.value.y}px`,
-  }
+  return undefined
 })
 
 function close() {
