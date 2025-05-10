@@ -2,12 +2,14 @@ import type { ComponentOptionsMixin } from 'vue'
 
 import { defineComponent, h } from 'vue'
 
-type DefaultProps = Record<string, any>
-
-export function extendComponent(
-  BaseComponent: ComponentOptionsMixin,
+export function extendComponent<
+  T extends ComponentOptionsMixin,
+  S = T extends new () => { $slots: infer Slots } ? Slots : Record<string, never>,
+  P = T extends new () => { $props: infer Props } ? Partial<Props> : Record<string, never>,
+>(
+  BaseComponent: T,
   options?: {
-    defaultProps?: DefaultProps
+    defaultProps?: P
     name?: string
   },
 ) {
@@ -20,7 +22,6 @@ export function extendComponent(
       options?.name || `Extended${(BaseComponent as any).name || 'Component'}`,
     extends: BaseComponent,
     emits: inheritedEmits,
-    props: {}, // 可在此扩展 props，也可以交由 attrs 透传
     setup(props, { attrs, emit, slots }) {
       const listeners: Record<string, (...args: any[]) => void> = {}
       for (const event of inheritedEmits) {
@@ -42,11 +43,7 @@ export function extendComponent(
           for (const key in options.defaultProps) {
             mergedProps[key]
               = key.endsWith('Style')
-                && typeof options.defaultProps[key] === 'object'
-                ? {
-                    ...options.defaultProps[key],
-                    ...(attrs[key] || safeProps[key]),
-                  }
+                ? [options.defaultProps[key], safeProps[key]]
                 : (safeProps[key] ?? attrs[key] ?? options.defaultProps[key])
           }
         }
@@ -54,5 +51,8 @@ export function extendComponent(
         return h(BaseComponent, mergedProps, slots)
       }
     },
-  })
+  }) as new () => {
+    $props: P
+    $slots: S
+  }
 }
