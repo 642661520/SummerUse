@@ -179,17 +179,30 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
     const _maxWidth = _ratio ? Math.min(maxWidth.value, maxHeight.value * _ratio) : maxWidth.value
     const _minHeight = _ratio ? Math.max(minHeight.value, minWidth.value / _ratio) : minHeight.value
     const _maxHeight = _ratio ? Math.min(maxHeight.value, maxWidth.value / _ratio) : maxHeight.value
+
     if (rect.value.width < _minWidth) {
       rect.value.width = _minWidth
+      if (_ratio) {
+        rect.value.height = _minHeight
+      }
     }
     if (rect.value.height < _minHeight) {
       rect.value.height = _minHeight
+      if (_ratio) {
+        rect.value.width = _minWidth
+      }
     }
     if (rect.value.width > _maxWidth) {
       rect.value.width = _maxWidth
+      if (_ratio) {
+        rect.value.height = _maxHeight
+      }
     }
     if (rect.value.height > _maxHeight) {
       rect.value.height = _maxHeight
+      if (_ratio) {
+        rect.value.width = _maxWidth
+      }
     }
     if (rect.value.x < _minX) {
       rect.value.x = _minX
