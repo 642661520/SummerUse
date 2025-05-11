@@ -1,5 +1,11 @@
 # @summeruse/ui
 
+## 0.1.5
+
+### Patch Changes
+
+- b71540a: fix(ui/layer): 添加 v-bind 指令以继承父组件属性
+
 ## 0.1.4
 
 ### Patch Changes
