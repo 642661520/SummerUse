@@ -37,4 +37,11 @@ features:
     link: /common/
     icon: 📦
     details: <img src="https://img.shields.io/npm/v/@summeruse/common" style="display:inline-block;vertical-align:middle;margin-right:10px"></img>一些通用的工具库
+  - title: '@summeruse/utils'
+    icon:
+      src: https://nodejs.org/static/logos/jsIconGreen.svg
+    details: <img src="https://img.shields.io/npm/v/@summeruse/utils" style="display:inline-block;vertical-align:middle;margin-right:10px"></img>一些 node 工具库
+  - title: '施工中'
+    icon: 🛠️
+    details: 敬请期待
 ---
