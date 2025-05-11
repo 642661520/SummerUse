@@ -1,9 +1,8 @@
+import { generateNavFromPackages, generateSidebarFromPackages } from '@summeruse/utils'
 import UnoCSS from 'unocss/vite'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
 import { defineConfig } from 'vitepress'
 import { repository } from '../../package.json'
-import { generateNavFromPackages } from './scripts/generateNav'
-import { generateSidebarFromPackages } from './scripts/generateSidebar'
 // https://vitepress.dev/reference/site-config
 
 const nav_sidebar_config = {
