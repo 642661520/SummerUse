@@ -183,25 +183,25 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
     if (rect.value.width < _minWidth) {
       rect.value.width = _minWidth
       if (_ratio) {
-        rect.value.height = _minHeight
+        rect.value.height = _minWidth / _ratio
       }
     }
     if (rect.value.height < _minHeight) {
       rect.value.height = _minHeight
       if (_ratio) {
-        rect.value.width = _minWidth
+        rect.value.width = _maxHeight * _ratio
       }
     }
     if (rect.value.width > _maxWidth) {
       rect.value.width = _maxWidth
       if (_ratio) {
-        rect.value.height = _maxHeight
+        rect.value.height = _maxWidth / _ratio
       }
     }
     if (rect.value.height > _maxHeight) {
       rect.value.height = _maxHeight
       if (_ratio) {
-        rect.value.width = _maxWidth
+        rect.value.width = _maxHeight * _ratio
       }
     }
     if (rect.value.x < _minX) {
