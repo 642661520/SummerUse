@@ -52,7 +52,7 @@ export function extendComponent<
       }
     },
   }) as new () => {
-    $props: P
+    $props: Partial<P>
     $slots: S
   }
 }
