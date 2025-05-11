@@ -87,7 +87,7 @@ function handleTop() {
 
 <template>
   <Teleport :to="to" :disabled="!teleport">
-    <div v-if="show" ref="layer" :style @mousedown="handleTop">
+    <div v-if="show" v-bind="$attrs" ref="layer" :style @mousedown="handleTop">
       <slot :close />
     </div>
   </Teleport>
