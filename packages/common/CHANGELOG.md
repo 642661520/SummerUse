@@ -1,5 +1,12 @@
 # @summeruse/common
 
+## 0.1.3
+
+### Patch Changes
+
+- 1803eaf: refactor(utils): 将 $props 类型从 P 修改为 Partial<P>
+- 8ecccee: fix(useLayer): 修正图层尺寸计算逻辑
+
 ## 0.1.2
 
 ### Patch Changes
