@@ -1,5 +1,16 @@
 # @summeruse/ui
 
+## 0.2.0
+
+### Minor Changes
+
+- d75d364: feat(layer): 重构并增强 useLayer 功能，支持更多自定义选项
+
+### Patch Changes
+
+- Updated dependencies [7c820e9]
+  - @summeruse/common@0.2.0
+
 ## 0.1.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @summeruse/common
 
+## 0.2.0
+
+### Minor Changes
+
+- 7c820e9: refactor(composables): 移除 `useLayer` 及其相关文件
+
 ## 0.1.3
 
 ### Patch Changes
