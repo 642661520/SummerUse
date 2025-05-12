@@ -8,7 +8,7 @@ order: 200
 
 ## 组件介绍
 
-基于[`Teleport`](https://cn.vuejs.org/guide/built-ins/teleport.html#teleport) [`useLayer`](/common/composables/useLayer/)的弹出层组件
+基于[`Teleport`](https://cn.vuejs.org/guide/built-ins/teleport.html#teleport) [`useLayer`](./useLayer/)的弹出层组件
 
 弹出后可调整各个方向大小以及位置
 
@@ -38,5 +38,5 @@ import Demo from './demo.vue'
 ::: details 点我查看代码
 ::: code-group
 <<<./props.ts
-<<<@/common/composables/useLayer/types.ts
+<<<./useLayer/types.ts
 :::

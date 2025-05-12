@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { NButton, NCard } from 'naive-ui'
 import { h, ref } from 'vue'
-import { useLayer } from './useLayer'
+import { injectLayer } from './injectLayer'
 
-const layer = useLayer()
+const layer = injectLayer()
 
 const initRect = ref({
   width: 200,

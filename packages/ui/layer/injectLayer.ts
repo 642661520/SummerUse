@@ -2,7 +2,7 @@ import type { InjectionKey } from 'vue'
 import type { LayerProps, UseLayerOptions } from './props'
 import { inject } from 'vue'
 
-export type LayerOptions = LayerProps & {
+export type _LayerOptions = LayerProps & {
   readonly key: string
   readonly destroy: () => void
 }
@@ -10,7 +10,7 @@ export type LayerOptions = LayerProps & {
 export type LayerReactive = {
   readonly key: string
   readonly destroy: () => void
-} & LayerOptions
+} & _LayerOptions
 
 export interface DialogApiInjection {
   destroyAll: () => void
@@ -19,10 +19,10 @@ export interface DialogApiInjection {
 
 export const layerProviderInjectionKey = Symbol('layerProviderInjectionKey') as InjectionKey<DialogApiInjection>
 
-export function useLayer() {
+export function injectLayer() {
   const layerProviderInjection = inject(layerProviderInjectionKey)
   if (!layerProviderInjection) {
-    throw new Error('useLayer must be used in LayerProvider')
+    throw new Error('injectLayer must be used in LayerProvider')
   }
   return layerProviderInjection
 }

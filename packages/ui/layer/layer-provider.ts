@@ -1,10 +1,10 @@
 import type { ComputedRef, InjectionKey, PropType } from 'vue'
 
+import type { _LayerOptions } from './injectLayer'
 import type { LayerProps } from './props'
-import type { LayerOptions } from './useLayer'
 import { computed, defineComponent, Fragment, h, inject, provide, ref } from 'vue'
-import UseLayer from './use-layer.vue'
-import { layerProviderInjectionKey } from './useLayer'
+import { layerProviderInjectionKey } from './injectLayer'
+import InjectLayer from './inject-layer.vue'
 
 export const layerIndexManagerKey = Symbol('layerIndexManagerKey') as InjectionKey<{
   nextZIndex: () => number
@@ -58,7 +58,7 @@ export const LayerProvider = defineComponent({
     const layerIndexManager = createLayerIndexManager(props.zIndex)
     provide(layerIndexManagerKey, layerIndexManager)
 
-    const layerList = ref<LayerOptions[]>([])
+    const layerList = ref<_LayerOptions[]>([])
     const layerInstRefs: Record<string, LayerInst | undefined> = {}
 
     function destroyAll(): void {
@@ -94,7 +94,7 @@ export const LayerProvider = defineComponent({
     return h(Fragment, null, [
       this.layerList.map((item) => {
         const { destroy: _, ...props } = item
-        return h(UseLayer, {
+        return h(InjectLayer, {
           ...props,
           ref: ((inst: LayerInst | null) => {
             if (inst === null) {

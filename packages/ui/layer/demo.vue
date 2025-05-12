@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Rect } from '@summeruse/common'
+import type { Rect } from '@summeruse/ui'
 import { NButton, NCard } from 'naive-ui'
 import { ref } from 'vue'
 import Layer from './index.vue'
@@ -16,6 +16,14 @@ const initRect = ref(props.initRect ?? {
   width: 200,
   height: 200,
 })
+setTimeout(() => {
+  initRect.value = {
+    x: 300,
+    y: 500,
+    width: 300,
+    height: 300,
+  }
+}, 3000)
 
 const teleport = ref(true)
 </script>
@@ -29,7 +37,6 @@ const teleport = ref(true)
   </NButton>
   <Layer
     v-model:show="show" v-model:init-rect="initRect" :teleport="teleport" on-top
-    :min-height="300" :ratio="600 / 300"
   >
     <template #default="{ close }">
       <slot :close :show>
