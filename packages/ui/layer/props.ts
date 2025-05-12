@@ -1,5 +1,5 @@
-import type { Directions, Rect } from './useLayer/index'
 import type { RendererElement, VNode } from 'vue'
+import type { Directions, Rect } from './useLayer/index'
 
 export interface LayerProps {
   /** 初始位置 */

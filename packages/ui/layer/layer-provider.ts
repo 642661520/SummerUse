@@ -3,8 +3,8 @@ import type { ComputedRef, InjectionKey, PropType } from 'vue'
 import type { _LayerOptions } from './injectLayer'
 import type { LayerProps } from './props'
 import { computed, defineComponent, Fragment, h, inject, provide, ref } from 'vue'
-import { layerProviderInjectionKey } from './injectLayer'
 import InjectLayer from './inject-layer.vue'
+import { layerProviderInjectionKey } from './injectLayer'
 
 export const layerIndexManagerKey = Symbol('layerIndexManagerKey') as InjectionKey<{
   nextZIndex: () => number

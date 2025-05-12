@@ -17,13 +17,12 @@ import InjectLayerDemo from './inject-layer-demo.vue'
 </LayerProviderDemo>
 </ClientOnly>
 
-
 ::: details 点我查看代码
 ::: code-group
 ```vue [demo.vue]
 <script>
-import LayerProviderDemo from './layer-provider-demo.vue'
 import InjectLayerDemo from './inject-layer-demo.vue'
+import LayerProviderDemo from './layer-provider-demo.vue'
 </script>
 
 <template>

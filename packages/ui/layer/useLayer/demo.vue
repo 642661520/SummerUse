@@ -193,7 +193,7 @@ const style = computed(() => {
   </NForm>
 
   <Teleport to="body">
-    <div ref="container" class="fixed flex z-1000 bg-black text-#fff flex-col" :style>
+    <div ref="container" class="fixed flex flex-col z-1000 bg-black text-#fff" :style>
       <div ref="header" class="h-20px bg-#abf">
         header
       </div>
