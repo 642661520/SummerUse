@@ -1,3 +1,7 @@
+---
+title: NProvider
+---
+
 # NProvider
 
 ## 组件介绍
