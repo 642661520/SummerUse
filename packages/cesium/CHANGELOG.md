@@ -1,5 +1,14 @@
 # @summeruse/ol
 
+## 0.1.6
+
+### Patch Changes
+
+- 39ae060: fix(createCesiumViewer): 允许传入未定义的 HTMLElement 参数
+- 3efdcff: 将 WMTS 参数类型改为 Partial 以支持可选参数
+- 79c23d6: feat(cesium): 添加创建 Cesium Viewer 的可组合函数
+- 4a91502: feat(cesium): 新增 useCesiumLayer composable 用于创建自定义图层
+
 ## 0.1.5
 
 ### Patch Changes
