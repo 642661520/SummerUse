@@ -1,7 +1,7 @@
 import type { T_MAP_TYPE } from '@summeruse/common'
 import { ImageryLayer, OpenStreetMapImageryProvider, WebMapTileServiceImageryProvider } from 'cesium'
 
-export type _WebMapTileServiceImageryProviderOptions = ConstructorParameters<typeof WebMapTileServiceImageryProvider>[0]
+export type _WebMapTileServiceImageryProviderOptions = Partial<ConstructorParameters<typeof WebMapTileServiceImageryProvider>[0]>
 
 export type _ImageryLayerOptions = ConstructorParameters<typeof ImageryLayer>[1]
 
