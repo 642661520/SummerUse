@@ -4,7 +4,7 @@ import { cesiumViewerInjectionKey } from '@summeruse/cesium'
 import { Viewer } from 'cesium'
 import { provide, toValue, watchEffect } from 'vue'
 
-export function createCesiumViewer(element: MaybeRefOrGetter<HTMLElement>, options?: ViewerOptions) {
+export function createCesiumViewer(element: MaybeRefOrGetter<HTMLElement | undefined>, options?: ViewerOptions) {
   const div = document.createElement('div')
   div.style.width = '100%'
   div.style.height = '100%'
