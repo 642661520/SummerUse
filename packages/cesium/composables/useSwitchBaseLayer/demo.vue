@@ -1,33 +1,10 @@
 <script lang="ts" setup>
-import { getTianDiTuLayer, useSwitchBaseLayer } from '@summeruse/cesium'
-
-import { Viewer } from 'cesium'
+import { createCesiumViewer, getTianDiTuLayer, useSwitchBaseLayer } from '@summeruse/cesium'
 import { NSelect } from 'naive-ui'
-import { shallowRef, watchEffect } from 'vue'
+import { shallowRef } from 'vue'
 
-const div = document.createElement('div')
-div.style.width = '100%'
-div.style.height = '100%'
-
-const iconContainer = document.createElement('div')
-iconContainer.style.display = 'none'
-
-const viewer = new Viewer(div, {
-  baseLayer: false,
-  shouldAnimate: true,
-  infoBox: false,
-  selectionIndicator: false,
-  baseLayerPicker: false,
-  timeline: false,
-  animation: false,
-  fullscreenButton: false,
-  geocoder: false,
-  homeButton: false,
-  navigationHelpButton: false,
-  sceneModePicker: false,
-  scene3DOnly: true,
-  creditContainer: iconContainer,
-})
+const container = shallowRef<HTMLDivElement>()
+const { viewer } = createCesiumViewer(container)
 
 const key = '8a684acb7b9d38ba08adf8035d0262ee'
 
@@ -64,17 +41,9 @@ const { visibleLayerName } = useSwitchBaseLayer({
   viewer,
   layers,
 })
-
-const cesiumRef = shallowRef<HTMLElement>()
-
-watchEffect(() => {
-  if (cesiumRef.value) {
-    cesiumRef.value.appendChild(div)
-  }
-})
 </script>
 
 <template>
   <NSelect v-model:value="visibleLayerName" :options />
-  <div ref="cesiumRef" class="w-100% h-300px" />
+  <div ref="container" class="w-100% h-300px" />
 </template>

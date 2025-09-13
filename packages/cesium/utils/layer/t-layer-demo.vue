@@ -1,45 +1,23 @@
 <script lang="ts" setup>
-import { Viewer } from 'cesium'
-import { shallowRef, watchEffect } from 'vue'
-import { getTianDiTuLayer } from '.'
+import { createCesiumViewer, getTianDiTuLayer } from '@summeruse/cesium'
+import { shallowRef } from 'vue'
 
-const viewer = shallowRef<Viewer>()
+const container = shallowRef<HTMLDivElement>()
+const { viewer } = createCesiumViewer(container)
 
-const cesiumRef = shallowRef<HTMLElement>()
-
-watchEffect(() => {
-  if (cesiumRef.value) {
-    viewer.value = new Viewer(cesiumRef.value, {
-      baseLayer: false,
-      imageryProviderViewModels: undefined,
-      shouldAnimate: true,
-      infoBox: false,
-      selectionIndicator: false,
-      baseLayerPicker: false,
-      timeline: false,
-      animation: false,
-      fullscreenButton: false,
-      geocoder: false,
-      homeButton: false,
-      navigationHelpButton: false,
-      sceneModePicker: false,
-      scene3DOnly: true,
-    })
-    const layer = getTianDiTuLayer({
-      type: 'img',
-      key: '8a684acb7b9d38ba08adf8035d0262ee',
-    })
-
-    const label = getTianDiTuLayer({
-      type: 'cia',
-      key: '8a684acb7b9d38ba08adf8035d0262ee',
-    })
-    viewer.value.imageryLayers.add(layer)
-    viewer.value.imageryLayers.add(label)
-  }
+const layer = getTianDiTuLayer({
+  type: 'img',
+  key: '8a684acb7b9d38ba08adf8035d0262ee',
 })
+
+const label = getTianDiTuLayer({
+  type: 'cia',
+  key: '8a684acb7b9d38ba08adf8035d0262ee',
+})
+viewer.imageryLayers.add(layer)
+viewer.imageryLayers.add(label)
 </script>
 
 <template>
-  <div ref="cesiumRef" />
+  <div ref="container" class="w-100% h-300px" />
 </template>

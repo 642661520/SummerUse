@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import type { CesiumViewerProps } from './props'
-import { Viewer } from 'cesium'
-import { provide, shallowRef, watchEffect } from 'vue'
+
+import { createCesiumViewer } from '@summeruse/cesium'
+import { provide, shallowRef } from 'vue'
 import { cesiumViewerInjectionKey } from './props'
 
 const props = withDefaults(defineProps<CesiumViewerProps>(), {
@@ -22,25 +23,8 @@ const props = withDefaults(defineProps<CesiumViewerProps>(), {
   }),
 })
 
-const div = document.createElement('div')
-div.style.width = '100%'
-div.style.height = '100%'
-
-const iconContainer = document.createElement('div')
-iconContainer.style.display = 'none'
-
-const viewer = new Viewer(div, {
-  creditContainer: iconContainer,
-  ...props.viewerOptions,
-})
-
-const cesiumRef = shallowRef<HTMLElement>()
-
-watchEffect(() => {
-  if (cesiumRef.value) {
-    cesiumRef.value.appendChild(div)
-  }
-})
+const container = shallowRef<HTMLDivElement>()
+const { viewer } = createCesiumViewer(container, props.viewerOptions)
 
 defineExpose({
   viewer,
@@ -50,7 +34,7 @@ provide(cesiumViewerInjectionKey, viewer)
 </script>
 
 <template>
-  <div ref="cesiumRef" class="su-cesium-viewer">
+  <div ref="container" class="su-cesium-viewer">
     <div class="su-cesium-viewer__container">
       <slot :viewer />
     </div>
