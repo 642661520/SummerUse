@@ -7,3 +7,5 @@ export * from './useDrawPolygon'
 export * from './useGraticule'
 
 export * from './useSwitchBaseLayer'
+
+export * from './usePointermove'
