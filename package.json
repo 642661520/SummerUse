@@ -53,6 +53,7 @@
     "vite": "catalog:",
     "vite-plugin-externals": "catalog:",
     "vitepress": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "esbuild": "catalog:"
   }
 }
