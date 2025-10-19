@@ -30,6 +30,4 @@ pnpm i @summeruse/ol ol
 
 ::: tip 依赖
 必要 [`vue`](https://cn.vuejs.org/) [`ol`](https://openlayers.org/)
-
-按需 [`navie-ui`](https://www.naiveui.com/)
 :::
