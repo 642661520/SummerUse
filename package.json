@@ -34,9 +34,12 @@
     "@summeruse/ui": "workspace:*",
     "@summeruse/utils": "workspace:*",
     "@vueuse/core": "catalog:",
+    "ant-design-vue": "catalog:",
+    "element-plus": "catalog:",
     "naive-ui": "catalog:",
     "ol": "catalog:",
     "unocss": "catalog:",
+    "unplugin-element-plus": "catalog:",
     "vue": "catalog:"
   },
   "devDependencies": {
