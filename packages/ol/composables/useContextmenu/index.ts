@@ -11,7 +11,6 @@ export interface ContextmenuPosition {
 
 interface ContextmenuItemParams { map: OLMap, coordinate: Coordinate, position: ContextmenuPosition, feature?: FeatureLike, layer?: LayerLike }
 
-
 export interface ContextmenuItemBase {
   label: ((params: ContextmenuItemParams) => VNodeChild) | string
   visible?: ((params: ContextmenuItemParams) => boolean) | boolean

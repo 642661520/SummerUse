@@ -33,7 +33,6 @@ const { option } = usePointermove<{ id: string }>(olMap, [{
 // option.value?.id === 'feature-id'
 ```
 
-
 ## API
 
 | 名称 | 类型 |
@@ -72,8 +71,6 @@ const { option } = usePointermove<{ id: string }>(olMap, [{
 | cursor | `CSSProperties['cursor']` \| ((params: [PointermoveContentParams](#PointermoveContentParams)) => `CSSProperties['cursor']`) | - | 鼠标样式，如 `pointer`、`crosshair` 等 |
 | fixedFeatureCenter | boolean | true | 是否固定在要素中心位置 |
 | 其他字段 | ...args: [Option](#Option) | - | 通过泛型扩展的自定义属性 |
-
-
 
 ### PointermoveContentParams {#PointermoveContentParams}
 

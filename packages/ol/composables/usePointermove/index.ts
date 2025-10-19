@@ -10,7 +10,6 @@ export interface PointermovePosition {
   y: number
 }
 
-
 interface PointermoveContentParams {
   map: OLMap
   coordinate: Coordinate
