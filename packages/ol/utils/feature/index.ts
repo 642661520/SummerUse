@@ -52,12 +52,13 @@ export function createMultiPolygon(coordinates: Coordinate[][][]) {
 }
 
 export function createFeature(options?: FeatureOptions) {
-  const { styleOptions, ...restOptions } = options ?? {}
-  const style = styleOptions ? createStyle(styleOptions) : restOptions.style
+  const { styleOptions, style, geometry, ...restOptions } = options ?? {}
+  const _style = styleOptions ? createStyle(styleOptions) : style
   const feature = new Feature({
+    geometry,
     ...restOptions,
-    style,
   })
+  feature.setStyle(_style)
   return feature
 }
 

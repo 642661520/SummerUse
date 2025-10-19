@@ -1,0 +1,12 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "@summeruse/cesium": "0.1.6",
+    "@summeruse/common": "0.2.0",
+    "@summeruse/ol": "0.1.7",
+    "@summeruse/ui": "0.2.0",
+    "@summeruse/utils": "0.1.0"
+  },
+  "changesets": []
+}
