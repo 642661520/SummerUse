@@ -13,7 +13,9 @@ const props = defineProps<{
 
 const dropdownRef = ref<DropdownInstance>()
 
-const { visible, options, position } = useContextmenu(props.map, props.items)
+const { visible, options, position, hide } = useContextmenu(props.map, props.items)
+
+document.addEventListener('click', hide)
 
 watch(visible, (show) => {
   if (show) {
@@ -23,7 +25,6 @@ watch(visible, (show) => {
     dropdownRef.value?.handleClose()
   }
 })
-
 const triggerRef = ref({
   getBoundingClientRect: () => DOMRect.fromRect({
     x: position.value.x,
@@ -42,9 +43,7 @@ const triggerRef = ref({
       <ElDropdownMenu>
         <ElDropdownItem
           v-for="item in options" :key="item.key" :icon="item.icon" :disabled="item.disabled"
-          :divided="item.divided"
-          :command="item.key"
-          @click="item.action"
+          :divided="item.divided" :command="item.key" @click="item.action"
         >
           {{ item.label
           }}
