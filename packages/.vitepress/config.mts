@@ -75,6 +75,7 @@ export default defineConfig({
     },
     outline: {
       label: '当前页',
+      level: 'deep',
     },
     socialLinks: [{ icon: 'github', link: repository }],
     footer: {
