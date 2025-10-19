@@ -39,7 +39,6 @@
     "naive-ui": "catalog:",
     "ol": "catalog:",
     "unocss": "catalog:",
-    "unplugin-element-plus": "catalog:",
     "vue": "catalog:"
   },
   "devDependencies": {

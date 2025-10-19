@@ -1,6 +1,5 @@
 import { generateNavFromPackages, generateSidebarFromPackages } from '@summeruse/utils'
 import UnoCSS from 'unocss/vite'
-import ElementPlus from 'unplugin-element-plus/vite'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
 import { defineConfig } from 'vitepress'
 import { repository } from '../../package.json'
@@ -58,7 +57,6 @@ export default defineConfig({
   vite: {
     plugins: [
       UnoCSS(),
-      ElementPlus({}),
       viteExternalsPlugin({
         cesium: 'Cesium',
       }),
