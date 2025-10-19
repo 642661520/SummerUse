@@ -29,5 +29,12 @@ pnpm i @summeruse/ol ol
 ```
 
 ::: tip 依赖
-必要 [`vue`](https://cn.vuejs.org/) [`ol`](https://openlayers.org/)
+
+[![vue](https://img.shields.io/badge/peerDependencies-vue-blue)](https://cn.vuejs.org/)
+
+[![ol](https://img.shields.io/badge/peerDependencies-ol-blue)](https://openlayers.org/)
+
+[![@summeruse/common](https://img.shields.io/badge/dependencies-%40summeruse%2Fcommon-8A2BE2)](https://www.npmjs.com/package/@summeruse/common)
+
+[![@turf/turf](https://img.shields.io/badge/dependencies-%40turf%2Fturf-8A2BE2)](https://www.npmjs.com/package/@turf/turf)
 :::
