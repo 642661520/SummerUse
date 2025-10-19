@@ -1,5 +1,17 @@
 # @summeruse/ol
 
+## 0.2.0-alpha.0
+
+### Minor Changes
+
+- c2ad696: 将 n-ol-pointermove 组件重构为 usePointermove 组合式函数
+- 6fbc681: 重构右键菜单功能为组合式 API
+- f605ee4: 移除对 naive-ui 的依赖并调整相关配置
+
+### Patch Changes
+
+- fd8d77c: 修复 createFeature 中样式不生效
+
 ## 0.1.7
 
 ### Patch Changes
