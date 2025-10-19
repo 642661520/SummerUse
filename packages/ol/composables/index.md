@@ -1,6 +1,6 @@
 # OL 组合式函数
 
-[`useContextMenu`](./useContextMenu/index.md)
+[`useContextmenu`](./useContextmenu/index.md)
 
 [`usePointermove`](./usePointermove/index.md)
 
