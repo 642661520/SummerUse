@@ -6,11 +6,14 @@
     "@summeruse/common": "0.2.0",
     "@summeruse/ol": "0.1.7",
     "@summeruse/ui": "0.2.0",
-    "@summeruse/utils": "0.1.0"
+    "@summeruse/utils": "0.1.0",
+    "@summeruse/layer": "0.0.0",
+    "@summeruse/naive-ui": "0.0.0"
   },
   "changesets": [
     "cuddly-times-fold",
     "fine-hotels-look",
+    "hip-readers-wink",
     "sharp-garlics-fetch",
     "tricky-fans-dress"
   ]
