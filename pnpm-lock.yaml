@@ -116,6 +116,12 @@ importers:
       '@summeruse/common':
         specifier: workspace:*
         version: link:packages/common
+      '@summeruse/layer':
+        specifier: workspace:*
+        version: link:packages/layer
+      '@summeruse/naive-ui':
+        specifier: workspace:*
+        version: link:packages/naive-ui
       '@summeruse/ol':
         specifier: workspace:*
         version: link:packages/ol
@@ -238,6 +244,80 @@ importers:
 
   packages/common:
     dependencies:
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.13(typescript@5.7.3)
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.13.15
+      '@vitejs/plugin-vue':
+        specifier: 'catalog:'
+        version: 6.0.1(rolldown-vite@7.1.17(@types/node@22.13.15)(esbuild@0.25.11)(jiti@2.6.1)(sass-embedded@1.86.3)(sass@1.86.3)(yaml@2.7.1))(vue@3.5.13(typescript@5.7.3))
+      '@vue/tsconfig':
+        specifier: 'catalog:'
+        version: 0.7.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+      sass-embedded:
+        specifier: 'catalog:'
+        version: 1.86.3
+      typescript:
+        specifier: 'catalog:'
+        version: 5.7.3
+      vite:
+        specifier: 'catalog:'
+        version: rolldown-vite@7.1.17(@types/node@22.13.15)(esbuild@0.25.11)(jiti@2.6.1)(sass-embedded@1.86.3)(sass@1.86.3)(yaml@2.7.1)
+      vite-plugin-css-injected-by-js:
+        specifier: 'catalog:'
+        version: 3.5.2(rolldown-vite@7.1.17(@types/node@22.13.15)(esbuild@0.25.11)(jiti@2.6.1)(sass-embedded@1.86.3)(sass@1.86.3)(yaml@2.7.1))
+      vite-plugin-dts:
+        specifier: 'catalog:'
+        version: 4.5.3(@types/node@22.13.15)(rolldown-vite@7.1.17(@types/node@22.13.15)(esbuild@0.25.11)(jiti@2.6.1)(sass-embedded@1.86.3)(sass@1.86.3)(yaml@2.7.1))(rollup@4.52.5)(typescript@5.7.3)
+      vue-tsc:
+        specifier: 'catalog:'
+        version: 2.2.8(typescript@5.7.3)
+
+  packages/layer:
+    dependencies:
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 13.1.0(vue@3.5.13(typescript@5.7.3))
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.13(typescript@5.7.3)
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.13.15
+      '@vitejs/plugin-vue':
+        specifier: 'catalog:'
+        version: 6.0.1(rolldown-vite@7.1.17(@types/node@22.13.15)(esbuild@0.25.11)(jiti@2.6.1)(sass-embedded@1.86.3)(sass@1.86.3)(yaml@2.7.1))(vue@3.5.13(typescript@5.7.3))
+      '@vue/tsconfig':
+        specifier: 'catalog:'
+        version: 0.7.0(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3))
+      sass-embedded:
+        specifier: 'catalog:'
+        version: 1.86.3
+      typescript:
+        specifier: 'catalog:'
+        version: 5.7.3
+      vite:
+        specifier: 'catalog:'
+        version: rolldown-vite@7.1.17(@types/node@22.13.15)(esbuild@0.25.11)(jiti@2.6.1)(sass-embedded@1.86.3)(sass@1.86.3)(yaml@2.7.1)
+      vite-plugin-css-injected-by-js:
+        specifier: 'catalog:'
+        version: 3.5.2(rolldown-vite@7.1.17(@types/node@22.13.15)(esbuild@0.25.11)(jiti@2.6.1)(sass-embedded@1.86.3)(sass@1.86.3)(yaml@2.7.1))
+      vite-plugin-dts:
+        specifier: 'catalog:'
+        version: 4.5.3(@types/node@22.13.15)(rolldown-vite@7.1.17(@types/node@22.13.15)(esbuild@0.25.11)(jiti@2.6.1)(sass-embedded@1.86.3)(sass@1.86.3)(yaml@2.7.1))(rollup@4.52.5)(typescript@5.7.3)
+      vue-tsc:
+        specifier: 'catalog:'
+        version: 2.2.8(typescript@5.7.3)
+
+  packages/naive-ui:
+    dependencies:
+      naive-ui:
+        specifier: 'catalog:'
+        version: 2.41.0(vue@3.5.13(typescript@5.7.3))
       vue:
         specifier: 'catalog:'
         version: 3.5.13(typescript@5.7.3)
@@ -6515,9 +6595,9 @@ snapshots:
 
   '@rollup/pluginutils@5.1.4(rollup@4.52.5)':
     dependencies:
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
       estree-walker: 2.0.2
-      picomatch: 4.0.2
+      picomatch: 4.0.3
     optionalDependencies:
       rollup: 4.52.5
 
@@ -8334,7 +8414,7 @@ snapshots:
 
   '@vue/compiler-core@3.5.13':
     dependencies:
-      '@babel/parser': 7.27.0
+      '@babel/parser': 7.28.4
       '@vue/shared': 3.5.13
       entities: 4.5.0
       estree-walker: 2.0.2
@@ -8360,14 +8440,14 @@ snapshots:
 
   '@vue/compiler-sfc@3.5.13':
     dependencies:
-      '@babel/parser': 7.27.0
+      '@babel/parser': 7.28.4
       '@vue/compiler-core': 3.5.13
       '@vue/compiler-dom': 3.5.13
       '@vue/compiler-ssr': 3.5.13
       '@vue/shared': 3.5.13
       estree-walker: 2.0.2
-      magic-string: 0.30.17
-      postcss: 8.5.3
+      magic-string: 0.30.19
+      postcss: 8.5.6
       source-map-js: 1.2.1
 
   '@vue/compiler-sfc@3.5.22':
@@ -8418,9 +8498,9 @@ snapshots:
   '@vue/language-core@2.2.0(typescript@5.7.3)':
     dependencies:
       '@volar/language-core': 2.4.12
-      '@vue/compiler-dom': 3.5.13
+      '@vue/compiler-dom': 3.5.22
       '@vue/compiler-vue2': 2.7.16
-      '@vue/shared': 3.5.13
+      '@vue/shared': 3.5.22
       alien-signals: 0.4.14
       minimatch: 9.0.5
       muggle-string: 0.4.1
@@ -8431,9 +8511,9 @@ snapshots:
   '@vue/language-core@2.2.8(typescript@5.7.3)':
     dependencies:
       '@volar/language-core': 2.4.12
-      '@vue/compiler-dom': 3.5.13
+      '@vue/compiler-dom': 3.5.22
       '@vue/compiler-vue2': 2.7.16
-      '@vue/shared': 3.5.13
+      '@vue/shared': 3.5.22
       alien-signals: 1.0.13
       minimatch: 9.0.5
       muggle-string: 0.4.1
@@ -10351,7 +10431,7 @@ snapshots:
       '@css-render/plugin-bem': 0.15.14(css-render@0.15.14)
       '@css-render/vue3-ssr': 0.15.14(vue@3.5.13(typescript@5.7.3))
       '@types/katex': 0.16.7
-      '@types/lodash': 4.17.16
+      '@types/lodash': 4.17.20
       '@types/lodash-es': 4.17.12
       async-validator: 4.2.5
       css-render: 0.15.14
@@ -10374,7 +10454,7 @@ snapshots:
       '@css-render/plugin-bem': 0.15.14(css-render@0.15.14)
       '@css-render/vue3-ssr': 0.15.14(vue@3.5.13(typescript@5.8.2))
       '@types/katex': 0.16.7
-      '@types/lodash': 4.17.16
+      '@types/lodash': 4.17.20
       '@types/lodash-es': 4.17.12
       async-validator: 4.2.5
       css-render: 0.15.14
@@ -11476,10 +11556,10 @@ snapshots:
       '@volar/typescript': 2.4.12
       '@vue/language-core': 2.2.0(typescript@5.7.3)
       compare-versions: 6.1.1
-      debug: 4.4.0
+      debug: 4.4.3
       kolorist: 1.8.0
       local-pkg: 1.1.1
-      magic-string: 0.30.17
+      magic-string: 0.30.19
       typescript: 5.7.3
     optionalDependencies:
       vite: rolldown-vite@7.1.17(@types/node@22.13.15)(esbuild@0.25.11)(jiti@2.6.1)(sass-embedded@1.86.3)(sass@1.86.3)(yaml@2.7.1)
