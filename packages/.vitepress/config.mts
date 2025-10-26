@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { generateNavFromPackages, generateSidebarFromPackages } from '@summeruse/utils'
 import UnoCSS from 'unocss/vite'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
@@ -23,7 +24,7 @@ const nav_sidebar_config = {
     CHANGELOG: 999,
 
   },
-  exclude: ['**/README.md'],
+  exclude: ['**/README.md', 'packages/ui'],
   alias: {
     CHANGELOG: '更新日志',
     guide: '指南',

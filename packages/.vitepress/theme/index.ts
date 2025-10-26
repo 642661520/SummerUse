@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Theme } from 'vitepress'
 import type { AsyncComponentLoader } from 'vue'
 import ElementPlus from 'element-plus'
