@@ -29,10 +29,11 @@ features:
     icon:
       src: https://cesium.com/cesium-logomark.svg
     details: <img src="https://img.shields.io/npm/v/@summeruse/cesium" style="display:inline-block;vertical-align:middle;margin-right:10px"></img>用于 Cesium 的工具库
-  - title: '@summeruse/ui'
-    link: /ui/
-    icon: 🖼️
-    details: <img src="https://img.shields.io/npm/v/@summeruse/ui" style="display:inline-block;vertical-align:middle;margin-right:10px"></img> UI 组件库
+  - title: '@summeruse/naive-ui'
+    link: /naive-ui/
+    icon:
+      src: https://naiveui.oss-cn-hongkong.aliyuncs.com/naivelogo.svg
+    details: <img src="https://img.shields.io/npm/v/@summeruse/naive-ui" style="display:inline-block;vertical-align:middle;margin-right:10px"></img> UI 组件库
   - title: '@summeruse/common'
     link: /common/
     icon: 📦
@@ -41,7 +42,9 @@ features:
     icon:
       src: https://nodejs.org/static/logos/jsIconGreen.svg
     details: <img src="https://img.shields.io/npm/v/@summeruse/utils" style="display:inline-block;vertical-align:middle;margin-right:10px"></img>一些 node 工具库
-  - title: '施工中'
-    icon: 🛠️
-    details: 敬请期待
+  - title: '@summeruse/layer'
+    link: /layer/
+    # 弹窗 的图标
+    icon: 🪟
+    details: <img src="https://img.shields.io/npm/v/@summeruse/layer" style="display:inline-block;vertical-align:middle;margin-right:10px"></img>弹窗层组件库
 ---
