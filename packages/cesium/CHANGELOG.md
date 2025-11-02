@@ -1,5 +1,11 @@
 # @summeruse/ol
 
+## 0.1.7-alpha.1
+
+### Patch Changes
+
+- 474a484: refactor(cesium/utils): 重命名图层创建函数以更清晰表达意图
+
 ## 0.1.7-alpha.0
 
 ### Patch Changes

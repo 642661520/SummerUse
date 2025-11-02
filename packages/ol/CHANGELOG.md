@@ -1,5 +1,12 @@
 # @summeruse/ol
 
+## 0.2.0-alpha.2
+
+### Patch Changes
+
+- 3317ecf: feat(utils): 添加角度和旋转格式化函数
+- ba32d77: refactor(utils/layer): 重构地图图层工具函数，优化类型定义和参数结构
+
 ## 0.2.0-alpha.1
 
 ### Patch Changes
