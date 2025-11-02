@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { EPSG_3857, createBingLayer, createOpenStreetMapLayer, createTianDiTuLayer, OlMap, useSwitchBaseLayer } from '@summeruse/ol'
+import { createBingLayer, createOpenStreetMapLayer, createTianDiTuLayer, EPSG_3857, OlMap, useSwitchBaseLayer } from '@summeruse/ol'
 import { NSelect } from 'naive-ui'
 import { Map as OLMap } from 'ol'
 

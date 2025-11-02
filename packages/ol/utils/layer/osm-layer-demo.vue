@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { EPSG_4326, createOpenStreetMapLayer, OlMap } from '@summeruse/ol'
+import { createOpenStreetMapLayer, EPSG_4326, OlMap } from '@summeruse/ol'
 import { Map as OLMap } from 'ol'
 
 const olMap = new OLMap()

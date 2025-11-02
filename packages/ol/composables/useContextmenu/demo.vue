@@ -2,7 +2,7 @@
 import type { ContextmenuList, ContextmenuOptions } from '@summeruse/ol'
 import type { Feature } from 'ol'
 import type { Positioning } from 'ol/Overlay'
-import { createPointFeature, createPolygonFeature, createVectorLayer, createOpenStreetMapLayer, OlMap, useContextmenu } from '@summeruse/ol'
+import { createOpenStreetMapLayer, createPointFeature, createPolygonFeature, createVectorLayer, OlMap, useContextmenu } from '@summeruse/ol'
 import { Map as OLMap, Overlay } from 'ol'
 import { h, ref, render, watch } from 'vue'
 

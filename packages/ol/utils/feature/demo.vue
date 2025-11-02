@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { createCircleFeature, createLineStringFeature, createPointFeature, createPolygonFeature, createStyle, createVectorLayer, EPSG_4326, createOpenStreetMapLayer, OlMap } from '@summeruse/ol'
+import { createCircleFeature, createLineStringFeature, createOpenStreetMapLayer, createPointFeature, createPolygonFeature, createStyle, createVectorLayer, EPSG_4326, OlMap } from '@summeruse/ol'
 import { Map as OLMap } from 'ol'
 
 const olMap = new OLMap()

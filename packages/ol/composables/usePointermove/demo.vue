@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import {
+  createOpenStreetMapLayer,
   createPointFeature,
   createVectorLayer,
-  createOpenStreetMapLayer,
   OlMap,
 } from '@summeruse/ol'
 import { NCard, NPopover } from 'naive-ui'

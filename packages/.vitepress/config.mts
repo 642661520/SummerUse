@@ -10,19 +10,19 @@ import { repository } from '../../package.json'
 const nav_sidebar_config = {
   unifiedOrder: {
     // 一级
-    guide: 0,
-    ol: 1,
-    cesium: 2,
+    'guide': 0,
+    'ol': 1,
+    'cesium': 2,
     'naive-ui': 3,
-    layer: 4,
-    turf: 5,
+    'layer': 4,
+    'turf': 5,
     // 二级
-    components: 10,
-    composables: 11,
-    utils: 12,
-    constants: 13,
+    'components': 10,
+    'composables': 11,
+    'utils': 12,
+    'constants': 13,
 
-    CHANGELOG: 999,
+    'CHANGELOG': 999,
 
   },
   exclude: ['**/README.md', 'packages/ui'],

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { createVectorLayer, EPSG_4326, createOpenStreetMapLayer, OlMap } from '@summeruse/ol'
+import { createOpenStreetMapLayer, createVectorLayer, EPSG_4326, OlMap } from '@summeruse/ol'
 import { Feature, Map as OLMap } from 'ol'
 import { LineString, Point, Polygon } from 'ol/geom'
 import { createStyle } from '.'

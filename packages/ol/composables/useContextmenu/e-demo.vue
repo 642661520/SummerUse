@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { ContextmenuItem } from '@summeruse/ol'
 import type { Feature } from 'ol'
-import { createPointFeature, createPolygonFeature, createVectorLayer, createOpenStreetMapLayer, OlMap } from '@summeruse/ol'
+import { createOpenStreetMapLayer, createPointFeature, createPolygonFeature, createVectorLayer, OlMap } from '@summeruse/ol'
 import { Map as OLMap } from 'ol'
 import { ref } from 'vue'
 import Contextmenu from './e-ol-contextmenu-demo.vue'

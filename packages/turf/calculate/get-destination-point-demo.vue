@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { createStyle, createVectorLayer, EPSG_4326, createOpenStreetMapLayer, OlMap } from '@summeruse/ol'
+import { createOpenStreetMapLayer, createStyle, createVectorLayer, EPSG_4326, OlMap } from '@summeruse/ol'
 import { getDestinationPoint } from '@summeruse/turf'
 import { NForm, NFormItem, NInputNumber } from 'naive-ui'
 import { Feature, Map as OLMap } from 'ol'

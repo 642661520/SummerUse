@@ -2,9 +2,9 @@
 import type { OlMapInst } from '@summeruse/ol'
 import type { Coordinate } from 'ol/coordinate'
 import {
+  createOpenStreetMapLayer,
   createStyle,
   createVectorLayer,
-  createOpenStreetMapLayer,
   OlMap,
   useDrawLineString,
   wgs84ToMercator,

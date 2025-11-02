@@ -1,14 +1,13 @@
+import type { StyleOptions } from '@/utils/style'
 import type { Feature } from 'ol'
 import type { Geometry } from 'ol/geom'
 import type { ProjectionLike } from 'ol/proj'
-import type { StyleOptions } from '@/utils/style'
+import { WebMercatorProjection, WGS84Projection } from '@/constants/projection'
+import { createStyle } from '@/utils/style'
 import { Tile as TileLayer } from 'ol/layer'
 import VectorLayer from 'ol/layer/Vector'
 import { BingMaps, OSM, XYZ } from 'ol/source'
 import VectorSource from 'ol/source/Vector'
-import { WebMercatorProjection, WGS84Projection } from '@/constants/projection'
-import { createStyle } from '@/utils/style'
-
 
 export type T_MAP_TYPE = 'vec' | 'cva' | 'img' | 'cia' | 'ter' | 'cta' | 'ibo'
 
