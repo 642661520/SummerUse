@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NProvider } from '@summeruse/ui'
+import { NProvider } from '@summeruse/naive-ui'
 import { darkTheme, lightTheme } from 'naive-ui'
 import { useData } from 'vitepress'
 import { computed } from 'vue'
