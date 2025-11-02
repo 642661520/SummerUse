@@ -1,5 +1,11 @@
 # @summeruse/naive-ui
 
+## 0.0.1-alpha.1
+
+### Patch Changes
+
+- f3509cf: feat(n-provider): 添加 NLoadingBarProvider 支持
+
 ## 0.0.1-alpha.0
 
 ### Patch Changes

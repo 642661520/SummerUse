@@ -11,6 +11,7 @@
     "@summeruse/naive-ui": "0.0.0"
   },
   "changesets": [
+    "big-dots-study",
     "cuddly-times-fold",
     "fine-hotels-look",
     "hip-readers-wink",
