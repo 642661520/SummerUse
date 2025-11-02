@@ -33,6 +33,7 @@
     "@summeruse/layer": "workspace:*",
     "@summeruse/naive-ui": "workspace:*",
     "@summeruse/ol": "workspace:*",
+    "@summeruse/turf": "workspace:*",
     "@summeruse/ui": "workspace:*",
     "@summeruse/utils": "workspace:*",
     "@vueuse/core": "catalog:",
