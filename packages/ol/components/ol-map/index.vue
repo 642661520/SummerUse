@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import type { OlMapProps } from './props'
+import type { MapEvent } from 'ol'
+import type { ObjectEvent } from 'ol/Object'
+import type { OlMapEmits, OlMapProps } from './props'
 import { Map as OLMap, View } from 'ol'
 import { Attribution, FullScreen, OverviewMap, Rotate, ScaleLine, Zoom } from 'ol/control'
 import { DoubleClickZoom, DragPan, DragRotate, KeyboardPan, KeyboardZoom, MouseWheelZoom, PinchRotate, PinchZoom } from 'ol/interaction'
-import { provide, ref, watch } from 'vue'
+import { onMounted, onUnmounted, provide, ref, watch } from 'vue'
 import { olMapInjectionKey } from './props'
 
 const props = withDefaults(defineProps<OlMapProps>(), {
@@ -23,6 +25,9 @@ const props = withDefaults(defineProps<OlMapProps>(), {
   mouseWheelZoom: true,
   constrainResolution: true,
 })
+
+const emits = defineEmits<OlMapEmits>()
+
 // #region init
 const mapRef = ref<HTMLDivElement>()
 const olMap = props.olMap as OLMap
@@ -33,17 +38,9 @@ const view = new View({
 
 olMap.setView(view)
 
-watch(() => props.zoom, (val) => {
-  view.setZoom(val)
-}, {
-  immediate: true,
-})
+view.setZoom(props.zoom)
 
-watch(() => props.center, (val) => {
-  view.setCenter(val)
-}, {
-  immediate: true,
-})
+view.setCenter(props.center)
 
 watch(() => props.constrainResolution, (val) => {
   view.setConstrainResolution(val)
@@ -52,13 +49,17 @@ watch(() => props.constrainResolution, (val) => {
 })
 
 watch(() => props.minZoom, (val) => {
-  val && view.setMinZoom(val)
+  if (val) {
+    view.setMinZoom(val)
+  }
 }, {
   immediate: true,
 })
 
 watch(() => props.maxZoom, (val) => {
-  val && view.setMaxZoom(val)
+  if (val) {
+    view.setMaxZoom(val)
+  }
 }, {
   immediate: true,
 })
@@ -178,6 +179,64 @@ watch(() => props.altShiftDragRotate, (val) => {
 }, {
   immediate: true,
 })
+// #endregion
+
+// #region event
+
+// #region change:resolution
+function changeResolution(e: ObjectEvent) {
+  emits('update:zoom', Math.floor(view.getZoom() || 0))
+  emits('changeResolution', e)
+}
+
+onMounted(() => {
+  view.on('change:resolution', changeResolution)
+})
+
+onUnmounted(() => {
+  view.un('change:resolution', changeResolution)
+})
+// #endregion
+
+// #region change:center
+function changeCenter(e: ObjectEvent) {
+  emits('update:center', view.getCenter() || [0, 0])
+  emits('changeCenter', e)
+}
+
+onMounted(() => {
+  view.on('change:center', changeCenter)
+})
+
+onUnmounted(() => {
+  view.un('change:center', changeCenter)
+})
+// #endregion
+
+// #region movestart, moveend
+function movestart(e: MapEvent) {
+  emits('movestart', e)
+}
+onMounted(() => {
+  olMap.on('movestart', movestart)
+})
+
+onUnmounted(() => {
+  olMap.un('movestart', movestart)
+})
+
+function moveend(e: MapEvent) {
+  emits('moveend', e)
+}
+onMounted(() => {
+  olMap.on('moveend', moveend)
+})
+
+onUnmounted(() => {
+  olMap.un('moveend', moveend)
+})
+// #endregion
+
 // #endregion
 </script>
 

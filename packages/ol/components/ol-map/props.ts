@@ -1,6 +1,7 @@
-import type { Map as OLMap } from 'ol'
+import type { MapEvent, Map as OLMap } from 'ol'
 import type { Coordinate } from 'ol/coordinate'
 import type { Extent } from 'ol/extent'
+import type { ObjectEvent } from 'ol/Object'
 import type { InjectionKey } from 'vue'
 import type { ProjectionLike } from '../../constants/projection'
 import { inject } from 'vue'
@@ -32,4 +33,13 @@ export const olMapInjectionKey = Symbol('olMapInjectionKey') as InjectionKey<OLM
 
 export function useOlMap() {
   return inject(olMapInjectionKey)
+}
+
+export interface OlMapEmits {
+  'update:zoom': [number]
+  'update:center': [Coordinate]
+  'changeResolution': [ObjectEvent]
+  'changeCenter': [ObjectEvent]
+  'moveend': [MapEvent]
+  'movestart': [MapEvent]
 }
