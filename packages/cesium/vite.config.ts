@@ -20,6 +20,11 @@ export default defineConfig({
       outDir: 'es',
     }),
   ],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./', import.meta.url)),
+    },
+  },
   build: {
     lib: {
       entry: resolve(__dirname, 'index.ts'),

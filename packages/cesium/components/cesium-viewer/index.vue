@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { CesiumViewerProps } from './props'
 
-import { createCesiumViewer } from '@summeruse/cesium'
+import { createCesiumViewer } from '@/composables/createCesiumViewer'
 import { provide, shallowRef } from 'vue'
 import { cesiumViewerInjectionKey } from './props'
 
