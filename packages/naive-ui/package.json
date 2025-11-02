@@ -38,7 +38,6 @@
     "@types/node": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "@vue/tsconfig": "catalog:",
-    "naive-ui": "catalog:",
     "sass-embedded": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
