@@ -1,5 +1,13 @@
 # @summeruse/ol
 
+## 0.2.0-alpha.1
+
+### Patch Changes
+
+- 9275a0b: refactor(utils): 移除计算和格式化工具模块
+- 66a195e: refactor(utils/layer): 移除 T_MAP_TYPE 的外部依赖并内联定义
+- c466dde: build(ol): 清理 package.json 中未使用的依赖项
+
 ## 0.2.0-alpha.0
 
 ### Minor Changes
