@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { createStyle, createVectorLayer, EPSG_4326, getOSMLayer, OlMap } from '@summeruse/ol'
+import { createStyle, createVectorLayer, EPSG_4326, createOpenStreetMapLayer, OlMap } from '@summeruse/ol'
 import { getDestinationPoint } from '@summeruse/turf'
 import { NForm, NFormItem, NInputNumber } from 'naive-ui'
 import { Feature, Map as OLMap } from 'ol'
@@ -7,7 +7,7 @@ import { Point } from 'ol/geom'
 import { computed, ref, watchEffect } from 'vue'
 
 const olMap = new OLMap()
-const osmLayer = getOSMLayer()
+const osmLayer = createOpenStreetMapLayer()
 olMap.addLayer(osmLayer)
 
 const { source, layer } = createVectorLayer({

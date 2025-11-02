@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { getOSMLayer, OlMap, wgs84ToMercator } from '@summeruse/ol'
+import { createOpenStreetMapLayer, OlMap, wgs84ToMercator } from '@summeruse/ol'
 import { getRealCircleCoordinates } from '@summeruse/turf'
 import { Feature, Map as OLMap } from 'ol'
 import { Polygon } from 'ol/geom'
@@ -26,7 +26,7 @@ const layer = new VectorLayer({
   source,
   zIndex: 2,
 })
-olMap.addLayer(getOSMLayer())
+olMap.addLayer(createOpenStreetMapLayer())
 olMap.addLayer(layer)
 </script>
 
