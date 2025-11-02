@@ -6,9 +6,11 @@ SummerUse 是一个基于 pnpm workspace 管理的 monorepo，包含了多个子
 
 - [`@summeruse/cesium`](/cesium/)：用于 Cesium 的工具库。
 
-- [`@summeruse/ui`](/ui/)： 组件库。
+- [`@summeruse/naive-ui`](/naive-ui/)： 基于 NaiveUI 的组件库。
 
-- [`@summeruse/common`](/common/)：公共库,提供基础函数/组件等给上述库使用。
+- [`@summeruse/layer`](/layer/)：弹窗层组件库。
+
+- [`@summeruse/turf`](/turf/)： 用于 turf 的工具库。
 
 ## 安装
 

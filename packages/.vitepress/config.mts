@@ -13,8 +13,9 @@ const nav_sidebar_config = {
     guide: 0,
     ol: 1,
     cesium: 2,
-    ui: 3,
-    common: 4,
+    'naive-ui': 3,
+    layer: 4,
+    turf: 5,
     // 二级
     components: 10,
     composables: 11,
