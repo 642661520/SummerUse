@@ -24,11 +24,13 @@ import { NProvider } from '@summeruse/ui'
 [`navie-ui`](https://www.naiveui.com/)
 :::
 
-## 使用示例
-
 <script setup>
 import Demo from './demo.vue'
+import InjectWindowDemo from './inject-window-demo.vue'
 </script>
+
+## 使用示例
+
 <ClientOnly>
 <Demo />
 </ClientOnly>
@@ -37,6 +39,20 @@ import Demo from './demo.vue'
 ::: code-group
 <<< @/.vitepress/theme/components/NProviderWrapper.vue
 <<< ./demo.vue
+:::
+
+### 注入到window
+
+我们将 `naive-ui` 组件的 `message`、`dialog`、`modal`、`notification`、`loadingBar` 等组件注入到 `window` 对象上，方便在全局范围内使用。
+
+<ClientOnly>
+<InjectWindowDemo />
+</ClientOnly>
+
+::: details 点我查看代码
+<<<./inject-window-demo.vue
+<<<./inject-content-demo.vue
+<<<./global.d.ts
 :::
 
 ## 组件代码

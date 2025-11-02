@@ -1,48 +1,32 @@
 <script setup lang="ts">
-import { NButton, NSpace, useDialog, useLoadingBar, useMessage, useModal, useNotification } from 'naive-ui'
-
-const dialog = useDialog()!
-
-const message = useMessage()!
-
-const modal = useModal()!
-
-const notification = useNotification()!
-
-const loadingBar = useLoadingBar()!
+import { NButton, NSpace } from 'naive-ui'
 
 function openDialog() {
-  dialog.info({
+  window.$dialog.info({
     title: 'dialog',
+    content: 'dialog content',
   })
 }
-
 function openMessage() {
-  message.info('Message')
+  window.$message.info('message content')
 }
-
 function openModal() {
-  modal.create({
+  window.$modal.create({
     title: 'modal',
     preset: 'card',
     content: 'modal content',
-    style: {
-      width: '300px',
-    },
   })
 }
-
 function openNotification() {
-  notification.info({
-    title: 'notification',
+  window.$notification.info({
+    content: 'notification content',
   })
 }
-
 function openLoadingBar() {
-  loadingBar.start()
+  window.$loadingBar.start()
   setTimeout(() => {
-    loadingBar.finish()
-  }, 2000)
+    window.$loadingBar.finish()
+  }, 1000)
 }
 </script>
 
