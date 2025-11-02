@@ -4,14 +4,13 @@ import type { VNode } from 'vue'
 import type { OLMap } from '../../types'
 import type { StyleOptions } from '../../utils'
 import { Feature, Overlay } from 'ol'
+import { getCenter } from 'ol/extent'
 import { Polygon } from 'ol/geom'
 import { Draw, Modify } from 'ol/interaction'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import { computed, onMounted, onUnmounted, ref, render } from 'vue'
 import { createStyle } from '../../utils'
-import { getExtentCenter } from '../../utils/calculate'
-import { mercatorExtentToWgs84, wgs84ToMercator } from '../../utils/projection'
 import { createToolTipElement } from '../common'
 
 export interface DrawPolygonOptions {
@@ -92,7 +91,7 @@ export function useDrawPolygon(olMap: OLMap, options: DrawPolygonOptions) {
     clearOverlay()
     source.getFeatures().forEach((feature) => {
       const geometry = feature.getGeometry() as Polygon
-      const center = getExtentCenter(mercatorExtentToWgs84(geometry.getExtent()))
+      const center = getCenter(geometry.getExtent())
       let element = document.createElement('div')
       if (options.deleteFeatureLabel) {
         render(options.deleteFeatureLabel, element)
@@ -104,7 +103,7 @@ export function useDrawPolygon(olMap: OLMap, options: DrawPolygonOptions) {
         source.removeFeature(feature)
       })
       const overlay = new Overlay({
-        position: wgs84ToMercator(center),
+        position: center,
         positioning: 'center-center',
         element,
       })
