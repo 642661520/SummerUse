@@ -22,16 +22,16 @@ type Cursor = CSSProperties['cursor']
 
 export type PointermoveItem<T extends Option = Option> = {
   /** 提示内容，支持函数动态生成 */
-  content: ((params: PointermoveContentParams) => VNodeChild) | string
+  content?: ((params: PointermoveContentParams) => VNodeChild) | string
   /** 是否显示提示，可根据 feature 动态判断 */
-  visible?: ((params: PointermoveContentParams) => boolean) | boolean
+  visible?: ((params: PointermoveContentParams) => boolean | undefined | void) | boolean
   /** 位置偏移 */
   offset?: { x?: number, y?: number }
   /** 优先级，数字越大优先级越高，当多个 tooltip 匹配时，显示优先级最高的 */
   priority?: number
   /** 鼠标样式，如 'pointer', 'crosshair', 'move' 等 */
   cursor?: Cursor | ((params: PointermoveContentParams) => Cursor)
-  /** 固定在feature center  */
+  /** 固定在feature center 默认启用，若要关闭需要同时开启强制更新 */
   fixedFeatureCenter?: boolean
 } & T
 
@@ -41,9 +41,19 @@ export interface Option {
   [key: string]: any
 }
 
+export interface UsePointermoveOptions<T extends Option = Option> {
+  /** 地图实例 */
+  mapRef: MaybeRefOrGetter<OLMap | undefined>
+  /** 提示配置列表 */
+  items: MaybeRefOrGetter<PointermoveList<T>>
+  /** 前置判断条件 */
+  enabled?: boolean | (() => boolean | undefined | void)
+  /** 强制更新 （开启后，无论 feature 是否变化，都强制更新提示） */
+  forceUpdate?: boolean
+}
+
 export function usePointermove<T extends Option>(
-  mapRef: MaybeRefOrGetter<OLMap | undefined>,
-  items: MaybeRefOrGetter<PointermoveList<T>>,
+  { mapRef, items, enabled = true, forceUpdate = false }: UsePointermoveOptions<T>,
 ) {
   const visible = ref(false)
   // 原始位置
@@ -58,33 +68,39 @@ export function usePointermove<T extends Option>(
     y: originalPosition.value.y + offset.value.y,
   }))
 
+  const getEnabled = () => {
+    if (typeof enabled === 'function') {
+      return enabled()
+    }
+    return enabled
+  }
+
   let currentMap: OLMap | undefined
+  let viewport: HTMLElement | undefined
   let originalCursor: string = ''
 
   /** 查找匹配的 tooltip 配置 */
-  function findMatchingPointermove(params: PointermoveContentParams): PointermoveItem<T> | null {
+  function findMatchingPointermove(params: PointermoveContentParams): PointermoveItem<T> | undefined {
     const tooltips = toValue(items)
-
-    // 过滤出可见的 tooltip
-    const options = tooltips.filter((item) => {
+    // 先排序，优先级高的在前面
+    tooltips.sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0))
+    // 拿到第一个匹配的
+    return tooltips.find((item) => {
       const shouldShow = item.visible
       if (typeof shouldShow === 'function') {
         return shouldShow(params)
       }
       return shouldShow ?? true
     })
-
-    if (options.length === 0) {
-      return null
-    }
-
-    // 按优先级排序，返回优先级最高的
-    return options.sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0))[0]
   }
 
   /** 显示提示 */
   function show(evt: MouseEvent) {
-    if (!currentMap)
+    if (!getEnabled()) {
+      hide()
+      return
+    }
+    if (!currentMap || !viewport)
       return
 
     const _coordinate = currentMap.getEventCoordinate(evt)
@@ -106,6 +122,10 @@ export function usePointermove<T extends Option>(
       return
     }
 
+    if (!forceUpdate && feature.value && feature.value.getId() === foundFeature.getId()) {
+      return
+    }
+
     feature.value = foundFeature
 
     const params = {
@@ -119,7 +139,7 @@ export function usePointermove<T extends Option>(
     // 查找匹配的 tooltip 配置
     const matchedPointermove = findMatchingPointermove(params)
     if (matchedPointermove) {
-      const { content, cursor, visible, fixedFeatureCenter, offset, priority, ...rest } = matchedPointermove
+      const { content: _content, cursor: _cursor, visible: _visible, fixedFeatureCenter: _fixedFeatureCenter, offset: _offset, priority: _priority, ...rest } = matchedPointermove
       option.value = { ...rest } as unknown as T
     }
     if (!matchedPointermove) {
@@ -131,13 +151,13 @@ export function usePointermove<T extends Option>(
     const offsetX = matchedPointermove.offset?.x ?? 0
     const offsetY = matchedPointermove.offset?.y ?? 0
     offset.value = { x: offsetX, y: offsetY }
-    const fixedFeatureCenter = matchedPointermove.fixedFeatureCenter ?? true
+    const fixedFeatureCenter = forceUpdate === false ? true : (matchedPointermove.fixedFeatureCenter ?? true)
     const geometry = foundFeature.getGeometry()
     if (fixedFeatureCenter && geometry) {
       const extent = geometry.getExtent()
       const center = getCenter(extent)
       const pixel = currentMap.getPixelFromCoordinate(center)
-      const { top, left } = currentMap.getViewport().getBoundingClientRect()
+      const { top, left } = viewport.getBoundingClientRect()
       originalPosition.value.x = pixel[0] + left
       originalPosition.value.y = pixel[1] + top
     }
@@ -156,11 +176,7 @@ export function usePointermove<T extends Option>(
       ? cursor(params)
       : cursor
 
-    if (cursorStyle && currentMap) {
-      const viewport = currentMap.getViewport()
-      if (!originalCursor) {
-        originalCursor = viewport.style.cursor
-      }
+    if (cursorStyle !== undefined && cursorStyle !== viewport.style.cursor) {
       viewport.style.cursor = cursorStyle
     }
     visible.value = true
@@ -171,31 +187,19 @@ export function usePointermove<T extends Option>(
     visible.value = false
     feature.value = undefined
     // 恢复原始鼠标样式
-    if (currentMap && originalCursor !== undefined) {
-      const viewport = currentMap.getViewport()
+    if (viewport && viewport.style.cursor !== originalCursor) {
       viewport.style.cursor = originalCursor
-      originalCursor = ''
     }
   }
 
   /** 绑定事件 */
-  function bindMapEvents(map?: OLMap) {
-    if (!map)
-      return
-
-    const el = map.getViewport()
-    el.addEventListener('pointermove', show)
-    el.addEventListener('pointerout', hide)
+  function bindMapEvents(viewport: HTMLElement) {
+    viewport.addEventListener('pointermove', show)
   }
 
   /** 解绑事件 */
-  function unbindMapEvents(map?: OLMap) {
-    if (!map)
-      return
-
-    const el = map.getViewport()
-    el.removeEventListener('pointermove', show)
-    el.removeEventListener('pointerout', hide)
+  function unbindMapEvents(viewport: HTMLElement) {
+    viewport.removeEventListener('pointermove', show)
   }
 
   /** 监听 mapRef 变化 */
@@ -203,16 +207,22 @@ export function usePointermove<T extends Option>(
     () => toValue(mapRef),
     (newMap, oldMap) => {
       if (oldMap !== newMap) {
-        unbindMapEvents(oldMap)
-        bindMapEvents(newMap)
         currentMap = newMap
+        if (newMap) {
+          viewport = newMap.getViewport()
+          unbindMapEvents(viewport)
+          bindMapEvents(viewport)
+          originalCursor = viewport.style.cursor
+        }
       }
     },
     { immediate: true },
   )
 
   onBeforeUnmount(() => {
-    unbindMapEvents(currentMap)
+    if (viewport) {
+      unbindMapEvents(viewport)
+    }
   })
 
   return {
