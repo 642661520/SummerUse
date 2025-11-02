@@ -1,4 +1,3 @@
-import type { T_MAP_TYPE } from '@summeruse/common'
 import type { Feature } from 'ol'
 import type { Geometry } from 'ol/geom'
 import type { ProjectionLike } from 'ol/proj'
@@ -9,6 +8,8 @@ import { BingMaps, OSM, XYZ } from 'ol/source'
 import VectorSource from 'ol/source/Vector'
 import { WebMercatorProjection, WGS84Projection } from '../../constants/projection'
 import { createStyle } from '../style'
+
+export type T_MAP_TYPE = 'vec' | 'cva' | 'img' | 'cia' | 'ter' | 'cta' | 'ibo'
 
 export function getTianDiTuUrl(data: {
   url?: string
