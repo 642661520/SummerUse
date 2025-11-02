@@ -7,6 +7,6 @@ export default antfu({
   ignores: ['dist', 'node_modules', '**/*.d.ts', '**/*.setup.ts'],
   rules: {
     // ts-nocheck 忽略类型检查
-    '@typescript-eslint/no-console': 'warn',
+    '@typescript-eslint/ban-ts-comment': 'off',
   },
 })
