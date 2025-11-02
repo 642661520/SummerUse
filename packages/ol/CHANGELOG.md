@@ -1,5 +1,12 @@
 # @summeruse/ol
 
+## 0.2.0-alpha.3
+
+### Patch Changes
+
+- 93d2746: refactor(usePointermove): 重构指针移动逻辑并添加新配置选项
+- 03fc086: feat(ol-map): 添加地图事件监听和 emit 功能
+
 ## 0.2.0-alpha.2
 
 ### Patch Changes
