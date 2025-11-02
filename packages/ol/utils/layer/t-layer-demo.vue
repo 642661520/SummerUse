@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { EPSG_3857, EPSG_4326, getTianDiTuLayer, OlMap } from '@summeruse/ol'
+import { EPSG_3857, EPSG_4326, createTianDiTuLayer, OlMap } from '@summeruse/ol'
 import { Map as OLMap } from 'ol'
 
 const olMap = new OLMap()
-const layer = getTianDiTuLayer({
+const layer = createTianDiTuLayer({
   type: 'img',
   key: '8a684acb7b9d38ba08adf8035d0262ee',
   projection: EPSG_3857,
 })
-const label = getTianDiTuLayer({
+const label = createTianDiTuLayer({
   type: 'cia',
   key: '8a684acb7b9d38ba08adf8035d0262ee',
   projection: EPSG_3857,

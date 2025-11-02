@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { getOSMLayer, OlMap, useGraticule } from '@summeruse/ol'
+import { createOpenStreetMapLayer, OlMap, useGraticule } from '@summeruse/ol'
 import { NButton } from 'naive-ui'
 import { Map as OLMap } from 'ol'
 
 const olMap = new OLMap()
-const layer = getOSMLayer()
+const layer = createOpenStreetMapLayer()
 olMap.addLayer(layer)
 const { showGraticule } = useGraticule({
   olMap,

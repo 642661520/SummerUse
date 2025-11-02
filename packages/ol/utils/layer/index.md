@@ -21,7 +21,7 @@ import OSMLayerDemo from './osm-layer-demo.vue';
 
 ## 添加 OpenStreetMap 地图
 
-`getOSMLayer`
+`createOpenStreetMapLayer`
 <ClientOnly>
 <OSMLayerDemo />
 </ClientOnly>
@@ -32,7 +32,7 @@ import OSMLayerDemo from './osm-layer-demo.vue';
 
 ## 添加天地图
 
-`getTianDiTuLayer`
+`createTianDiTuLayer`
 
 <ClientOnly>
 <TLayerDemo />
@@ -44,7 +44,7 @@ import OSMLayerDemo from './osm-layer-demo.vue';
 
 ## 添加 Bing 地图
 
-`getBingLayer`
+`createBingLayer`
 
 <ClientOnly>
 <BingLayerDemo />

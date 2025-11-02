@@ -2,7 +2,7 @@
 import {
   createPointFeature,
   createVectorLayer,
-  getOSMLayer,
+  createOpenStreetMapLayer,
   OlMap,
 } from '@summeruse/ol'
 import { NCard, NPopover } from 'naive-ui'
@@ -11,7 +11,7 @@ import { h } from 'vue'
 import { usePointermove } from '.'
 
 const olMap = new OLMap()
-olMap.addLayer(getOSMLayer())
+olMap.addLayer(createOpenStreetMapLayer())
 
 const feature = createPointFeature([116.3912, 39.9072], {
   id: 'feature1',

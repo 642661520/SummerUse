@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { EPSG_4326, getOSMLayer, OlMap } from '@summeruse/ol'
+import { EPSG_4326, createOpenStreetMapLayer, OlMap } from '@summeruse/ol'
 import { Map as OLMap } from 'ol'
 
 const olMap = new OLMap()
-const osmLayer = getOSMLayer()
+const osmLayer = createOpenStreetMapLayer()
 olMap.addLayer(osmLayer)
 </script>
 

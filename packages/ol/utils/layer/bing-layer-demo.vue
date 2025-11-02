@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { EPSG_4326, getBingLayer, OlMap } from '@summeruse/ol'
+import { EPSG_4326, createBingLayer, OlMap } from '@summeruse/ol'
 import { Map as OLMap } from 'ol'
 
 const olMap = new OLMap()
-const bingLayer = getBingLayer({
+const bingLayer = createBingLayer({
   key: 'AtmBUmOPFg6c61ynLhIbjvrKfuXkMw1lCMTlLh9ALY47Llyetb6lgyRMitoPxKZo',
   name: 'RoadOnDemand',
 })

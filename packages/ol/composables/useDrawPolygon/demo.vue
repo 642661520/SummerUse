@@ -4,7 +4,7 @@ import type { Coordinate } from 'ol/coordinate'
 import {
   createStyle,
   createVectorLayer,
-  getOSMLayer,
+  createOpenStreetMapLayer,
   OlMap,
   useDrawPolygon,
   wgs84ToMercator,
@@ -16,7 +16,7 @@ import { h, onMounted, ref, watch } from 'vue'
 
 const olMapInst = ref<OlMapInst>()
 const olMap = new OLMap()
-olMap.addLayer(getOSMLayer())
+olMap.addLayer(createOpenStreetMapLayer())
 
 const message = useMessage()
 

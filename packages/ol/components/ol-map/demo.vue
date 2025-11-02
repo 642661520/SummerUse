@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { OlMapProps } from '@summeruse/ol'
 import {
-  getOSMLayer,
+  createOpenStreetMapLayer,
   OlMap,
   wgs84ToMercator,
   // OlMapInst
@@ -11,7 +11,7 @@ import { Map as OLMap } from 'ol'
 import { ref } from 'vue'
 
 const olMap = new OLMap()
-olMap.addLayer(getOSMLayer())
+olMap.addLayer(createOpenStreetMapLayer())
 const mapOptions = ref<OlMapProps>(
   {
     center: wgs84ToMercator([116.404, 39.915]),

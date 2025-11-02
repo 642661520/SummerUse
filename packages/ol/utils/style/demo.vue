@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { createVectorLayer, EPSG_4326, getOSMLayer, OlMap } from '@summeruse/ol'
+import { createVectorLayer, EPSG_4326, createOpenStreetMapLayer, OlMap } from '@summeruse/ol'
 import { Feature, Map as OLMap } from 'ol'
 import { LineString, Point, Polygon } from 'ol/geom'
 import { createStyle } from '.'
 
 const olMap = new OLMap()
-const osmLayer = getOSMLayer()
+const osmLayer = createOpenStreetMapLayer()
 olMap.addLayer(osmLayer)
 const { source, layer } = createVectorLayer({
   style: createStyle({

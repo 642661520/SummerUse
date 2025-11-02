@@ -1,23 +1,23 @@
 <script lang="ts" setup>
-import { EPSG_3857, getBingLayer, getOSMLayer, getTianDiTuLayer, OlMap, useSwitchBaseLayer } from '@summeruse/ol'
+import { EPSG_3857, createBingLayer, createOpenStreetMapLayer, createTianDiTuLayer, OlMap, useSwitchBaseLayer } from '@summeruse/ol'
 import { NSelect } from 'naive-ui'
 import { Map as OLMap } from 'ol'
 
 const olMap = new OLMap()
 
 const layers = {
-  osm: [getOSMLayer()],
-  bing: [getBingLayer({
+  osm: [createOpenStreetMapLayer()],
+  bing: [createBingLayer({
     key: 'AtmBUmOPFg6c61ynLhIbjvrKfuXkMw1lCMTlLh9ALY47Llyetb6lgyRMitoPxKZo',
     name: 'RoadOnDemand',
   })],
   天地图卫星图: [
-    getTianDiTuLayer({
+    createTianDiTuLayer({
       type: 'img',
       key: '8a684acb7b9d38ba08adf8035d0262ee',
       projection: EPSG_3857,
     }),
-    getTianDiTuLayer({
+    createTianDiTuLayer({
       type: 'cia',
       key: '8a684acb7b9d38ba08adf8035d0262ee',
       projection: EPSG_3857,
