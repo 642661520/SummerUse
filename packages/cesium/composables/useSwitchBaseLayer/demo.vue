@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { createCesiumViewer, getTianDiTuLayer, useSwitchBaseLayer } from '@summeruse/cesium'
+import { createCesiumViewer, createTianDiTuLayer, useSwitchBaseLayer } from '@summeruse/cesium'
 import { NSelect } from 'naive-ui'
 import { shallowRef } from 'vue'
 
@@ -9,24 +9,24 @@ const { viewer } = createCesiumViewer(container)
 const key = '8a684acb7b9d38ba08adf8035d0262ee'
 
 const layers = {
-  影像: [getTianDiTuLayer({
+  影像: [createTianDiTuLayer({
     type: 'img',
     key,
-  }), getTianDiTuLayer({
+  }), createTianDiTuLayer({
     type: 'cia',
     key,
   })],
-  矢量: [getTianDiTuLayer({
+  矢量: [createTianDiTuLayer({
     type: 'vec',
     key,
-  }), getTianDiTuLayer({
+  }), createTianDiTuLayer({
     type: 'cta',
     key,
   })],
-  地形: [getTianDiTuLayer({
+  地形: [createTianDiTuLayer({
     type: 'ter',
     key,
-  }), getTianDiTuLayer({
+  }), createTianDiTuLayer({
     type: 'cva',
     key,
   })],

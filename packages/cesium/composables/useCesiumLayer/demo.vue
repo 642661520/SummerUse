@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { createCesiumViewer, getOSMLayer, useCesiumLayer } from '@summeruse/cesium'
+import { createCesiumViewer, createOpenStreetMapLayer, useCesiumLayer } from '@summeruse/cesium'
 import { Cartesian3, Color } from 'cesium'
 import { shallowRef } from 'vue'
 
 const container = shallowRef<HTMLDivElement>()
 const { viewer } = createCesiumViewer(container)
-viewer.imageryLayers.add(getOSMLayer())
+viewer.imageryLayers.add(createOpenStreetMapLayer())
 
 const { layer } = useCesiumLayer({
   name: 'custom',

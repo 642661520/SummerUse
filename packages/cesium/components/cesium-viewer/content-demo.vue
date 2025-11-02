@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Viewer } from 'cesium'
-import { getTianDiTuLayer, useCesiumViewer } from '@summeruse/cesium'
+import { createTianDiTuLayer, useCesiumViewer } from '@summeruse/cesium'
 import { Cartesian3 } from 'cesium'
 
 const props = defineProps<{
@@ -19,7 +19,7 @@ viewer.camera.flyTo({
 
 const viewer2 = useCesiumViewer()! // useCesiumViewer 获取 viewer
 
-const layer = getTianDiTuLayer({
+const layer = createTianDiTuLayer({
   type: 'img',
   key: '8a684acb7b9d38ba08adf8035d0262ee',
 })

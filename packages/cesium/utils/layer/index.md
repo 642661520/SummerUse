@@ -7,7 +7,7 @@ import OsmLayerDemo from './osm-layer-demo.vue';
 
 ## 添加天地图
 
-`getTianDiTuLayer`
+`createTianDiTuLayer`
 
 <ClientOnly>
 <TLayerDemo />

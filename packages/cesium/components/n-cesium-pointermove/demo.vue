@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { CreateOptions } from '@summeruse/cesium'
 import type { Property } from 'cesium'
-import { getOSMLayer, NCesiumPointermove, useCesiumViewer } from '@summeruse/cesium'
+import { createOpenStreetMapLayer, NCesiumPointermove, useCesiumViewer } from '@summeruse/cesium'
 
 import {
   Cartesian3,
@@ -12,7 +12,7 @@ import {
 
 const viewer = useCesiumViewer()!
 
-const layer = getOSMLayer()
+const layer = createOpenStreetMapLayer()
 viewer.imageryLayers.add(layer)
 
 const entity = new Entity({

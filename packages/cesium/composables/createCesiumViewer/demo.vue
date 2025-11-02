@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { createCesiumViewer, getOSMLayer } from '@summeruse/cesium'
+import { createCesiumViewer, createOpenStreetMapLayer } from '@summeruse/cesium'
 import { shallowRef } from 'vue'
 
 const container = shallowRef<HTMLDivElement>()
 const { viewer } = createCesiumViewer(container)
-const layer = getOSMLayer()
+const layer = createOpenStreetMapLayer()
 viewer.imageryLayers.add(layer)
 </script>
 
