@@ -1,5 +1,12 @@
 # @summeruse/ol
 
+## 0.1.7
+
+### Patch Changes
+
+- 7010fbf: refactor(cesium): 配置路径别名并更新相关导入路径
+- 474a484: refactor(cesium/utils): 重命名图层创建函数以更清晰表达意图
+
 ## 0.1.7-alpha.1
 
 ### Patch Changes

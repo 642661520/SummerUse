@@ -1,5 +1,24 @@
 # @summeruse/ol
 
+## 0.2.0
+
+### Minor Changes
+
+- c2ad696: 将 n-ol-pointermove 组件重构为 usePointermove 组合式函数
+- 6fbc681: 重构右键菜单功能为组合式 API
+- f605ee4: 移除对 naive-ui 的依赖并调整相关配置
+
+### Patch Changes
+
+- fd8d77c: 修复 createFeature 中样式不生效
+- 9275a0b: refactor(utils): 移除计算和格式化工具模块
+- 66a195e: refactor(utils/layer): 移除 T_MAP_TYPE 的外部依赖并内联定义
+- 93d2746: refactor(usePointermove): 重构指针移动逻辑并添加新配置选项
+- 3317ecf: feat(utils): 添加角度和旋转格式化函数
+- c466dde: build(ol): 清理 package.json 中未使用的依赖项
+- 03fc086: feat(ol-map): 添加地图事件监听和 emit 功能
+- ba32d77: refactor(utils/layer): 重构地图图层工具函数，优化类型定义和参数结构
+
 ## 0.2.0-alpha.3
 
 ### Patch Changes
