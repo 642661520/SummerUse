@@ -65,6 +65,9 @@ export default defineConfig({
     ssr: {
       noExternal: ['naive-ui', 'vueuc', 'date-fns'],
     },
+    server: {
+      port: 8080,
+    },
   },
   themeConfig: {
     logo: '/summeruse_logo_256.png',
