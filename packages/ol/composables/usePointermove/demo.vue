@@ -7,7 +7,7 @@ import {
 } from '@summeruse/ol'
 import { NCard, NPopover } from 'naive-ui'
 import { Map as OLMap } from 'ol'
-import { h } from 'vue'
+import { h, ref } from 'vue'
 import { usePointermove } from '.'
 
 const olMap = new OLMap()
@@ -54,40 +54,54 @@ source.addFeature(feature)
 source.addFeature(feature2)
 
 olMap.addLayer(layer)
-const { visible, position, content, option } = usePointermove<{ raw?: boolean, showArrow?: boolean }>(olMap, [{
-  raw: true,
-  showArrow: false,
-  offset: {
-    x: 0,
-    y: -20,
-  },
-  content: ({ feature }) => {
-    const { name, src } = feature.get('data') || {}
-    return h(NCard, {
-      title: name,
-      content() {
-        return h('img', {
-          src,
-          style: {
-            width: '300px',
-            height: '200px',
+
+const enabled = ref(true)
+
+const { visible, position, content, option } = usePointermove<{ raw?: boolean, showArrow?: boolean }>(
+  {
+    mapRef: olMap,
+    items: [{
+      raw: true,
+      showArrow: false,
+      offset: {
+        x: 0,
+        y: -20,
+      },
+      content: ({ feature }) => {
+        // console.log(feature)
+        const { name, src } = feature.get('data') || {}
+        return h(NCard, {
+          title: name,
+          content() {
+            return h('img', {
+              src,
+              style: {
+                width: '300px',
+                height: '200px',
+              },
+            })
           },
         })
       },
-    })
+      priority: 99,
+      cursor: 'pointer',
+      visible: ({ feature }) => feature.get('id') === 'feature1',
+    }, {
+      content: ({ feature }) => feature.get('id'),
+      cursor: 'progress',
+      visible: ({ feature }) => feature.get('id') !== undefined,
+    }],
+    enabled: () => enabled.value,
   },
-  priority: 99,
-  cursor: 'pointer',
-  visible: ({ feature }) => feature.get('id') === 'feature1',
-}, {
-  content: ({ feature }) => feature.get('id'),
-  cursor: 'progress',
-  visible: ({ feature }) => feature.get('id') !== undefined,
-}])
+)
 </script>
 
 <template>
-  <OlMap class="w-100% h-400px" :center="[116.3912, 39.9072]" :zoom="14" projection="EPSG:4326" :ol-map />
+  <OlMap
+    class="w-100% h-400px" :center="[116.3912, 39.9072]" :zoom="14" projection="EPSG:4326" :ol-map
+    @movestart="enabled = false"
+    @moveend="enabled = true"
+  />
   <NPopover
     v-bind="option" :arrow-style="{ pointerEvents: 'none' }" style="pointer-events: none;" trigger="manual"
     :show="visible" :x="position.x" :y="position.y"
