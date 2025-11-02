@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { GlobalThemeOverrides, NDateLocale, NLocale } from 'naive-ui'
 import type { BuiltInGlobalTheme } from 'naive-ui/es/themes/interface'
-import { NConfigProvider, NDialogProvider, NGlobalStyle, NMessageProvider, NModalProvider, NNotificationProvider } from 'naive-ui'
+import { NConfigProvider, NDialogProvider, NGlobalStyle, NLoadingBarProvider, NMessageProvider, NModalProvider, NNotificationProvider } from 'naive-ui'
 
 withDefaults(
   defineProps<{
@@ -21,13 +21,15 @@ withDefaults(
   <NConfigProvider :locale :date-locale :theme :theme-overrides>
     <NGlobalStyle v-if="globalStyle" />
     <NModalProvider>
-      <NNotificationProvider>
-        <NMessageProvider>
-          <NDialogProvider>
-            <slot />
-          </NDialogProvider>
-        </NMessageProvider>
-      </NNotificationProvider>
+      <NLoadingBarProvider>
+        <NNotificationProvider>
+          <NMessageProvider>
+            <NDialogProvider>
+              <slot />
+            </NDialogProvider>
+          </NMessageProvider>
+        </NNotificationProvider>
+      </NLoadingBarProvider>
     </NModalProvider>
   </NConfigProvider>
 </template>
