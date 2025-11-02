@@ -12,7 +12,7 @@ export interface GetTianDiTuLayerOptions {
   imageryLayerOptions?: _ImageryLayerOptions
 }
 
-export function getTianDiTuLayer(data: GetTianDiTuLayerOptions) {
+export function createTianDiTuLayer(data: GetTianDiTuLayerOptions) {
   const { key, type } = data
   const url = `https://t0.tianditu.gov.cn/${type}_w/wmts?tk=${key}`
   return new ImageryLayer(new WebMapTileServiceImageryProvider({
@@ -25,7 +25,7 @@ export function getTianDiTuLayer(data: GetTianDiTuLayerOptions) {
   }), data.imageryLayerOptions)
 }
 
-export function getOSMLayer() {
+export function createOpenStreetMapLayer() {
   return new ImageryLayer(
     new OpenStreetMapImageryProvider({
       url: 'https://a.tile.openstreetmap.org/',
