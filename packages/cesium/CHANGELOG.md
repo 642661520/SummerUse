@@ -1,5 +1,11 @@
 # @summeruse/ol
 
+## 0.1.7-alpha.0
+
+### Patch Changes
+
+- 7010fbf: refactor(cesium): 配置路径别名并更新相关导入路径
+
 ## 0.1.6
 
 ### Patch Changes

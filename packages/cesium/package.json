@@ -1,7 +1,7 @@
 {
   "name": "@summeruse/cesium",
   "type": "module",
-  "version": "0.1.6",
+  "version": "0.1.7-alpha.0",
   "packageManager": "pnpm@10.7.0",
   "description": "",
   "author": "finalsummer",
