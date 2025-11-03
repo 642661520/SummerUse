@@ -1,20 +1,22 @@
-import type { LayerProps, UseLayerOptions } from '@/components/layer/props'
+import type { CreateLayerOptions, LayerProps } from '@/components/layer/props'
 import type { InjectionKey } from 'vue'
 import { inject } from 'vue'
 
-export type _LayerOptions = LayerProps & {
+export interface LayerReactive {
   readonly key: string
   readonly destroy: () => void
+  readonly hide: () => void
+  readonly open: () => void
 }
 
-export type LayerReactive = {
-  readonly key: string
-  readonly destroy: () => void
-} & _LayerOptions
+export type _LayerOptions = LayerProps & LayerReactive & {
+  isDestroyed: boolean
+}
 
 export interface LayerApi {
   destroyAll: () => void
   create: (options: CreateLayerOptions) => LayerReactive
+  hideAll: () => void
 }
 
 export const layerProviderInjectionKey = Symbol('layerProviderInjectionKey') as InjectionKey<LayerApi>

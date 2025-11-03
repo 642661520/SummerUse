@@ -19,8 +19,13 @@ function hide() {
   show.value = false
 }
 
+function open() {
+  show.value = true
+}
+
 defineExpose({
   hide,
+  open,
 })
 
 watch(

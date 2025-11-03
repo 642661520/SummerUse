@@ -44,6 +44,7 @@ function createId() {
 
 interface LayerInst {
   hide: () => void
+  open: () => void
 }
 
 export const LayerProvider = defineComponent({
@@ -62,8 +63,18 @@ export const LayerProvider = defineComponent({
     const layerInstRefs: Record<string, LayerInst | undefined> = {}
 
     function destroyAll(): void {
-      Object.values(layerInstRefs).forEach((layerInstRef) => {
-        layerInstRef?.hide()
+      Object.keys(layerInstRefs).forEach((key) => {
+        const layer = layerList.value.find(item => item.key === key)
+        if (layer) {
+          layer.isDestroyed = true
+        }
+        layerInstRefs[key]?.hide()
+      })
+    }
+
+    function hideAll(): void {
+      Object.keys(layerInstRefs).forEach((key) => {
+        layerInstRefs[key]?.hide()
       })
     }
 
@@ -72,8 +83,17 @@ export const LayerProvider = defineComponent({
       const layerRef = ref({
         ...options,
         key,
+        isDestroyed: false,
         destroy: () => {
+          // 销毁标识
+          layerRef.value.isDestroyed = true
           layerInstRefs[key]?.hide()
+        },
+        hide: () => {
+          layerInstRefs[key]?.hide()
+        },
+        open: () => {
+          layerInstRefs[key]?.open()
         },
       })
       layerList.value.push(layerRef.value)
@@ -83,6 +103,7 @@ export const LayerProvider = defineComponent({
     provide(layerProviderInjectionKey, {
       destroyAll,
       create,
+      hideAll,
     })
 
     return {
@@ -93,7 +114,7 @@ export const LayerProvider = defineComponent({
   render() {
     return h(Fragment, null, [
       this.layerList.map((item) => {
-        const { destroy: _, ...props } = item
+        const { destroy: _destroy, hide: _hide, open: _open, isDestroyed: _isDestroyed, ...props } = item
         return h(InjectLayer, {
           ...props,
           ref: ((inst: LayerInst | null) => {
@@ -106,7 +127,7 @@ export const LayerProvider = defineComponent({
           }) as any,
           onAfterLeave: () => {
             const index = this.layerList.indexOf(item)
-            if (index > -1) {
+            if (item.isDestroyed && index > -1) {
               this.layerList.splice(index, 1)
             }
           },
