@@ -1,5 +1,14 @@
 # @summeruse/layer
 
+## 0.0.3
+
+### Patch Changes
+
+- fbca875: refactor(layer): 重命名 UseLayerOptions 为 CreateLayerOptions
+- b728df8: refactor(composables): 重命名 DialogApiInjection 为 LayerApi 以更准确描述用途
+- fb1c59a: fix(layer): 将 content 属性从可选改为必填
+- 7cd5a6a: feat(layer): 添加 open 方法和 hideAll 功能
+
 ## 0.0.2
 
 ### Patch Changes
