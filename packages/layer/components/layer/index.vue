@@ -6,6 +6,10 @@ import { useLayer } from '@/composables/useLayer'
 import { useResizeObserver } from '@vueuse/core'
 import { computed, ref, toRefs, useTemplateRef, watch } from 'vue'
 
+defineOptions({
+  name: 'Layer',
+})
+
 const props = withDefaults(defineProps<LayerProps>(), {
   to: 'body',
   destroyOnClose: true,

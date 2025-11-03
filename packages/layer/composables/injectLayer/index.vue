@@ -3,6 +3,10 @@ import type { UseLayerOptions } from '@/components/layer/props'
 import Layer from '@/components/layer/index.vue'
 import { ref, watch } from 'vue'
 
+defineOptions({
+  name: 'InjectLayer',
+})
+
 const { content, ...props } = defineProps<UseLayerOptions>()
 
 const emits = defineEmits<{
@@ -38,14 +42,6 @@ watch(
           {{ content }}
         </template>
       </template>
-      <!-- <RenderVNode
-        v-if="content" :dynamic-v-node="() => {
-          if (typeof content === 'function') {
-            return content(close)
-          }
-          return content
-        }"
-      /> -->
     </template>
   </Layer>
 </template>
