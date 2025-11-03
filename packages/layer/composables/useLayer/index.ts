@@ -79,8 +79,8 @@ function getParentRect(el: Element) {
   // 获取页面的宽高
   const { innerHeight, innerWidth } = window
   return {
-    width: Math.min(innerWidth, rect.width),
-    height: Math.min(innerHeight, rect.height),
+    width: rect.width === 0 ? innerWidth : Math.min(innerWidth, rect.width),
+    height: rect.height === 0 ? innerHeight : Math.min(innerHeight, rect.height),
     left: Math.max(0, rect.left),
     top: Math.max(0, rect.top),
   }
