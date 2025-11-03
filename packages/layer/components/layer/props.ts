@@ -43,5 +43,5 @@ export interface LayerProps {
 
 export type UseLayerOptions = LayerProps & {
   initRect: Rect
-  content?: ((close: () => void) => VNode) | string
+  content: ((close: () => void) => VNode) | string
 }
