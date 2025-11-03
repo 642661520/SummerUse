@@ -12,12 +12,12 @@ export type LayerReactive = {
   readonly destroy: () => void
 } & _LayerOptions
 
-export interface DialogApiInjection {
+export interface LayerApi {
   destroyAll: () => void
   create: (options: UseLayerOptions) => LayerReactive
 }
 
-export const layerProviderInjectionKey = Symbol('layerProviderInjectionKey') as InjectionKey<DialogApiInjection>
+export const layerProviderInjectionKey = Symbol('layerProviderInjectionKey') as InjectionKey<LayerApi>
 
 export function injectLayer() {
   const layerProviderInjection = inject(layerProviderInjectionKey)
