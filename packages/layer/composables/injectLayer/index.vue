@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { UseLayerOptions } from '@/components/layer/props'
+import type { CreateLayerOptions } from '@/components/layer/props'
 import Layer from '@/components/layer/index.vue'
 import { ref, watch } from 'vue'
 
@@ -7,7 +7,7 @@ defineOptions({
   name: 'InjectLayer',
 })
 
-const { content, ...props } = defineProps<UseLayerOptions>()
+const { content, ...props } = defineProps<CreateLayerOptions>()
 
 const emits = defineEmits<{
   afterLeave: []

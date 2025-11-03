@@ -14,7 +14,7 @@ export type LayerReactive = {
 
 export interface LayerApi {
   destroyAll: () => void
-  create: (options: UseLayerOptions) => LayerReactive
+  create: (options: CreateLayerOptions) => LayerReactive
 }
 
 export const layerProviderInjectionKey = Symbol('layerProviderInjectionKey') as InjectionKey<LayerApi>

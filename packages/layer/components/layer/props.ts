@@ -41,7 +41,7 @@ export interface LayerProps {
   destroyOnClose?: boolean
 }
 
-export type UseLayerOptions = LayerProps & {
+export type CreateLayerOptions = LayerProps & {
   initRect: Rect
   content: ((close: () => void) => VNode) | string
 }
