@@ -7,7 +7,7 @@ import {
 } from '@summeruse/ol'
 import { NCard, NPopover } from 'naive-ui'
 import { Map as OLMap } from 'ol'
-import { h, ref } from 'vue'
+import { h } from 'vue'
 import { usePointermove } from '.'
 
 const olMap = new OLMap()
@@ -55,8 +55,6 @@ source.addFeature(feature2)
 
 olMap.addLayer(layer)
 
-const enabled = ref(true)
-
 const { visible, position, content, option } = usePointermove<{ raw?: boolean, showArrow?: boolean }>(
   {
     mapRef: olMap,
@@ -90,8 +88,9 @@ const { visible, position, content, option } = usePointermove<{ raw?: boolean, s
       content: ({ feature }) => feature.get('id'),
       cursor: 'progress',
       visible: ({ feature }) => feature.get('id') !== undefined,
+      fixedFeatureCenter: false,
     }],
-    enabled: () => enabled.value,
+    forceUpdate: true,
   },
 )
 </script>
@@ -99,8 +98,6 @@ const { visible, position, content, option } = usePointermove<{ raw?: boolean, s
 <template>
   <OlMap
     class="w-100% h-400px" :center="[116.3912, 39.9072]" :zoom="14" projection="EPSG:4326" :ol-map
-    @movestart="enabled = false"
-    @moveend="enabled = true"
   />
   <NPopover
     v-bind="option" :arrow-style="{ pointerEvents: 'none' }" style="pointer-events: none;" trigger="manual"
