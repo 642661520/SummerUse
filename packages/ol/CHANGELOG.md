@@ -1,5 +1,11 @@
 # @summeruse/ol
 
+## 0.3.0
+
+### Minor Changes
+
+- 95fc65d: refactor(usePointermove): 重构指针移动事件处理逻辑
+
 ## 0.2.0
 
 ### Minor Changes
