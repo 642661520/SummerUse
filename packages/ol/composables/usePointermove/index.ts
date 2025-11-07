@@ -60,6 +60,7 @@ export function usePointermove<T extends Option>(
   const feature = ref<FeatureLike>()
   const content = ref<(() => VNodeChild) | string>()
   const offset = ref<{ x: number, y: number }>({ x: 0, y: 0 })
+  const originalCoordinate = ref<Coordinate>()
   const coordinate = ref<Coordinate>()
   const option = ref<T>()
   const position = computed(() => ({
@@ -96,7 +97,9 @@ export function usePointermove<T extends Option>(
       return
 
     const _coordinate = evt.coordinate
+    originalCoordinate.value = _coordinate
     coordinate.value = _coordinate
+
     let pixel = evt.pixel
 
     let foundFeature: FeatureLike | undefined
@@ -148,6 +151,7 @@ export function usePointermove<T extends Option>(
     if (fixedFeatureCenter && geometry) {
       const extent = geometry.getExtent()
       const center = getCenter(extent)
+      coordinate.value = center
       pixel = currentMap.getPixelFromCoordinate(center)
     }
     originalPosition.value.x = pixel[0] + left
@@ -219,9 +223,11 @@ export function usePointermove<T extends Option>(
   return {
     visible: computed(() => visible.value),
     position: computed(() => position.value),
+    offset: computed(() => offset.value),
     originalPosition: computed(() => originalPosition.value),
     feature: computed(() => feature.value),
     content: computed(() => content.value),
+    originalCoordinate: computed(() => originalCoordinate.value),
     coordinate: computed(() => coordinate.value),
     option: computed(() => option.value),
     hide,
