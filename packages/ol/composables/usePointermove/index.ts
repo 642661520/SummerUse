@@ -1,3 +1,4 @@
+import type { MapBrowserEvent } from 'ol'
 import type { Coordinate } from 'ol/coordinate'
 import type { FeatureLike } from 'ol/Feature'
 import type { CSSProperties, MaybeRefOrGetter, VNodeChild } from 'vue'
@@ -46,14 +47,12 @@ export interface UsePointermoveOptions<T extends Option = Option> {
   mapRef: MaybeRefOrGetter<OLMap | undefined>
   /** 提示配置列表 */
   items: MaybeRefOrGetter<PointermoveList<T>>
-  /** 前置判断条件 */
-  enabled?: boolean | (() => boolean | undefined | void)
   /** 强制更新 （开启后，无论 feature 是否变化，都强制更新提示） */
   forceUpdate?: boolean
 }
 
 export function usePointermove<T extends Option>(
-  { mapRef, items, enabled = true, forceUpdate = false }: UsePointermoveOptions<T>,
+  { mapRef, items, forceUpdate = false }: UsePointermoveOptions<T>,
 ) {
   const visible = ref(false)
   // 原始位置
@@ -67,13 +66,6 @@ export function usePointermove<T extends Option>(
     x: originalPosition.value.x + offset.value.x,
     y: originalPosition.value.y + offset.value.y,
   }))
-
-  const getEnabled = () => {
-    if (typeof enabled === 'function') {
-      return enabled()
-    }
-    return enabled
-  }
 
   let currentMap: OLMap | undefined
   let viewport: HTMLElement | undefined
@@ -95,17 +87,17 @@ export function usePointermove<T extends Option>(
   }
 
   /** 显示提示 */
-  function show(evt: MouseEvent) {
-    if (!getEnabled()) {
-      hide()
+  function show(evt: MapBrowserEvent) {
+    if (evt.dragging) {
       return
     }
+
     if (!currentMap || !viewport)
       return
 
-    const _coordinate = currentMap.getEventCoordinate(evt)
+    const _coordinate = evt.coordinate
     coordinate.value = _coordinate
-    const pixel = currentMap.getEventPixel(evt)
+    let pixel = evt.pixel
 
     let foundFeature: FeatureLike | undefined
     let foundLayer: LayerLike | undefined
@@ -127,10 +119,10 @@ export function usePointermove<T extends Option>(
     }
 
     feature.value = foundFeature
-
+    const { top, left } = viewport.getBoundingClientRect()
     const params = {
       map: currentMap,
-      position: { x: evt.clientX, y: evt.clientY },
+      position: { x: pixel[0] + left, y: pixel[1] + top },
       coordinate: _coordinate,
       feature: foundFeature,
       layer: foundLayer,
@@ -156,14 +148,10 @@ export function usePointermove<T extends Option>(
     if (fixedFeatureCenter && geometry) {
       const extent = geometry.getExtent()
       const center = getCenter(extent)
-      const pixel = currentMap.getPixelFromCoordinate(center)
-      const { top, left } = viewport.getBoundingClientRect()
-      originalPosition.value.x = pixel[0] + left
-      originalPosition.value.y = pixel[1] + top
+      pixel = currentMap.getPixelFromCoordinate(center)
     }
-    else {
-      originalPosition.value = { x: evt.clientX, y: evt.clientY }
-    }
+    originalPosition.value.x = pixel[0] + left
+    originalPosition.value.y = pixel[1] + top
     // 设置内容
     const tooltipContent = matchedPointermove.content
     content.value = typeof tooltipContent === 'function'
@@ -193,25 +181,28 @@ export function usePointermove<T extends Option>(
   }
 
   /** 绑定事件 */
-  function bindMapEvents(viewport: HTMLElement) {
-    viewport.addEventListener('pointermove', show)
+  function bindMapEvents(map: OLMap) {
+    map.on('pointermove', show)
   }
 
   /** 解绑事件 */
-  function unbindMapEvents(viewport: HTMLElement) {
-    viewport.removeEventListener('pointermove', show)
+  function unbindMapEvents(map: OLMap) {
+    map.un('pointermove', show)
   }
 
   /** 监听 mapRef 变化 */
   watch(
     () => toValue(mapRef),
     (newMap, oldMap) => {
+      if (oldMap) {
+        unbindMapEvents(oldMap)
+      }
       if (oldMap !== newMap) {
         currentMap = newMap
         if (newMap) {
           viewport = newMap.getViewport()
-          unbindMapEvents(viewport)
-          bindMapEvents(viewport)
+
+          bindMapEvents(newMap)
           originalCursor = viewport.style.cursor
         }
       }
@@ -220,8 +211,8 @@ export function usePointermove<T extends Option>(
   )
 
   onBeforeUnmount(() => {
-    if (viewport) {
-      unbindMapEvents(viewport)
+    if (currentMap) {
+      unbindMapEvents(currentMap)
     }
   })
 
