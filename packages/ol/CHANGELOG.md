@@ -1,5 +1,11 @@
 # @summeruse/ol
 
+## 0.3.1
+
+### Patch Changes
+
+- 779d07c: feat(usePointermove): 添加原始坐标存储并修复中心点计算
+
 ## 0.3.0
 
 ### Minor Changes
