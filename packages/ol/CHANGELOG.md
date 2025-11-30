@@ -1,5 +1,12 @@
 # @summeruse/ol
 
+## 0.3.2
+
+### Patch Changes
+
+- 92af465: refactor(ol-map): 添加组件名称定义以提升可维护性
+- 432f073: feat(图层工具): 添加 WebGL 矢量图层支持并重构矢量图层创建逻辑
+
 ## 0.3.1
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 {
   "name": "@summeruse/ol",
   "type": "module",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "packageManager": "pnpm@10.7.0",
   "description": "",
   "author": "finalsummer",

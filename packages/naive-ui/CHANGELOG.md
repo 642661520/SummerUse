@@ -1,5 +1,11 @@
 # @summeruse/naive-ui
 
+## 0.0.2
+
+### Patch Changes
+
+- 4056ba3: feat(n-provider): 添加组件名称定义
+
 ## 0.0.1
 
 ### Patch Changes
