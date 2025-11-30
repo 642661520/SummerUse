@@ -118,13 +118,13 @@ export type VectorLayerOptions<T extends Geometry = Geometry> = _VectorLayerOpti
 }
 
 export function createVectorLayer<T extends Geometry = Geometry>(options?: VectorLayerOptions<T>) {
-  const { styleOptions, sourceOptions, ...restOptions } = options || {}
-  const style = styleOptions ? createStyle(styleOptions) : undefined
-  const source = createVectorSource<T>(sourceOptions)
+  const { styleOptions, sourceOptions, style: _style, source: _source, ...restOptions } = options || {}
+  const style = _style || (styleOptions ? createStyle(styleOptions) : undefined)
+  const source = _source || createVectorSource<T>(sourceOptions)
   const layer = new VectorLayer({
-    source,
     ...restOptions,
-    style: style || restOptions.style,
+    source,
+    style,
   })
   return {
     source,
@@ -140,11 +140,11 @@ export type WebGLVectorLayerOptions<T extends Geometry = Geometry> = _WebGLVecto
 }
 
 export function createWebGLVectorLayer<T extends Geometry = Geometry>(options: WebGLVectorLayerOptions<T>) {
-  const { style, sourceOptions, ...restOptions } = options
-  const source = createVectorSource<T>(sourceOptions)
+  const { style, source: _source, sourceOptions, ...restOptions } = options
+  const source = _source || createVectorSource<T>(sourceOptions)
   const layer = new WebGLVectorLayer({
-    source,
     ...restOptions,
+    source,
     style,
   })
   return {
