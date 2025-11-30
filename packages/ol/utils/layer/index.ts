@@ -2,10 +2,12 @@ import type { StyleOptions } from '@/utils/style'
 import type { Feature } from 'ol'
 import type { Geometry } from 'ol/geom'
 import type { ProjectionLike } from 'ol/proj'
+import type { FlatStyleLike } from 'ol/style/flat'
 import { WebMercatorProjection, WGS84Projection } from '@/constants/projection'
 import { createStyle } from '@/utils/style'
 import { Tile as TileLayer } from 'ol/layer'
 import VectorLayer from 'ol/layer/Vector'
+import WebGLVectorLayer from 'ol/layer/WebGLVector'
 import { BingMaps, OSM, XYZ } from 'ol/source'
 import VectorSource from 'ol/source/Vector'
 
@@ -98,20 +100,52 @@ export function createOpenStreetMapLayer(data?: CreateOpenStreetMapLayerOptions)
   return layer
 }
 
-export type _VectorLayerOptions = ConstructorParameters<typeof VectorLayer>[0]
+export type _VectorSourceOptions<T extends Geometry = Geometry> = ConstructorParameters<typeof VectorSource<Feature<T>>>[0]
 
-export type VectorLayerOptions = _VectorLayerOptions & {
-  styleOptions?: StyleOptions
+export type VectorSourceOptions<T extends Geometry = Geometry> = _VectorSourceOptions<T>
+
+export function createVectorSource<T extends Geometry = Geometry>(options?: VectorSourceOptions<T>) {
+  return new VectorSource<Feature<T>>({
+    ...options,
+  })
 }
 
-export function createVectorLayer<T extends Geometry = Geometry>(options?: VectorLayerOptions) {
-  const { styleOptions, ...restOptions } = options || {}
+export type _VectorLayerOptions<T extends Geometry = Geometry> = ConstructorParameters<typeof VectorLayer<VectorSource<Feature<T>>>>[0]
+
+export type VectorLayerOptions<T extends Geometry = Geometry> = _VectorLayerOptions<T> & {
+  styleOptions?: StyleOptions
+  sourceOptions?: VectorSourceOptions<T>
+}
+
+export function createVectorLayer<T extends Geometry = Geometry>(options?: VectorLayerOptions<T>) {
+  const { styleOptions, sourceOptions, ...restOptions } = options || {}
   const style = styleOptions ? createStyle(styleOptions) : undefined
-  const source = new VectorSource<Feature<T>>()
+  const source = createVectorSource<T>(sourceOptions)
   const layer = new VectorLayer({
     source,
     ...restOptions,
     style: style || restOptions.style,
+  })
+  return {
+    source,
+    layer,
+  }
+}
+
+export type _WebGLVectorLayerOptions<T extends Geometry = Geometry> = ConstructorParameters<typeof WebGLVectorLayer<VectorSource<Feature<T>>>>[0]
+
+export type WebGLVectorLayerOptions<T extends Geometry = Geometry> = _WebGLVectorLayerOptions<T> & {
+  style: FlatStyleLike
+  sourceOptions?: VectorSourceOptions<T>
+}
+
+export function createWebGLVectorLayer<T extends Geometry = Geometry>(options: WebGLVectorLayerOptions<T>) {
+  const { style, sourceOptions, ...restOptions } = options
+  const source = createVectorSource<T>(sourceOptions)
+  const layer = new WebGLVectorLayer({
+    source,
+    ...restOptions,
+    style,
   })
   return {
     source,
