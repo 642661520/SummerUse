@@ -1,5 +1,12 @@
 # @summeruse/ol
 
+## 0.3.3
+
+### Patch Changes
+
+- a224dda: refactor(style): 优化样式创建逻辑以支持直接传入样式对象
+- 2085d50: refactor(utils/layer): 优化矢量图层创建函数，支持直接传入 style 和 source
+
 ## 0.3.2
 
 ### Patch Changes
