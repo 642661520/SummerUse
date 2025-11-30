@@ -3,6 +3,10 @@ import type { GlobalThemeOverrides, NDateLocale, NLocale } from 'naive-ui'
 import type { BuiltInGlobalTheme } from 'naive-ui/es/themes/interface'
 import { NConfigProvider, NDialogProvider, NGlobalStyle, NLoadingBarProvider, NMessageProvider, NModalProvider, NNotificationProvider } from 'naive-ui'
 
+defineOptions({
+  name: 'NProvider',
+})
+
 withDefaults(
   defineProps<{
     locale?: NLocale
