@@ -8,6 +8,10 @@ import { DoubleClickZoom, DragPan, DragRotate, KeyboardPan, KeyboardZoom, MouseW
 import { onMounted, onUnmounted, provide, ref, watch } from 'vue'
 import { olMapInjectionKey } from './props'
 
+defineOptions({
+  name: 'OlMap',
+})
+
 const props = withDefaults(defineProps<OlMapProps>(), {
   olMap: () => new OLMap(),
   center: () => [0, 0],
