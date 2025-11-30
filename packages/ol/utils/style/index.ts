@@ -49,17 +49,16 @@ export function createTextStyle(options: TextOptions) {
 }
 
 export function createStyle(options: StyleOptions) {
-  const { fillOptions, strokeOptions, iconOptions, circleOptions, textOptions, ...rest } = options
-  const fill = fillOptions ? new Fill(fillOptions) : undefined
-  const stroke = strokeOptions ? new Stroke(strokeOptions) : undefined
-  const icon = iconOptions ? new Icon(iconOptions) : undefined
-  const circle = circleOptions ? createCircleStyle(circleOptions) : undefined
-  const text = textOptions ? createTextStyle(textOptions) : undefined
+  const { fillOptions, strokeOptions, iconOptions, circleOptions, textOptions, stroke: _stroke, image: _image, fill: _fill, text: _text, ...rest } = options
+  const fill = _fill || (fillOptions ? new Fill(fillOptions) : undefined)
+  const stroke = _stroke || (strokeOptions ? new Stroke(strokeOptions) : undefined)
+  const image = _image || (iconOptions ? new Icon(iconOptions) : (circleOptions ? createCircleStyle(circleOptions) : undefined))
+  const text = _text || (textOptions ? createTextStyle(textOptions) : undefined)
   return new Style({
     ...rest,
     fill,
     stroke,
-    image: icon || circle,
+    image,
     text,
   })
 }
