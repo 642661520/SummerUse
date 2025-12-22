@@ -102,6 +102,8 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
 
   const isResize = ref(false)
 
+  const isDrag = ref(false)
+
   const dragElement = computed(() => {
     return unrefElement(options?.dragElement) || unrefElement(target)
   })
@@ -242,6 +244,7 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
       maxRight,
       minX,
       minY,
+      isDrag,
     })
   })
 
@@ -501,5 +504,7 @@ export function useLayer(target: MaybeRefOrGetter<HTMLElement | SVGElement | nul
   return {
     rect,
     check,
+    isResize,
+    isDrag,
   }
 }
