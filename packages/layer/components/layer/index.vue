@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { Rect } from '@/composables/useLayer/types'
 import type { StyleValue } from 'vue'
 import type { LayerProps } from './props'
 import { useLayerIndexManager } from '@/components/layer-provider'
@@ -16,10 +17,10 @@ const props = withDefaults(defineProps<LayerProps>(), {
 })
 
 const emits = defineEmits<{
-  dragStart: []
-  dragEnd: []
-  resizeStart: []
-  resizeEnd: []
+  dragStart: [Rect]
+  dragEnd: [Rect]
+  resizeStart: [Rect]
+  resizeEnd: [Rect]
 }>()
 
 const propsRef = toRefs(props)
@@ -42,11 +43,10 @@ const rectModel = defineModel<{
 })
 
 const initRect = ref({
-  x: 0,
-  y: 0,
-  width: 0,
-  height: 0,
-  ...rectModel.value,
+  x: rectModel.value.x ?? 0,
+  y: rectModel.value.y ?? 0,
+  width: rectModel.value.width ?? 0,
+  height: rectModel.value.height ?? 0,
 })
 
 const layerIndexManager = useLayerIndexManager()
@@ -176,19 +176,19 @@ function handleTop() {
 
 watch(isDrag, (v) => {
   if (v) {
-    emits('dragStart')
+    emits('dragStart', rect.value)
   }
   else {
-    emits('dragEnd')
+    emits('dragEnd', rect.value)
   }
 })
 
 watch(isResize, (v) => {
   if (v) {
-    emits('resizeStart')
+    emits('resizeStart', rect.value)
   }
   else {
-    emits('resizeEnd')
+    emits('resizeEnd', rect.value)
   }
 })
 </script>
