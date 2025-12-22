@@ -1,5 +1,12 @@
 # @summeruse/layer
 
+## 0.0.4
+
+### Patch Changes
+
+- 7ca10ea: feat(useLayer): 添加拖拽状态标识 isDrag
+- 22fde00: feat(components/layer): 添加拖拽和缩放开始结束事件
+
 ## 0.0.3
 
 ### Patch Changes
