@@ -15,6 +15,13 @@ const props = withDefaults(defineProps<LayerProps>(), {
   destroyOnClose: true,
 })
 
+const emits = defineEmits<{
+  dragStart: []
+  dragEnd: []
+  resizeStart: []
+  resizeEnd: []
+}>()
+
 const propsRef = toRefs(props)
 
 const show = defineModel<boolean>('show', {
@@ -78,7 +85,7 @@ const disabledResize = computed(() => {
   return propsRef.disabledResize.value
 })
 
-const { rect, check } = useLayer(layerRef, {
+const { rect, check, isDrag, isResize } = useLayer(layerRef, {
   ...propsRef,
   disabledDrag,
   disabledResize,
@@ -166,6 +173,24 @@ function handleTop() {
   }
   zIndex.value = layerIndexManager.nextZIndex()
 }
+
+watch(isDrag, (v) => {
+  if (v) {
+    emits('dragStart')
+  }
+  else {
+    emits('dragEnd')
+  }
+})
+
+watch(isResize, (v) => {
+  if (v) {
+    emits('resizeStart')
+  }
+  else {
+    emits('resizeEnd')
+  }
+})
 </script>
 
 <template>
