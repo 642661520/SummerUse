@@ -1,5 +1,11 @@
 # @summeruse/layer
 
+## 0.0.5
+
+### Patch Changes
+
+- b6534a0: refactor(layer): 更新拖拽和缩放事件以传递矩形参数
+
 ## 0.0.4
 
 ### Patch Changes
