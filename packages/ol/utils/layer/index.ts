@@ -85,7 +85,7 @@ export type OpenStreetMapSourceOptions = Partial<ConstructorParameters<typeof OS
 
 export interface CreateOpenStreetMapLayerOptions {
   layerOptions?: TileLayerOptions
-  sourceOptions?: BingMapsSourceOptions
+  sourceOptions?: OpenStreetMapSourceOptions
 }
 
 export function createOpenStreetMapLayer(data?: CreateOpenStreetMapLayerOptions) {
