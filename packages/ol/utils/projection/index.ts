@@ -7,34 +7,25 @@ import { createXYZ } from 'ol/tilegrid'
 import proj4 from 'proj4'
 
 import { EPSG_3395, EPSG_3857, EPSG_4326 } from '../../constants'
-/** WGS84坐标转墨卡托  */
-export function wgs84ToMercator(coordinate: Coordinate) {
+/**  EPSG_4326转EPSG_3857 */
+export function EPSG_4326ToEPSG_3857(coordinate: Coordinate) {
   return transform(coordinate, EPSG_4326, EPSG_3857)
 }
-/** WGS84坐标转墨卡托  */
-export const EPSG_4326ToEPSG_3857 = wgs84ToMercator
 
-/** 墨卡托坐标转WGS84 */
-export function mercatorToWgs84(coordinate: Coordinate) {
+/** EPSG_3857转EPSG_4326 */
+export function EPSG_3857ToEPSG_4326(coordinate: Coordinate) {
   return transform(coordinate, EPSG_3857, EPSG_4326)
 }
-/** 墨卡托坐标转WGS84 */
-export const EPSG_3857ToEPSG_4326 = mercatorToWgs84
 
-/** WGS84范围转墨卡托 */
-export function wgs84ExtentToMercator(extent: Extent) {
+/** EPSG_4326范围转EPSG_3857 */
+export function EPSG_4326ExtentToEPSG_3857(extent: Extent) {
   return transformExtent(extent, EPSG_4326, EPSG_3857)
 }
-/** WGS84范围转墨卡托 */
-export const EPSG_4326ExtentToEPSG_3857 = wgs84ExtentToMercator
 
-/** 墨卡托范围转WGS84 */
-export function mercatorExtentToWgs84(extent: Extent) {
+/** EPSG_3857范围转EPSG_4326 */
+export function EPSG_3857ExtentToEPSG_4326(extent: Extent) {
   return transformExtent(extent, EPSG_3857, EPSG_4326)
 }
-
-/** 墨卡托范围转WGS84 */
-export const EPSG_3857ExtentToEPSG_4326 = mercatorExtentToWgs84
 
 export function registerEPSG_3395() {
   if (getProjection(EPSG_3395)) {
