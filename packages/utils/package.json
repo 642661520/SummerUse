@@ -7,8 +7,9 @@
   "author": "",
   "license": "ISC",
   "keywords": [],
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "commonjs": "dist/index.cjs",
   "types": "dist/index.d.ts",
   "files": [
     "README.md",
