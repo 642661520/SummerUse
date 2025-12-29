@@ -25,7 +25,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsdown"
+    "build": "tsdown",
+    "publish": "pnpm publish"
   },
   "peerDependencies": {
     "ol": "catalog:",
