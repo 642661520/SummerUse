@@ -14,35 +14,30 @@
     "openlayers",
     "vue3"
   ],
-  "main": "lib/index.js",
-  "module": "es/index.mjs",
-  "unpkg": "dist/index.js",
-  "jsdelivr": "dist/index.js",
-  "types": "es/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "unpkg": "dist/index.iife.min.js",
+  "jsdelivr": "dist/index.iife.min.js",
+  "types": "dist/index.d.ts",
   "files": [
     "CHANGELOG.md",
     "README.md",
-    "dist",
-    "es",
-    "lib"
+    "dist"
   ],
   "scripts": {
-    "build": "vue-tsc -b && vite build"
+    "build": "tsdown"
   },
   "peerDependencies": {
     "ol": "catalog:",
     "vue": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
-    "@vitejs/plugin-vue": "catalog:",
     "@vue/tsconfig": "catalog:",
-    "sass-embedded": "catalog:",
+    "pmtiles": "^4.3.2",
+    "proj4": "^2.20.2",
+    "tsdown": "catalog:",
     "typescript": "catalog:",
-    "vite": "catalog:",
-    "vite-plugin-css-injected-by-js": "catalog:",
-    "vite-plugin-dts": "catalog:",
-    "vue-tsc": "catalog:"
+    "unplugin-vue": "catalog:"
   },
   "publishConfig": {
     "access": "public"
