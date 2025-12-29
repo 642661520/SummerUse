@@ -1,11 +1,9 @@
-import type { OLMap } from '@/types'
-import type { StyleOptions } from '@/utils/style'
 import type { Feature } from 'ol'
 import type { Geometry } from 'ol/geom'
 import type { FrameState } from 'ol/Map'
 import type { FlatStyleLike } from 'ol/style/flat'
-import { createTileGrid, EPSG_3857 } from '@/constants/projection'
-import { createStyle } from '@/utils/style'
+import type { OLMap } from '@/types'
+import type { StyleOptions } from '@/utils/style'
 import { Layer, Tile as TileLayer } from 'ol/layer'
 import VectorLayer from 'ol/layer/Vector'
 import WebGLVectorLayer from 'ol/layer/WebGLVector'
@@ -13,6 +11,9 @@ import { BingMaps, OSM, Source, XYZ } from 'ol/source'
 import ImageTileSource from 'ol/source/ImageTile'
 import VectorSource from 'ol/source/Vector'
 import { PMTiles } from 'pmtiles'
+import { EPSG_3857 } from '@/constants/projection'
+import { createStyle } from '@/utils/style'
+import { createTileGrid } from '../projection'
 
 export type T_MAP_TYPE = 'vec' | 'cva' | 'img' | 'cia' | 'ter' | 'cta' | 'ibo'
 
@@ -175,6 +176,7 @@ export function createPMTilesLayer(config: PMTilesLayerOptions) {
   const { url, sourceOptions, ...layerOptions } = config
   const { projection, ...restSourceOptions } = sourceOptions || {}
   const tiles = new PMTiles(url)
+  const tileGrid = createTileGrid(projection)
   return new TileLayer({
     ...layerOptions,
     source: new ImageTileSource({
@@ -187,7 +189,7 @@ export function createPMTilesLayer(config: PMTilesLayerOptions) {
         return image
       },
       crossOrigin: 'anonymous',
-      tileGrid: createTileGrid(projection),
+      tileGrid,
       ...restSourceOptions,
     }),
   })
@@ -199,12 +201,13 @@ export type XYZLayerOptions = TileLayerOptions & {
 
 export function createXYZLayer({ sourceOptions, ...layerOptions }: XYZLayerOptions) {
   const { projection, ...restSourceOptions } = sourceOptions || {}
+  const tileGrid = createTileGrid(projection)
   return new TileLayer({
     ...layerOptions,
     source: new XYZ({
       crossOrigin: 'anonymous',
       ...restSourceOptions,
-      tileGrid: createTileGrid(projection),
+      tileGrid,
     }),
   })
 }
