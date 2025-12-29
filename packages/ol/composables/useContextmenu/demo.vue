@@ -53,7 +53,9 @@ const items = ref<ContextmenuList>([
     key: 'delete-point',
     visible: ({ feature }) => feature?.get('type') === 'point',
     action: ({ feature }) => {
-      feature && source.removeFeature(feature as Feature)
+      if (feature) {
+        source.removeFeature(feature as Feature)
+      }
     },
   },
   {
@@ -66,7 +68,8 @@ const items = ref<ContextmenuList>([
         key: 'delete-polygon',
         visible: ({ feature }) => feature?.get('type') === 'polygon',
         action: ({ feature }) => {
-          feature && source.removeFeature(feature as Feature)
+          if (feature)
+            source.removeFeature(feature as Feature)
         },
       },
     ],

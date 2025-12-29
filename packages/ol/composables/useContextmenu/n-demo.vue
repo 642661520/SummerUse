@@ -53,7 +53,8 @@ const items = ref<ContextmenuItem[]>([
     key: 'delete-point',
     visible: ({ feature }) => feature?.get('type') === 'point',
     action: ({ feature }) => {
-      feature && source.removeFeature(feature as Feature)
+      if (feature)
+        source.removeFeature(feature as Feature)
     },
   },
   {
@@ -65,14 +66,16 @@ const items = ref<ContextmenuItem[]>([
         label: '删除1',
         key: 'delete-polygon1',
         action: ({ feature }) => {
-          feature && source.removeFeature(feature as Feature)
+          if (feature)
+            source.removeFeature(feature as Feature)
         },
       },
       {
         label: '删除2',
         key: 'delete-polygon2',
         action: ({ feature }) => {
-          feature && source.removeFeature(feature as Feature)
+          if (feature)
+            source.removeFeature(feature as Feature)
         },
       },
     ],

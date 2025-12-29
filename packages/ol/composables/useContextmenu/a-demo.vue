@@ -53,7 +53,8 @@ const items = ref<ContextmenuItem[]>([
     key: 'delete-point',
     visible: ({ feature }) => feature?.get('type') === 'point',
     action: ({ feature }) => {
-      feature && source.removeFeature(feature as Feature)
+      if (feature)
+        source.removeFeature(feature as Feature)
     },
   },
   {
