@@ -1,5 +1,17 @@
 # @summeruse/ol
 
+## 0.4.0
+
+### Minor Changes
+
+- 39823a8: refactor(build): 迁移构建工具从 vite 到 tsdown
+
+### Patch Changes
+
+- 32919a6: feat(图层工具): 添加 PMTiles 和 XYZ 图层创建功能及 Canvas 图层支持
+- d005413: fix(utils/layer): 修正 CreateOpenStreetMapLayerOptions 中的 sourceOptions 类型
+- a3138b4: feat(投影): 添加 EPSG:3395 椭球墨卡托投影支持
+
 ## 0.3.3
 
 ### Patch Changes
