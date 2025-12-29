@@ -1,26 +1,24 @@
 <script lang="ts" setup>
-import type { OlMapInst } from '@summeruse/ol'
 import type { Coordinate } from 'ol/coordinate'
 import {
   createOpenStreetMapLayer,
   createStyle,
   createVectorLayer,
+  EPSG_4326ToEPSG_3857,
   OlMap,
   useDrawPolygon,
-  wgs84ToMercator,
 } from '@summeruse/ol'
 import { NButton, NCard, NConfigProvider, NDataTable, useMessage } from 'naive-ui'
 import { Feature, Map as OLMap } from 'ol'
 import { Polygon } from 'ol/geom'
 import { h, onMounted, ref, watch } from 'vue'
 
-const olMapInst = ref<OlMapInst>()
 const olMap = new OLMap()
 olMap.addLayer(createOpenStreetMapLayer())
 
 const message = useMessage()
 
-const center = wgs84ToMercator([120, 30])
+const center = EPSG_4326ToEPSG_3857([120, 30])
 
 interface Area {
   id: number
@@ -200,7 +198,7 @@ onMounted(async () => {
         保存
       </NButton>
     </NCard>
-    <OlMap ref="olMapInst" class="w-100% h-400px" :zoom="10" :center :ol-map />
+    <OlMap class="w-100% h-400px" :zoom="10" :center :ol-map />
     {{ coordinates }}
   </NConfigProvider>
 </template>

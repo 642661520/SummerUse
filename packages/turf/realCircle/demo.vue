@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { createOpenStreetMapLayer, OlMap, wgs84ToMercator } from '@summeruse/ol'
+import { createOpenStreetMapLayer, EPSG_4326ToEPSG_3857, OlMap } from '@summeruse/ol'
 import { getRealCircleCoordinates } from '@summeruse/turf'
 import { Feature, Map as OLMap } from 'ol'
 import { Polygon } from 'ol/geom'
@@ -8,7 +8,7 @@ import VectorSource from 'ol/source/Vector'
 
 const olMap = new OLMap()
 const center = [120, 30]
-const formatCenter = wgs84ToMercator(center)
+const formatCenter = EPSG_4326ToEPSG_3857(center)
 const circleCoordinates = getRealCircleCoordinates(
   center,
   100000,
@@ -18,7 +18,7 @@ const circleCoordinates = getRealCircleCoordinates(
 const source = new VectorSource({
   features: [
     new Feature({
-      geometry: new Polygon([circleCoordinates[0].map(item => wgs84ToMercator(item))]),
+      geometry: new Polygon([circleCoordinates[0].map(item => EPSG_4326ToEPSG_3857(item))]),
     }),
   ],
 })

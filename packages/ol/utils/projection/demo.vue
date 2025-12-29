@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { mercatorToWgs84, wgs84ToMercator } from '@summeruse/ol'
+import { EPSG_3857ToEPSG_4326, EPSG_4326ToEPSG_3857 } from '@summeruse/ol'
 import { NFormItem, NInputNumber } from 'naive-ui'
 import { computed, ref } from 'vue'
 
 const coord = ref([116.404, 39.915])
 
-const mercator = computed(() => wgs84ToMercator(coord.value))
+const mercator = computed(() => EPSG_4326ToEPSG_3857(coord.value))
 
 const mercator2 = ref([12959638.8957, 4855982.5492])
-const coord2 = computed(() => mercatorToWgs84(mercator2.value))
+const coord2 = computed(() => EPSG_3857ToEPSG_4326(mercator2.value))
 </script>
 
 <template>

@@ -2,9 +2,7 @@
 import type { OlMapProps } from '@summeruse/ol'
 import {
   createOpenStreetMapLayer,
-  // OlMap,
-  wgs84ToMercator,
-  // OlMapInst
+  EPSG_4326ToEPSG_3857,
 } from '@summeruse/ol'
 import { NSwitch } from 'naive-ui'
 import { Map as OLMap } from 'ol'
@@ -15,7 +13,7 @@ const olMap = new OLMap()
 olMap.addLayer(createOpenStreetMapLayer())
 const mapOptions = ref<OlMapProps>(
   {
-    center: wgs84ToMercator([116.404, 39.915]),
+    center: EPSG_4326ToEPSG_3857([116.404, 39.915]),
     maxZoom: 18,
     minZoom: 3,
     showZoom: true,
@@ -26,8 +24,6 @@ const mapOptions = ref<OlMapProps>(
   },
 )
 const zoom = ref<number>(12)
-// const olMapRef = ref<OlMapInst>();
-// olMapRef.value?.olMap;
 </script>
 
 <template>
