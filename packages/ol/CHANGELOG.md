@@ -1,5 +1,12 @@
 # @summeruse/ol
 
+## 0.4.1
+
+### Patch Changes
+
+- 6833ec1: refactor(projection): 统一使用 EPSG 代码命名坐标转换函数
+- 33fb1b2: refactor(projection): 将投影相关代码移动到 utils 目录并优化初始化逻辑
+
 ## 0.4.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @summeruse/utils
 
+## 0.1.1
+
+### Patch Changes
+
+- d8a0d38: build(utils): 更新构建配置以支持多种模块格式
+
 ## 0.1.0
 
 ### Minor Changes
