@@ -1,5 +1,11 @@
 # @summeruse/ol
 
+## 0.4.2
+
+### Patch Changes
+
+- 054bfbf: 修复 xyz，pmtiles 图层坐标系未导入
+
 ## 0.4.1
 
 ### Patch Changes
