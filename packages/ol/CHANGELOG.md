@@ -1,5 +1,11 @@
 # @summeruse/ol
 
+## 0.5.0
+
+### Minor Changes
+
+- 0e7124d: feat(图层工具): 添加热力图图层创建功能
+
 ## 0.4.2
 
 ### Patch Changes
