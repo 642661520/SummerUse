@@ -5,6 +5,7 @@ import type { FlatStyleLike } from 'ol/style/flat'
 import type { OLMap } from '@/types'
 import type { StyleOptions } from '@/utils/style'
 import { Layer, Tile as TileLayer } from 'ol/layer'
+import HeatmapLayer from 'ol/layer/Heatmap'
 import VectorLayer from 'ol/layer/Vector'
 import WebGLVectorLayer from 'ol/layer/WebGLVector'
 import { BingMaps, OSM, Source, XYZ } from 'ol/source'
@@ -262,5 +263,21 @@ export function createCanvasLayer(olMap: OLMap, refresh: (frameState: FrameState
   })
   olMap.addLayer(layer)
 
+  return { layer, source }
+}
+
+export type HeatmapLayerOptions = ConstructorParameters<typeof HeatmapLayer>[0]
+
+export type createHeatmapLayerOptions = HeatmapLayerOptions & {
+  sourceOptions?: VectorSourceOptions
+}
+
+export function createHeatmapLayer(options?: createHeatmapLayerOptions) {
+  const { sourceOptions, ...restOptions } = options || {}
+  const source = createVectorSource(sourceOptions)
+  const layer = new HeatmapLayer({
+    ...restOptions,
+    source,
+  })
   return { layer, source }
 }
