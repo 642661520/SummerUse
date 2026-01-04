@@ -174,9 +174,8 @@ function loadImage(src: string) {
 
 export function createPMTilesLayer(config: PMTilesLayerOptions) {
   const { url, sourceOptions, ...layerOptions } = config
-  const { projection, ...restSourceOptions } = sourceOptions || {}
   const tiles = new PMTiles(url)
-  const tileGrid = createTileGrid(projection)
+  const tileGrid = createTileGrid(sourceOptions?.projection)
   return new TileLayer({
     ...layerOptions,
     source: new ImageTileSource({
@@ -190,7 +189,7 @@ export function createPMTilesLayer(config: PMTilesLayerOptions) {
       },
       crossOrigin: 'anonymous',
       tileGrid,
-      ...restSourceOptions,
+      ...sourceOptions,
     }),
   })
 }
@@ -200,13 +199,12 @@ export type XYZLayerOptions = TileLayerOptions & {
 }
 
 export function createXYZLayer({ sourceOptions, ...layerOptions }: XYZLayerOptions) {
-  const { projection, ...restSourceOptions } = sourceOptions || {}
-  const tileGrid = createTileGrid(projection)
+  const tileGrid = createTileGrid(sourceOptions?.projection)
   return new TileLayer({
     ...layerOptions,
     source: new XYZ({
       crossOrigin: 'anonymous',
-      ...restSourceOptions,
+      ...sourceOptions,
       tileGrid,
     }),
   })
