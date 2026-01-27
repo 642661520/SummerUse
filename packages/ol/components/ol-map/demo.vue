@@ -3,11 +3,11 @@ import type { OlMapProps } from '@summeruse/ol'
 import {
   createOpenStreetMapLayer,
   EPSG_4326ToEPSG_3857,
+  OlMap,
 } from '@summeruse/ol'
 import { NSwitch } from 'naive-ui'
 import { Map as OLMap } from 'ol'
-import { ref } from 'vue'
-import OlMap from './index.vue'
+import { computed, ref } from 'vue'
 
 const olMap = new OLMap()
 olMap.addLayer(createOpenStreetMapLayer())
@@ -21,9 +21,17 @@ const mapOptions = ref<OlMapProps>(
     showRotate: true,
     showFullScreen: true,
     doubleClickZoom: false,
+    altShiftDragRotate: true,
   },
 )
 const zoom = ref<number>(12)
+
+const rotation = ref<number>(0)
+
+const rotationInDegrees = computed(() => {
+  const d = rotation.value * 180 / Math.PI
+  return d.toFixed(1)
+})
 </script>
 
 <template>
@@ -34,5 +42,6 @@ const zoom = ref<number>(12)
   显示全屏按钮
   <NSwitch v-model:value="mapOptions.showFullScreen" />
   当前缩放级别: {{ zoom }}
-  <OlMap v-bind="mapOptions" v-model:zoom="zoom" class="w-100% h-400px" :ol-map />
+  当前旋转角度: {{ rotationInDegrees }}
+  <OlMap v-bind="mapOptions" v-model:rotation="rotation" v-model:zoom="zoom" class="w-100% h-400px" :ol-map />
 </template>
