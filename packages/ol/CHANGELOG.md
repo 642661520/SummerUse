@@ -1,5 +1,12 @@
 # @summeruse/ol
 
+## 0.5.1
+
+### Patch Changes
+
+- 774051c: feat(utils): 添加弧度与角度转换函数
+- 112feb2: feat(ol-map): 添加地图旋转支持
+
 ## 0.5.0
 
 ### Minor Changes
