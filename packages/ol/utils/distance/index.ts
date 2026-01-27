@@ -10,6 +10,16 @@ export function nauticalMilesToKm(nauticalMiles: number) {
   return (nauticalMiles * ONE_NM) / 1000
 }
 
+/** 弧度转角度 */
+export function rotationToAngle(rotation: number): number {
+  return formatRotation(rotation) * 180 / Math.PI
+}
+
+/** 角度转弧度 */
+export function angleToRotation(angle: number): number {
+  return formatAngle(angle) * Math.PI / 180
+}
+
 /** 格式化Rotation */
 export function formatRotation(rotation: number): number {
   if (rotation < 0) {
