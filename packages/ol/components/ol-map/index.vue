@@ -6,6 +6,7 @@ import { Map as OLMap, View } from 'ol'
 import { Attribution, FullScreen, OverviewMap, Rotate, ScaleLine, Zoom } from 'ol/control'
 import { DoubleClickZoom, DragPan, DragRotate, KeyboardPan, KeyboardZoom, MouseWheelZoom, PinchRotate, PinchZoom } from 'ol/interaction'
 import { onMounted, onUnmounted, provide, ref, watch } from 'vue'
+import { formatRotation } from '@/utils'
 import { olMapInjectionKey } from './props'
 
 defineOptions({
@@ -15,6 +16,7 @@ defineOptions({
 const props = withDefaults(defineProps<OlMapProps>(), {
   olMap: () => new OLMap(),
   center: () => [0, 0],
+  rotation: 0,
   zoom: 2,
   maxZoom: 18,
   minZoom: 2,
@@ -238,6 +240,21 @@ onMounted(() => {
 
 onUnmounted(() => {
   olMap.un('moveend', moveend)
+})
+// #endregion
+
+// #region change:rotation
+function changeRotation(e: ObjectEvent) {
+  emits('update:rotation', formatRotation(e.target.getRotation() || 0))
+  emits('changeRotation', e)
+}
+
+onMounted(() => {
+  view.on('change:rotation', changeRotation)
+})
+
+onUnmounted(() => {
+  view.un('change:rotation', changeRotation)
 })
 // #endregion
 

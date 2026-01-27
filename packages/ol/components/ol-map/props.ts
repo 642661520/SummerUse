@@ -3,12 +3,13 @@ import type { Coordinate } from 'ol/coordinate'
 import type { Extent } from 'ol/extent'
 import type { ObjectEvent } from 'ol/Object'
 import type { InjectionKey } from 'vue'
-import type { ProjectionLike } from '../../constants/projection'
+import type { ProjectionLike } from '@/constants'
 import { inject } from 'vue'
 
 export interface OlMapProps {
   olMap?: OLMap // ol map实例 使用传入是为了外部调用方便 非响应式 view会被内部替换，view参数请使用相关props
   center?: Coordinate // 地图中心点 需要对应projection
+  rotation?: number // 地图旋转角度 默认0
   zoom?: number // 地图缩放级别
   minZoom?: number // 地图最小缩放级别
   maxZoom?: number // 地图最大缩放级别
@@ -38,7 +39,9 @@ export function useOlMap() {
 export interface OlMapEmits {
   'update:zoom': [number]
   'update:center': [Coordinate]
+  'update:rotation': [number]
   'changeResolution': [ObjectEvent]
+  'changeRotation': [ObjectEvent]
   'changeCenter': [ObjectEvent]
   'moveend': [MapEvent]
   'movestart': [MapEvent]
