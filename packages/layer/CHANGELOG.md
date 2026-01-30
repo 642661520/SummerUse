@@ -1,5 +1,16 @@
 # @summeruse/layer
 
+## 0.1.0
+
+### Minor Changes
+
+- 5cd3aed: build(layer): 迁移构建工具从 Vite 到 tsdown
+
+### Patch Changes
+
+- 75e5eda: refactor(useLayer): 将 parent 类型从 MaybeRefOrGetter 更新为 MaybeComputedElementRef
+- dfa179d: refactor(layer): 使用 props 替代 defineModel 管理初始矩形
+
 ## 0.0.6
 
 ### Patch Changes
