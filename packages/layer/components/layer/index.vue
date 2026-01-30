@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type { Rect } from '@/composables/useLayer/types'
 import type { StyleValue } from 'vue'
 import type { LayerProps } from './props'
+import type { Rect } from '@/composables/useLayer/types'
+import { useResizeObserver } from '@vueuse/core'
+import { computed, ref, toRefs, toValue, useTemplateRef, watch } from 'vue'
 import { useLayerIndexManager } from '@/components/layer-provider'
 import { useLayer } from '@/composables/useLayer'
-import { useResizeObserver } from '@vueuse/core'
-import { computed, ref, toRefs, useTemplateRef, watch } from 'vue'
 
 defineOptions({
   name: 'Layer',
@@ -33,20 +33,11 @@ const layerRef = useTemplateRef('layer')
 
 const contentRef = useTemplateRef('content')
 
-const rectModel = defineModel<{
-  x?: number
-  y?: number
-  width?: number
-  height?: number
-}>('initRect', {
-  required: true,
-})
-
 const initRect = ref({
-  x: rectModel.value.x ?? 0,
-  y: rectModel.value.y ?? 0,
-  width: rectModel.value.width ?? 0,
-  height: rectModel.value.height ?? 0,
+  x: props.initRect?.x ?? 0,
+  y: props.initRect?.y ?? 0,
+  width: props.initRect?.width ?? 0,
+  height: props.initRect?.height ?? 0,
 })
 
 const layerIndexManager = useLayerIndexManager()
@@ -79,7 +70,7 @@ const disabledResize = computed(() => {
   if (!propsRef.teleport.value) {
     return true
   }
-  if (!rectModel.value.width || !rectModel.value.height) {
+  if (!props.initRect?.width || !props.initRect?.height) {
     return true
   }
   return propsRef.disabledResize.value
@@ -104,31 +95,6 @@ useResizeObserver(contentRef, (entries) => {
 
 watch(propsRef.teleport, (teleport) => {
   if (teleport && show.value) {
-    check()
-  }
-})
-
-watch(() => rectModel.value.height, (value) => {
-  if (value) {
-    rect.value.height = value
-    check()
-  }
-})
-watch(() => rectModel.value.width, (value) => {
-  if (value) {
-    rect.value.width = value
-    check()
-  }
-})
-watch(() => rectModel.value.x, (value) => {
-  if (value) {
-    rect.value.x = value
-    check()
-  }
-})
-watch(() => rectModel.value.y, (value) => {
-  if (value) {
-    rect.value.y = value
     check()
   }
 })
@@ -190,6 +156,14 @@ watch(isResize, (v) => {
   else {
     emits('resizeEnd', rect.value)
   }
+})
+
+defineExpose({
+  getRect: () => toValue(rect),
+  setRect: (value: Rect) => {
+    rect.value = value
+    check()
+  },
 })
 </script>
 
