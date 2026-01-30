@@ -1,5 +1,5 @@
-import type { CreateLayerOptions, LayerProps } from '@/components/layer/props'
 import type { InjectionKey } from 'vue'
+import type { CreateLayerOptions, LayerProps } from '@/components/layer/props'
 import { inject } from 'vue'
 
 export interface LayerReactive {

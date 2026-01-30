@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CreateLayerOptions } from '@/components/layer/props'
-import Layer from '@/components/layer/index.vue'
 import { ref, watch } from 'vue'
+import Layer from '@/components/layer/index.vue'
 
 defineOptions({
   name: 'InjectLayer',
