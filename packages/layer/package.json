@@ -10,22 +10,21 @@
   "repository": "https://github.com/642661520/SummerUse",
   "keywords": [
     "vue",
-    "vue3"
+    "vue3",
+    "layer"
   ],
-  "main": "lib/index.js",
-  "module": "es/index.mjs",
-  "unpkg": "dist/index.js",
-  "jsdelivr": "dist/index.js",
-  "types": "es/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "unpkg": "dist/index.iife.min.js",
+  "jsdelivr": "dist/index.iife.min.js",
+  "types": "dist/index.d.ts",
   "files": [
     "CHANGELOG.md",
     "README.md",
-    "dist",
-    "es",
-    "lib"
+    "dist"
   ],
   "scripts": {
-    "build": "vue-tsc -b && vite build"
+    "build": "tsdown"
   },
   "peerDependencies": {
     "vue": "catalog:"
@@ -35,13 +34,13 @@
   },
   "devDependencies": {
     "@types/node": "catalog:",
-    "@vitejs/plugin-vue": "catalog:",
     "@vue/tsconfig": "catalog:",
+    "rollup-plugin-postcss": "^4.0.2",
+    "sass": "^1.97.3",
     "sass-embedded": "catalog:",
+    "tsdown": "catalog:",
     "typescript": "catalog:",
-    "vite": "catalog:",
-    "vite-plugin-css-injected-by-js": "catalog:",
-    "vite-plugin-dts": "catalog:",
+    "unplugin-vue": "catalog:",
     "vue-tsc": "catalog:"
   },
   "publishConfig": {
