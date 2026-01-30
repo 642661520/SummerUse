@@ -1,3 +1,4 @@
+import type { MaybeComputedElementRef } from '@vueuse/core'
 import type { MaybeRefOrGetter } from 'vue'
 
 export type ResizeDirection = 'left' | 'right' | 'top' | 'bottom' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
@@ -42,7 +43,7 @@ export interface LayerOptions {
   // 宽高比
   ratio?: MaybeRefOrGetter<number | undefined>
   // 限位元素
-  parent?: MaybeRefOrGetter<HTMLElement | undefined>
+  parent?: MaybeComputedElementRef
   // 允许拉伸到父元素外面
   allowOverParent?: MaybeRefOrGetter<boolean>
 }
