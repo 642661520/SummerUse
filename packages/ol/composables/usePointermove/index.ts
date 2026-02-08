@@ -2,7 +2,7 @@ import type { MapBrowserEvent } from 'ol'
 import type { Coordinate } from 'ol/coordinate'
 import type { FeatureLike } from 'ol/Feature'
 import type { CSSProperties, MaybeRefOrGetter, VNodeChild } from 'vue'
-import type { LayerLike, OLMap } from '../../types'
+import type { LayerLike, OLMap, Option } from '../../types'
 import { getCenter } from 'ol/extent'
 import { computed, onBeforeUnmount, ref, toValue, watch } from 'vue'
 
@@ -39,10 +39,6 @@ export type PointermoveItem<T extends Option = Option> = {
 } & T
 
 export type PointermoveList<T extends Option = Option> = PointermoveItem<T>[]
-
-export interface Option {
-  [key: string]: any
-}
 
 export interface UsePointermoveOptions<T extends Option = Option> {
   /** 地图实例 */
