@@ -16,7 +16,7 @@ interface PointermoveContentParams {
   coordinate: Coordinate
   position: PointermovePosition
   feature: FeatureLike
-  layer?: LayerLike
+  layer: LayerLike
 }
 
 type Cursor = CSSProperties['cursor']
@@ -34,6 +34,8 @@ export type PointermoveItem<T extends Option = Option> = {
   cursor?: Cursor | ((params: PointermoveContentParams) => Cursor)
   /** 固定在feature center 默认启用，若要关闭需要同时开启强制更新 */
   fixedFeatureCenter?: boolean
+  /** Hit-detection 容差（css像素），用于扩大检测范围 */
+  hitTolerance?: number
 } & T
 
 export type PointermoveList<T extends Option = Option> = PointermoveItem<T>[]
@@ -72,19 +74,35 @@ export function usePointermove<T extends Option>(
   let viewport: HTMLElement | undefined
   let originalCursor: string = ''
 
-  /** 查找匹配的 tooltip 配置 */
-  function findMatchingPointermove(params: PointermoveContentParams): PointermoveItem<T> | undefined {
-    const tooltips = toValue(items)
-    // 先排序，优先级高的在前面
-    tooltips.sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0))
-    // 拿到第一个匹配的
-    return tooltips.find((item) => {
-      const shouldShow = item.visible
-      if (typeof shouldShow === 'function') {
-        return shouldShow(params)
+  /** 按优先级排序，然后按相邻相同 tolerance 分组 */
+  function groupItemsByPriorityWithToleranceMerge(tooltips: PointermoveList<T>): Array<{
+    tolerance: number
+    items: PointermoveList<T>
+  }> {
+    // 第一步：按优先级排序（从高到低）
+    const sortedByPriority = [...tooltips].sort(
+      (a, b) => (b.priority ?? 0) - (a.priority ?? 0),
+    )
+
+    // 第二步：按相邻相同 tolerance 分组（保持优先级顺序）
+    const groups: Array<{ tolerance: number, items: PointermoveList<T> }> = []
+    let currentGroup: { tolerance: number, items: PointermoveList<T> } | null = null
+
+    sortedByPriority.forEach((item) => {
+      const tolerance = item.hitTolerance ?? 0
+
+      if (!currentGroup || currentGroup.tolerance !== tolerance) {
+        // 新的 tolerance，创建新分组
+        currentGroup = { tolerance, items: [item] }
+        groups.push(currentGroup)
       }
-      return shouldShow ?? true
+      else {
+        // 相同 tolerance，加入当前分组
+        currentGroup.items.push(item)
+      }
     })
+
+    return groups
   }
 
   /** 显示提示 */
@@ -102,17 +120,67 @@ export function usePointermove<T extends Option>(
 
     let pixel = evt.pixel
 
+    const tooltips = toValue(items)
+    // 按优先级排序，相邻相同 tolerance 的配置合并
+    const groupedItems = groupItemsByPriorityWithToleranceMerge(tooltips)
+
+    const { top, left } = viewport.getBoundingClientRect()
+
+    let matchedPointermove: PointermoveItem<T> | undefined
     let foundFeature: FeatureLike | undefined
     let foundLayer: LayerLike | undefined
 
-    currentMap.forEachFeatureAtPixel(pixel, (feature, layer) => {
-      foundFeature = feature
-      foundLayer = layer
-      return true
-    })
+    // 遍历分组（按优先级顺序）
+    for (const group of groupedItems) {
+      // 用该分组的 hitTolerance 一次性检测所有相邻的配置
+      currentMap.forEachFeatureAtPixel(
+        pixel,
+        (feature, layer) => {
+          foundFeature = feature
+          foundLayer = layer
+          return true
+        },
+        { hitTolerance: group.tolerance },
+      )
 
-    // 如果没有找到 feature，不显示提示
-    if (!foundFeature) {
+      if (!foundFeature) {
+        // 该分组没找到 feature，继续下一组
+        foundFeature = undefined
+        foundLayer = undefined
+        continue
+      }
+
+      // 找到了 feature，在该分组内查找第一个 visible=true 的配置
+      const params = {
+        map: currentMap,
+        position: { x: pixel[0] + left, y: pixel[1] + top },
+        coordinate: _coordinate,
+        feature: foundFeature,
+        layer: foundLayer!,
+      }
+
+      for (const item of group.items) {
+        const shouldShow = item.visible
+        const isVisible = typeof shouldShow === 'function' ? shouldShow(params) : (shouldShow ?? true)
+
+        if (isVisible) {
+          // 优先级最高且符合 visible 条件的配置
+          matchedPointermove = item
+          break
+        }
+      }
+
+      if (matchedPointermove) {
+        break // 找到了，停止搜索其他分组
+      }
+
+      // 该分组的所有配置都不匹配 visible 条件，重置继续下一组
+      foundFeature = undefined
+      foundLayer = undefined
+    }
+
+    // 如果没有找到匹配的配置，隐藏提示
+    if (!foundFeature || !matchedPointermove) {
       hide()
       return
     }
@@ -122,25 +190,8 @@ export function usePointermove<T extends Option>(
     }
 
     feature.value = foundFeature
-    const { top, left } = viewport.getBoundingClientRect()
-    const params = {
-      map: currentMap,
-      position: { x: pixel[0] + left, y: pixel[1] + top },
-      coordinate: _coordinate,
-      feature: foundFeature,
-      layer: foundLayer,
-    }
-
-    // 查找匹配的 tooltip 配置
-    const matchedPointermove = findMatchingPointermove(params)
-    if (matchedPointermove) {
-      const { content: _content, cursor: _cursor, visible: _visible, fixedFeatureCenter: _fixedFeatureCenter, offset: _offset, priority: _priority, ...rest } = matchedPointermove
-      option.value = { ...rest } as unknown as T
-    }
-    if (!matchedPointermove) {
-      hide()
-      return
-    }
+    const { content: _content, cursor: _cursor, visible: _visible, fixedFeatureCenter: _fixedFeatureCenter, offset: _offset, priority: _priority, hitTolerance: _hitTolerance, originalIndex, ...rest } = matchedPointermove
+    option.value = { ...rest } as unknown as T
 
     // 计算位置（带偏移）
     const offsetX = matchedPointermove.offset?.x ?? 0
@@ -159,13 +210,25 @@ export function usePointermove<T extends Option>(
     // 设置内容
     const tooltipContent = matchedPointermove.content
     content.value = typeof tooltipContent === 'function'
-      ? () => tooltipContent(params)
+      ? () => tooltipContent({
+          map: currentMap!,
+          coordinate: coordinate.value!,
+          position: position.value,
+          feature: foundFeature!,
+          layer: foundLayer!,
+        })
       : tooltipContent
 
     // 设置鼠标样式
     const cursor = matchedPointermove.cursor
     const cursorStyle = typeof cursor === 'function'
-      ? cursor(params)
+      ? cursor({
+          map: currentMap,
+          coordinate: coordinate.value!,
+          position: position.value,
+          feature: foundFeature,
+          layer: foundLayer!,
+        })
       : cursor
 
     if (cursorStyle !== undefined && cursorStyle !== viewport.style.cursor) {
