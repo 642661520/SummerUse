@@ -1,5 +1,15 @@
 # @summeruse/ol
 
+## 0.6.0
+
+### Minor Changes
+
+- 6a8ca7e: feat(composables): 新增 useMapClick 组合式函数处理地图点击事件
+
+### Patch Changes
+
+- d727683: feat(usePointermove): 支持 hitTolerance 并按容差分组优化检测性能
+
 ## 0.5.1
 
 ### Patch Changes
