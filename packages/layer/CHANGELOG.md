@@ -1,5 +1,11 @@
 # @summeruse/layer
 
+## 0.1.1
+
+### Patch Changes
+
+- 2129df9: fix(layer): 使用 nextTick 延迟设置 rect 以避免更新冲突
+
 ## 0.1.0
 
 ### Minor Changes

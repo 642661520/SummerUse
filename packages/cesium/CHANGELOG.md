@@ -1,5 +1,11 @@
 # @summeruse/ol
 
+## 0.1.8
+
+### Patch Changes
+
+- 5bc5c7c: chore(cesium): 移除对@summeruse/common 的依赖并重构子节点渲染
+
 ## 0.1.7
 
 ### Patch Changes

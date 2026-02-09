@@ -1,5 +1,11 @@
 # @summeruse/naive-ui
 
+## 0.1.0
+
+### Minor Changes
+
+- b3513b3: build(naive-ui): 迁移构建工具从 Vite 到 tsdown
+
 ## 0.0.2
 
 ### Patch Changes
