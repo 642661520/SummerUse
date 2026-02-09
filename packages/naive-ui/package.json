@@ -13,20 +13,19 @@
     "naive-ui",
     "vue3"
   ],
-  "main": "lib/index.js",
-  "module": "es/index.mjs",
-  "unpkg": "dist/index.js",
-  "jsdelivr": "dist/index.js",
-  "types": "es/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "unpkg": "dist/index.iife.min.js",
+  "jsdelivr": "dist/index.iife.min.js",
+  "types": "dist/index.d.ts",
   "files": [
     "CHANGELOG.md",
     "README.md",
-    "dist",
-    "es",
-    "lib"
+    "dist"
   ],
   "scripts": {
-    "build": "vue-tsc -b && vite build"
+    "build": "tsdown",
+    "publish": "pnpm publish"
   },
   "peerDependencies": {
     "vue": "catalog:"
@@ -38,11 +37,9 @@
     "@types/node": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "@vue/tsconfig": "catalog:",
-    "sass-embedded": "catalog:",
+    "tsdown": "catalog:",
     "typescript": "catalog:",
-    "vite": "catalog:",
-    "vite-plugin-css-injected-by-js": "catalog:",
-    "vite-plugin-dts": "catalog:",
+    "unplugin-vue": "catalog:",
     "vue-tsc": "catalog:"
   },
   "publishConfig": {
