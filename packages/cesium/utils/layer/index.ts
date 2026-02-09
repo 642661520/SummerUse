@@ -1,5 +1,6 @@
-import type { T_MAP_TYPE } from '@summeruse/common'
 import { ImageryLayer, OpenStreetMapImageryProvider, WebMapTileServiceImageryProvider } from 'cesium'
+
+export type T_MAP_TYPE = 'vec' | 'cva' | 'img' | 'cia' | 'ter' | 'cta' | 'ibo'
 
 export type _WebMapTileServiceImageryProviderOptions = Partial<ConstructorParameters<typeof WebMapTileServiceImageryProvider>[0]>
 
