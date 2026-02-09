@@ -2,7 +2,6 @@
 import type { PopoverPlacement } from 'naive-ui'
 import type { VNodeChild } from 'vue'
 import type { NCesiumPointermoveProps } from './props'
-import { RenderVNode } from '@summeruse/common'
 import { Cesium3DTileFeature, ScreenSpaceEventHandler, ScreenSpaceEventType } from 'cesium'
 import { NPopover } from 'naive-ui'
 import { ref, shallowRef, watchEffect } from 'vue'
@@ -63,6 +62,11 @@ watchEffect(() => {
       boxShadow: 'none',
     }"
   >
-    <RenderVNode :dynamic-v-node="child" />
+    <template v-if="child">
+      <component :is="child()" v-if="typeof child === 'function'" />
+      <template v-else>
+        {{ child }}
+      </template>
+    </template>
   </NPopover>
 </template>

@@ -30,16 +30,11 @@
     "build": "vue-tsc -b && vite build"
   },
   "peerDependencies": {
-    "@turf/turf": "catalog:",
     "cesium": "catalog:",
     "naive-ui": "catalog:",
     "vue": "catalog:"
   },
-  "dependencies": {
-    "@summeruse/common": "workspace:*"
-  },
   "devDependencies": {
-    "@turf/turf": "catalog:",
     "@types/node": "catalog:",
     "@vitejs/plugin-vue": "catalog:",
     "@vue/tsconfig": "catalog:",
