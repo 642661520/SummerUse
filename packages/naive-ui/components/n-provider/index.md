@@ -10,7 +10,7 @@ title: NProvider
 
 ```vue
 <script setup lang="ts">
-import { NProvider } from '@summeruse/ui'
+import { NProvider } from '@summeruse/naive-ui'
 </script>
 
 <template>
