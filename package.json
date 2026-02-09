@@ -29,12 +29,10 @@
   "dependencies": {
     "@css-render/vue3-ssr": "catalog:",
     "@summeruse/cesium": "workspace:*",
-    "@summeruse/common": "workspace:*",
     "@summeruse/layer": "workspace:*",
     "@summeruse/naive-ui": "workspace:*",
     "@summeruse/ol": "workspace:*",
     "@summeruse/turf": "workspace:*",
-    "@summeruse/ui": "workspace:*",
     "@summeruse/utils": "workspace:*",
     "@vueuse/core": "catalog:",
     "ant-design-vue": "catalog:",
