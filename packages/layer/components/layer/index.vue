@@ -3,7 +3,7 @@ import type { StyleValue } from 'vue'
 import type { LayerProps } from './props'
 import type { Rect } from '@/composables/useLayer/types'
 import { useResizeObserver } from '@vueuse/core'
-import { computed, ref, toRefs, toValue, useTemplateRef, watch } from 'vue'
+import { computed, nextTick, ref, toRefs, toValue, useTemplateRef, watch } from 'vue'
 import { useLayerIndexManager } from '@/components/layer-provider'
 import { useLayer } from '@/composables/useLayer'
 
@@ -161,8 +161,10 @@ watch(isResize, (v) => {
 defineExpose({
   getRect: () => toValue(rect),
   setRect: (value: Rect) => {
-    rect.value = value
-    check()
+    nextTick(() => {
+      rect.value = value
+      check()
+    })
   },
 })
 </script>
