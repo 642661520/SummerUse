@@ -26,7 +26,7 @@ pnpm i @summeruse/ol ol vue
 
 ## 使用UMD 模块
 
-::: warning 警告
+::: info 提示
 
 0.4.0 版本开始，提供 UMD 模块，可直接在浏览器中使用。
 
