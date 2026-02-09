@@ -2,7 +2,7 @@
 import type { Rect } from '@summeruse/layer'
 import { Layer } from '@summeruse/layer'
 import { NButton, NCard } from 'naive-ui'
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 
 const props = defineProps<{
   initRect?: Rect
@@ -16,14 +16,20 @@ const initRect = ref(props.initRect ?? {
   width: 200,
   height: 200,
 })
+
+const ratio = ref(1)
+
+const layerRef = useTemplateRef('layer')
+
 setTimeout(() => {
-  initRect.value = {
-    x: 300,
+  ratio.value = 0.7
+  layerRef.value?.setRect({
+    x: 500,
     y: 500,
     width: 300,
     height: 300,
-  }
-}, 3000)
+  })
+}, 1000)
 
 const teleport = ref(true)
 </script>
@@ -36,7 +42,8 @@ const teleport = ref(true)
     {{ teleport ? '返回' : "弹出" }}
   </NButton>
   <Layer
-    v-model:show="show" v-model:init-rect="initRect" :teleport="teleport" on-top
+    ref="layer"
+    v-model:show="show" :ratio="ratio" :init-rect="initRect" :teleport="teleport" on-top
   >
     <template #default="{ close }">
       <slot :close :show>
