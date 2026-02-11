@@ -218,6 +218,7 @@ export function createCanvasLayer(olMap: OLMap, refresh: (frameState: FrameState
     imageBitmap: ImageBitmap
     dpi: number
   }
+  | boolean
   | undefined, options?: CanvasLayerOptions) {
   const container = document.createElement('div')
   container.style.position = 'absolute'
@@ -238,7 +239,13 @@ export function createCanvasLayer(olMap: OLMap, refresh: (frameState: FrameState
       const size = frameState.size
       const res = refresh(frameState)
 
-      if (res) {
+      if (res === false) {
+        return container
+      }
+      else if (res === true || !res) {
+        ctx.clearRect(0, 0, _canvas.width, _canvas.height)
+      }
+      else if (res) {
         const { imageBitmap, dpi } = res
         if (dpi === config.dpi && size[0]! === config.size[0] && size[1]! === config.size[1]) {
           ctx.clearRect(0, 0, _canvas.width, _canvas.height)
@@ -252,9 +259,6 @@ export function createCanvasLayer(olMap: OLMap, refresh: (frameState: FrameState
         }
         ctx.drawImage(imageBitmap, 0, 0, size[0]!, size[1]!)
         imageBitmap.close()
-      }
-      else {
-        ctx.clearRect(0, 0, _canvas.width, _canvas.height)
       }
       return container
     },
