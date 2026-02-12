@@ -1,5 +1,11 @@
 # @summeruse/ol
 
+## 0.6.1
+
+### Patch Changes
+
+- 8b4a43e: fix(utils/layer): 允许刷新函数返回布尔值以控制画布清除
+
 ## 0.6.0
 
 ### Minor Changes
