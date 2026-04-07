@@ -84,9 +84,6 @@ catalogs:
     vite:
       specifier: npm:rolldown-vite@latest
       version: 7.3.0
-    vite-plugin-css-injected-by-js:
-      specifier: ^3.5.2
-      version: 3.5.2
     vite-plugin-dts:
       specifier: ^4.5.3
       version: 4.5.4
@@ -195,46 +192,37 @@ importers:
 
   packages/cesium:
     dependencies:
-      vue:
-        specifier: 'catalog:'
-        version: 3.5.26(typescript@5.7.3)
-    devDependencies:
-      '@types/node':
-        specifier: 'catalog:'
-        version: 22.19.3
-      '@vitejs/plugin-vue':
-        specifier: 'catalog:'
-        version: 6.0.1(rolldown-vite@7.3.0(@types/node@22.19.3)(esbuild@0.27.2)(jiti@2.6.1)(sass-embedded@1.97.1)(sass@1.97.3)(yaml@2.8.2))(vue@3.5.26(typescript@5.7.3))
-      '@vue/tsconfig':
-        specifier: 'catalog:'
-        version: 0.7.0(typescript@5.7.3)(vue@3.5.26(typescript@5.7.3))
-      '@vueuse/core':
-        specifier: 'catalog:'
-        version: 13.9.0(vue@3.5.26(typescript@5.7.3))
       cesium:
         specifier: 'catalog:'
         version: 1.136.0
       naive-ui:
         specifier: 'catalog:'
         version: 2.43.2(vue@3.5.26(typescript@5.7.3))
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.26(typescript@5.7.3)
+    devDependencies:
+      '@vue/tsconfig':
+        specifier: 'catalog:'
+        version: 0.7.0(typescript@5.7.3)(vue@3.5.26(typescript@5.7.3))
+      rollup-plugin-postcss:
+        specifier: ^4.0.2
+        version: 4.0.2(postcss@8.5.6)
+      sass:
+        specifier: ^1.97.3
+        version: 1.97.3
       sass-embedded:
         specifier: 'catalog:'
         version: 1.97.1
+      tsdown:
+        specifier: 'catalog:'
+        version: 0.18.3(synckit@0.11.11)(typescript@5.7.3)(vue-tsc@2.2.12(typescript@5.7.3))
       typescript:
         specifier: 'catalog:'
         version: 5.7.3
-      vite:
+      unplugin-vue:
         specifier: 'catalog:'
-        version: rolldown-vite@7.3.0(@types/node@22.19.3)(esbuild@0.27.2)(jiti@2.6.1)(sass-embedded@1.97.1)(sass@1.97.3)(yaml@2.8.2)
-      vite-plugin-css-injected-by-js:
-        specifier: 'catalog:'
-        version: 3.5.2(rolldown-vite@7.3.0(@types/node@22.19.3)(esbuild@0.27.2)(jiti@2.6.1)(sass-embedded@1.97.1)(sass@1.97.3)(yaml@2.8.2))
-      vite-plugin-dts:
-        specifier: 'catalog:'
-        version: 4.5.4(@types/node@22.19.3)(rolldown-vite@7.3.0(@types/node@22.19.3)(esbuild@0.27.2)(jiti@2.6.1)(sass-embedded@1.97.1)(sass@1.97.3)(yaml@2.8.2))(rollup@4.54.0)(typescript@5.7.3)
-      vue-tsc:
-        specifier: 'catalog:'
-        version: 2.2.12(typescript@5.7.3)
+        version: 7.1.0(@types/node@22.19.3)(esbuild@0.25.11)(jiti@2.6.1)(sass-embedded@1.97.1)(sass@1.97.3)(vue@3.5.26(typescript@5.7.3))(yaml@2.8.2)
 
   packages/layer:
     dependencies:
@@ -5539,11 +5527,6 @@ packages:
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
 
-  vite-plugin-css-injected-by-js@3.5.2:
-    resolution: {integrity: sha512-2MpU/Y+SCZyWUB6ua3HbJCrgnF0KACAsmzOQt1UvRVJCGF6S8xdA3ZUhWcWdM9ivG4I5az8PnQmwwrkC2CAQrQ==}
-    peerDependencies:
-      vite: '>2.0.0-0'
-
   vite-plugin-dts@4.5.4:
     resolution: {integrity: sha512-d4sOM8M/8z7vRXHHq/ebbblfaxENjogAAekcfcDCCwAyvGqnPrc7f4NZbvItS+g4WTgerW0xDwSz5qz11JT3vg==}
     peerDependencies:
@@ -6093,14 +6076,14 @@ snapshots:
   '@babel/template@7.27.2':
     dependencies:
       '@babel/code-frame': 7.27.1
-      '@babel/parser': 7.27.7
+      '@babel/parser': 7.28.5
       '@babel/types': 7.28.5
 
   '@babel/traverse@7.27.7':
     dependencies:
       '@babel/code-frame': 7.27.1
       '@babel/generator': 7.28.5
-      '@babel/parser': 7.27.7
+      '@babel/parser': 7.28.5
       '@babel/template': 7.27.2
       '@babel/types': 7.28.5
       debug: 4.4.3
@@ -12152,10 +12135,6 @@ snapshots:
       - terser
       - tsx
       - yaml
-
-  vite-plugin-css-injected-by-js@3.5.2(rolldown-vite@7.3.0(@types/node@22.19.3)(esbuild@0.27.2)(jiti@2.6.1)(sass-embedded@1.97.1)(sass@1.97.3)(yaml@2.8.2)):
-    dependencies:
-      vite: rolldown-vite@7.3.0(@types/node@22.19.3)(esbuild@0.27.2)(jiti@2.6.1)(sass-embedded@1.97.1)(sass@1.97.3)(yaml@2.8.2)
 
   vite-plugin-dts@4.5.4(@types/node@22.19.3)(rolldown-vite@7.3.0(@types/node@22.19.3)(esbuild@0.27.2)(jiti@2.6.1)(sass-embedded@1.97.1)(sass@1.97.3)(yaml@2.8.2))(rollup@4.54.0)(typescript@5.7.3):
     dependencies:

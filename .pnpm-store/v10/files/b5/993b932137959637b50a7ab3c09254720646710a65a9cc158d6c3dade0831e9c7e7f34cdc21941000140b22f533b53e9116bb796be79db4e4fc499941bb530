@@ -1,0 +1,4 @@
+import { t as plugin } from "./core-B9K3n2Fx.mjs";
+import "./src-CGJeW9Ju.mjs";
+
+export { plugin as default };
