@@ -38,10 +38,10 @@ import Demo from './demo.vue'
 
 | 名称 | 类型 | 默认值 | 说明 |
 |------|------|------|------|
-| strokeStyleOption | [`StrokeOptions`](../utils/style/index.md#StrokeOptions) | - | 网格线描边样式 |
-| labelStyleOption | [`TextOptions`](../utils/style/index.md#TextOptions) | - | 经纬度标签文本样式（同时作用于经度和纬度） |
-| latLabelStyleOption | [`TextOptions`](../utils/style/index.md#TextOptions) | - | 纬度标签样式（优先级高于 `labelStyleOption`） |
-| lonLabelStyleOption | [`TextOptions`](../utils/style/index.md#TextOptions) | - | 经度标签样式（优先级高于 `labelStyleOption`） |
+| strokeStyleOption | [`StrokeOptions`](../../utils/style/index.md#StrokeOptions) | - | 网格线描边样式 |
+| labelStyleOption | [`TextOptions`](../../utils/style/index.md#TextOptions) | - | 经纬度标签文本样式（同时作用于经度和纬度） |
+| latLabelStyleOption | [`TextOptions`](../../utils/style/index.md#TextOptions) | - | 纬度标签样式（优先级高于 `labelStyleOption`） |
+| lonLabelStyleOption | [`TextOptions`](../../utils/style/index.md#TextOptions) | - | 经度标签样式（优先级高于 `labelStyleOption`） |
 
 ### UseGraticuleReturn {#UseGraticuleReturn}
 

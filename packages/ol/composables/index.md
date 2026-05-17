@@ -10,6 +10,3 @@
 
 [`useSwitchBaseLayer`](./useSwitchBaseLayer/index.md)
 
-[`useDrawLineString`](./useDrawLineString/index.md)
-
-[`useDrawPolygon`](./useDrawPolygon/index.md)
