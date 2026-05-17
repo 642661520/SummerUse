@@ -1,8 +1,8 @@
-import type { ViewerOptions } from '@/components/cesium-viewer/props'
 import type { MaybeRefOrGetter } from 'vue'
-import { cesiumViewerInjectionKey } from '@/components/cesium-viewer/props'
+import type { ViewerOptions } from '@/components/cesium-viewer/props'
 import { Viewer } from 'cesium'
 import { provide, toValue, watchEffect } from 'vue'
+import { cesiumViewerInjectionKey } from '@/components/cesium-viewer/props'
 
 export function createCesiumViewer(element: MaybeRefOrGetter<HTMLElement | undefined>, options?: ViewerOptions) {
   const div = document.createElement('div')

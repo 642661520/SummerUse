@@ -13,7 +13,7 @@ const props = defineProps<{
 
 const { visible, options, position, hide } = useContextmenu(props.map, props.items)
 
-  type DropdownOptions = Array<DropdownOption | DropdownGroupOption | DropdownDividerOption | DropdownRenderOption>
+type DropdownOptions = Array<DropdownOption | DropdownGroupOption | DropdownDividerOption | DropdownRenderOption>
 
 function formatOptions(option: ContextmenuOption[]): DropdownOptions {
   return option.reduce((prev, cur) => {
