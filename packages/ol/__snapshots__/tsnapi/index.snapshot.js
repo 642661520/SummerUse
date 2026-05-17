@@ -44,8 +44,6 @@ export function nauticalMilesToKm(_) {}
 export function registerEPSG_3395() {}
 export function rotationToAngle(_) {}
 export function useContextmenu(_, _) {}
-export function useDrawLineString(_, _) {}
-export function useDrawPolygon(_, _) {}
 export function useGraticule(_) {}
 export function useMapClick(_, _) {}
 export function useMapClickHandler(_) {}

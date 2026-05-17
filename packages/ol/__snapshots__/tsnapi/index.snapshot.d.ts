@@ -57,32 +57,6 @@ export interface CreateTianDiTuUrlOptions {
   type: T_MAP_TYPE;
   projection?: 'EPSG:3857' | 'EPSG:4326';
 }
-export interface DrawLineStringOptions {
-  defaultCoordinates?: Coordinate[][];
-  deletePointLabel?: VNode;
-  deleteFeatureLabel?: VNode;
-  style?: Style;
-  styleOptions?: StyleOptions;
-  drawStyle?: Style;
-  drawStyleOptions?: StyleOptions;
-  modifyStyle?: Style;
-  modifyStyleOptions?: StyleOptions;
-  zIndex?: number;
-  size?: number;
-}
-export interface DrawPolygonOptions {
-  defaultCoordinates?: Coordinate[][][];
-  deletePointLabel?: VNode;
-  deleteFeatureLabel?: VNode;
-  style?: Style;
-  styleOptions?: StyleOptions;
-  drawStyleOptions?: StyleOptions;
-  modifyStyleOptions?: StyleOptions;
-  drawStyle?: Style;
-  modifyStyle?: Style;
-  zIndex?: number;
-  size?: number;
-}
 export interface FeatureOptions {
   style?: Style;
   styleOptions?: StyleOptions;
@@ -335,13 +309,13 @@ export declare function nauticalMilesToKm(_: number): number;
 export declare function registerEPSG_3395(): void;
 export declare function rotationToAngle(_: number): number;
 export declare function useContextmenu(_: MaybeRefOrGetter<OLMap | undefined>, _: MaybeRefOrGetter<ContextmenuList>): {
-  visible: vue20.ComputedRef<boolean>;
-  position: vue20.ComputedRef<{
+  visible: vue14.ComputedRef<boolean>;
+  position: vue14.ComputedRef<{
     x: number;
     y: number;
   }>;
-  feature: vue20.ComputedRef<FeatureLike | undefined>;
-  options: vue20.ComputedRef<{
+  feature: vue14.ComputedRef<FeatureLike | undefined>;
+  options: vue14.ComputedRef<{
     [x: string]: any;
     children?: any[] | undefined;
     label: string | (() => VNodeChild);
@@ -353,198 +327,8 @@ export declare function useContextmenu(_: MaybeRefOrGetter<OLMap | undefined>, _
     order?: number | undefined;
     key?: string | number | undefined;
   }[]>;
-  coordinate: vue20.ComputedRef<Coordinate | undefined>;
+  coordinate: vue14.ComputedRef<Coordinate | undefined>;
   hide: () => void;
-};
-export declare function useDrawLineString(_: OLMap, _: DrawLineStringOptions): {
-  inDraw: vue20.Ref<boolean, boolean>;
-  start: () => void;
-  stop: () => void;
-  clear: () => void;
-  setFeatures: (_: Coordinate[][]) => void;
-  reset: () => void;
-  features: vue20.Ref<{
-    on: ol_Feature5.FeatureOnSignature<ol_events13.EventsKey>;
-    once: ol_Feature5.FeatureOnSignature<ol_events13.EventsKey>;
-    un: ol_Feature5.FeatureOnSignature<void>;
-    clone: () => Feature<LineString, {
-      [x: string]: any;
-    }>;
-    getGeometry: () => LineString | undefined;
-    getId: () => number | string | undefined;
-    getGeometryName: () => string;
-    getStyle: () => ol_style_Style5.StyleLike | undefined;
-    getStyleFunction: () => ol_style_Style5.StyleFunction | undefined;
-    setGeometry: (geometry: LineString | undefined) => void;
-    setStyle: (style?: ol_style_Style5.StyleLike) => void;
-    setId: (id: number | string | undefined) => void;
-    setGeometryName: (name: string) => void;
-    get: (key: string) => any;
-    getKeys: () => Array<string>;
-    getProperties: () => NoInfer<{
-      [x: string]: any;
-    }>;
-    getPropertiesInternal: () => Partial<NoInfer<{
-      [x: string]: any;
-    }>> | null;
-    hasProperties: () => boolean;
-    notify: (key: string, oldValue: any) => void;
-    addChangeListener: (key: string, listener: ol_events13.Listener) => void;
-    removeChangeListener: (key: string, listener: ol_events13.Listener) => void;
-    set: (key: string, value: any, silent?: boolean) => void;
-    setProperties: (values: Partial<NoInfer<{
-      [x: string]: any;
-    }>>, silent?: boolean) => void;
-    unset: (key: string, silent?: boolean) => void;
-    changed: () => void;
-    getRevision: () => number;
-    addEventListener: (type: string, listener: ol_events13.Listener) => void;
-    dispatchEvent: (event: ol_events_Event1.default | string) => boolean | undefined;
-    getListeners: (type: string) => Array<ol_events13.Listener> | undefined;
-    hasListener: (type?: string) => boolean;
-    removeEventListener: (type: string, listener: ol_events13.Listener) => void;
-    dispose: () => void;
-  }[], Feature<LineString, {
-    [x: string]: any;
-  }>[] | {
-    on: ol_Feature5.FeatureOnSignature<ol_events13.EventsKey>;
-    once: ol_Feature5.FeatureOnSignature<ol_events13.EventsKey>;
-    un: ol_Feature5.FeatureOnSignature<void>;
-    clone: () => Feature<LineString, {
-      [x: string]: any;
-    }>;
-    getGeometry: () => LineString | undefined;
-    getId: () => number | string | undefined;
-    getGeometryName: () => string;
-    getStyle: () => ol_style_Style5.StyleLike | undefined;
-    getStyleFunction: () => ol_style_Style5.StyleFunction | undefined;
-    setGeometry: (geometry: LineString | undefined) => void;
-    setStyle: (style?: ol_style_Style5.StyleLike) => void;
-    setId: (id: number | string | undefined) => void;
-    setGeometryName: (name: string) => void;
-    get: (key: string) => any;
-    getKeys: () => Array<string>;
-    getProperties: () => NoInfer<{
-      [x: string]: any;
-    }>;
-    getPropertiesInternal: () => Partial<NoInfer<{
-      [x: string]: any;
-    }>> | null;
-    hasProperties: () => boolean;
-    notify: (key: string, oldValue: any) => void;
-    addChangeListener: (key: string, listener: ol_events13.Listener) => void;
-    removeChangeListener: (key: string, listener: ol_events13.Listener) => void;
-    set: (key: string, value: any, silent?: boolean) => void;
-    setProperties: (values: Partial<NoInfer<{
-      [x: string]: any;
-    }>>, silent?: boolean) => void;
-    unset: (key: string, silent?: boolean) => void;
-    changed: () => void;
-    getRevision: () => number;
-    addEventListener: (type: string, listener: ol_events13.Listener) => void;
-    dispatchEvent: (event: ol_events_Event1.default | string) => boolean | undefined;
-    getListeners: (type: string) => Array<ol_events13.Listener> | undefined;
-    hasListener: (type?: string) => boolean;
-    removeEventListener: (type: string, listener: ol_events13.Listener) => void;
-    dispose: () => void;
-  }[]>;
-  coordinates: vue20.ComputedRef<Coordinate[][]>;
-  destroy: () => void;
-};
-export declare function useDrawPolygon(_: OLMap, _: DrawPolygonOptions): {
-  inDraw: vue20.Ref<boolean, boolean>;
-  start: () => void;
-  stop: () => void;
-  clear: () => void;
-  setFeatures: (_?: Coordinate[][][]) => void;
-  reset: () => void;
-  features: vue20.Ref<{
-    on: ol_Feature5.FeatureOnSignature<ol_events13.EventsKey>;
-    once: ol_Feature5.FeatureOnSignature<ol_events13.EventsKey>;
-    un: ol_Feature5.FeatureOnSignature<void>;
-    clone: () => Feature<Polygon, {
-      [x: string]: any;
-    }>;
-    getGeometry: () => Polygon | undefined;
-    getId: () => number | string | undefined;
-    getGeometryName: () => string;
-    getStyle: () => ol_style_Style5.StyleLike | undefined;
-    getStyleFunction: () => ol_style_Style5.StyleFunction | undefined;
-    setGeometry: (geometry: Polygon | undefined) => void;
-    setStyle: (style?: ol_style_Style5.StyleLike) => void;
-    setId: (id: number | string | undefined) => void;
-    setGeometryName: (name: string) => void;
-    get: (key: string) => any;
-    getKeys: () => Array<string>;
-    getProperties: () => NoInfer<{
-      [x: string]: any;
-    }>;
-    getPropertiesInternal: () => Partial<NoInfer<{
-      [x: string]: any;
-    }>> | null;
-    hasProperties: () => boolean;
-    notify: (key: string, oldValue: any) => void;
-    addChangeListener: (key: string, listener: ol_events13.Listener) => void;
-    removeChangeListener: (key: string, listener: ol_events13.Listener) => void;
-    set: (key: string, value: any, silent?: boolean) => void;
-    setProperties: (values: Partial<NoInfer<{
-      [x: string]: any;
-    }>>, silent?: boolean) => void;
-    unset: (key: string, silent?: boolean) => void;
-    changed: () => void;
-    getRevision: () => number;
-    addEventListener: (type: string, listener: ol_events13.Listener) => void;
-    dispatchEvent: (event: ol_events_Event1.default | string) => boolean | undefined;
-    getListeners: (type: string) => Array<ol_events13.Listener> | undefined;
-    hasListener: (type?: string) => boolean;
-    removeEventListener: (type: string, listener: ol_events13.Listener) => void;
-    dispose: () => void;
-  }[], Feature<Polygon, {
-    [x: string]: any;
-  }>[] | {
-    on: ol_Feature5.FeatureOnSignature<ol_events13.EventsKey>;
-    once: ol_Feature5.FeatureOnSignature<ol_events13.EventsKey>;
-    un: ol_Feature5.FeatureOnSignature<void>;
-    clone: () => Feature<Polygon, {
-      [x: string]: any;
-    }>;
-    getGeometry: () => Polygon | undefined;
-    getId: () => number | string | undefined;
-    getGeometryName: () => string;
-    getStyle: () => ol_style_Style5.StyleLike | undefined;
-    getStyleFunction: () => ol_style_Style5.StyleFunction | undefined;
-    setGeometry: (geometry: Polygon | undefined) => void;
-    setStyle: (style?: ol_style_Style5.StyleLike) => void;
-    setId: (id: number | string | undefined) => void;
-    setGeometryName: (name: string) => void;
-    get: (key: string) => any;
-    getKeys: () => Array<string>;
-    getProperties: () => NoInfer<{
-      [x: string]: any;
-    }>;
-    getPropertiesInternal: () => Partial<NoInfer<{
-      [x: string]: any;
-    }>> | null;
-    hasProperties: () => boolean;
-    notify: (key: string, oldValue: any) => void;
-    addChangeListener: (key: string, listener: ol_events13.Listener) => void;
-    removeChangeListener: (key: string, listener: ol_events13.Listener) => void;
-    set: (key: string, value: any, silent?: boolean) => void;
-    setProperties: (values: Partial<NoInfer<{
-      [x: string]: any;
-    }>>, silent?: boolean) => void;
-    unset: (key: string, silent?: boolean) => void;
-    changed: () => void;
-    getRevision: () => number;
-    addEventListener: (type: string, listener: ol_events13.Listener) => void;
-    dispatchEvent: (event: ol_events_Event1.default | string) => boolean | undefined;
-    getListeners: (type: string) => Array<ol_events13.Listener> | undefined;
-    hasListener: (type?: string) => boolean;
-    removeEventListener: (type: string, listener: ol_events13.Listener) => void;
-    dispose: () => void;
-  }[]>;
-  coordinates: vue20.ComputedRef<Coordinate[][][]>;
-  destroy: () => void;
 };
 export declare function useGraticule(_: UseGraticuleOptions): {
   showGraticule: Ref<boolean, boolean>;
@@ -560,24 +344,24 @@ export declare function usePointermove<T extends Option>({
   items,
   forceUpdate
 }: UsePointermoveOptions<T>): {
-  visible: vue20.ComputedRef<boolean>;
-  position: vue20.ComputedRef<{
+  visible: vue14.ComputedRef<boolean>;
+  position: vue14.ComputedRef<{
     x: number;
     y: number;
   }>;
-  offset: vue20.ComputedRef<{
+  offset: vue14.ComputedRef<{
     x: number;
     y: number;
   }>;
-  originalPosition: vue20.ComputedRef<{
+  originalPosition: vue14.ComputedRef<{
     x: number;
     y: number;
   }>;
-  feature: vue20.ComputedRef<FeatureLike | undefined>;
-  content: vue20.ComputedRef<string | (() => VNodeChild) | undefined>;
-  originalCoordinate: vue20.ComputedRef<Coordinate | undefined>;
-  coordinate: vue20.ComputedRef<Coordinate | undefined>;
-  option: vue20.ComputedRef<T | undefined>;
+  feature: vue14.ComputedRef<FeatureLike | undefined>;
+  content: vue14.ComputedRef<string | (() => VNodeChild) | undefined>;
+  originalCoordinate: vue14.ComputedRef<Coordinate | undefined>;
+  coordinate: vue14.ComputedRef<Coordinate | undefined>;
+  option: vue14.ComputedRef<T | undefined>;
   hide: () => void;
 };
 export declare function useSwitchBaseLayer(_: {
@@ -587,7 +371,7 @@ export declare function useSwitchBaseLayer(_: {
     [key: string]: TileLayer[];
   };
 }): {
-  visibleLayerName: vue20.Ref<string, string>;
+  visibleLayerName: vue14.Ref<string, string>;
 };
 // #endregion
 
