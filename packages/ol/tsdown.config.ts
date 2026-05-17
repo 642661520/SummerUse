@@ -1,4 +1,5 @@
 import { defineConfig } from 'tsdown'
+import ApiSnapshot from 'tsnapi/rolldown'
 import Vue from 'unplugin-vue/rolldown'
 
 export default defineConfig({
@@ -17,7 +18,7 @@ export default defineConfig({
     },
   },
   noExternal: ['pmtiles', 'proj4'],
-  plugins: [Vue({ isProduction: true })],
+  plugins: [Vue({ isProduction: true }), ApiSnapshot({ update: true })],
   outputOptions: {
     name: 'SummerUse.ol',
     globals: (id) => {

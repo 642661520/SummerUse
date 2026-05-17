@@ -37,6 +37,7 @@
     "pmtiles": "^4.3.2",
     "proj4": "^2.20.2",
     "tsdown": "catalog:",
+    "tsnapi": "catalog:",
     "typescript": "catalog:",
     "unplugin-vue": "catalog:"
   },
