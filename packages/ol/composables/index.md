@@ -2,6 +2,8 @@
 
 [`useContextmenu`](./useContextmenu/index.md)
 
+[`useMapClick`](./useMapClick/index.md)
+
 [`usePointermove`](./usePointermove/index.md)
 
 [`useGraticule`](./useGraticule/index.md)

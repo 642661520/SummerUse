@@ -128,6 +128,14 @@ import Demo from './demo.vue'
 | x | number | 菜单横坐标 |
 | y | number | 菜单纵坐标 |
 
+### 类型别名
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| ContextmenuList | `ContextmenuItem[]` | 菜单项列表 |
+| ContextmenuOptions | `ContextmenuOption[]` | 解析后的菜单选项列表 |
+| UseContextmenuFn | `(...args: UseContextmenuParams) => UseContextmenuReturn` | composable 函数类型签名 |
+
 ## 源代码
 
 ::: details 点我查看代码

@@ -89,6 +89,13 @@ const { option } = usePointermove<{ id: string }>(olMap, [{
 | x | number | 横坐标（像素） |
 | y | number | 纵坐标（像素） |
 
+### 类型别名
+
+| 名称 | 类型 | 说明 |
+|------|------|------|
+| PointermoveList`<T>` | `PointermoveItem<T>[]` | 提示项列表 |
+| UsePointermoveOptions`<T>` | 见下方 | composable 的选项对象，包含 `mapRef`、`items`、`forceUpdate` |
+
 ## 使用说明
 
 - 仅当指针位于某个要素上时才显示提示；离开要素则隐藏。
