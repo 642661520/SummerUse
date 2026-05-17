@@ -98,7 +98,6 @@ export function useMapClickHandler<T extends Option = Option>(
 
     const grouped = groupConfigsByPriority(toValue(items))
 
-    let config: ClickConfig<T> | undefined
     let foundFeature: FeatureLike | undefined
     let foundLayer: LayerLike | undefined
 
@@ -113,10 +112,6 @@ export function useMapClickHandler<T extends Option = Option>(
         { hitTolerance: group.tolerance },
       )
 
-      if (!foundFeature) {
-        continue
-      }
-
       const context: ClickContext = {
         map,
         coordinate: evt.coordinate,
@@ -125,30 +120,15 @@ export function useMapClickHandler<T extends Option = Option>(
         layer: foundLayer!,
       }
 
-      // 在该分组内查找第一个 visible=true 的配置
-      for (const config of group.items) {
-        const visible = config.visible
-        const isVisible = typeof visible === 'function' ? visible(context) : true
+      for (const item of group.items) {
+        const isVisible = typeof item.visible === 'function' ? item.visible(context) : true
 
         if (isVisible) {
-          return { config, feature: foundFeature, layer: foundLayer! }
+          item.handler(context)
+          return
         }
       }
     }
-
-    if (!config) {
-      return
-    }
-
-    const context: ClickContext = {
-      map,
-      coordinate: evt.coordinate,
-      pixel: evt.pixel,
-      feature: foundFeature,
-      layer: foundLayer!,
-    }
-
-    config.handler(context)
   }
   /** 绑定事件 */
   function bindMapEvents(map: OLMap) {
