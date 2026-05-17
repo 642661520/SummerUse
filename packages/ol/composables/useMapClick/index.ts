@@ -3,7 +3,7 @@ import type { Coordinate } from 'ol/coordinate'
 import type { FeatureLike } from 'ol/Feature'
 import type { Pixel } from 'ol/pixel'
 import type { MaybeRefOrGetter } from 'vue'
-import type { LayerLike, OLMap, Option } from '../../types'
+import type { LayerLike, OLMap } from '../../types'
 import { computed, onBeforeUnmount, shallowRef, toValue, watch } from 'vue'
 
 /** 点击事件类型 */
@@ -18,6 +18,10 @@ export interface ClickContext {
   pixel: Pixel
   feature?: FeatureLike
   layer: LayerLike
+}
+
+interface Option {
+  [key: string]: any
 }
 
 /**

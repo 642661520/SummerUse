@@ -2,7 +2,7 @@ import type { MapBrowserEvent } from 'ol'
 import type { Coordinate } from 'ol/coordinate'
 import type { FeatureLike } from 'ol/Feature'
 import type { CSSProperties, MaybeRefOrGetter, VNodeChild } from 'vue'
-import type { LayerLike, OLMap, Option } from '../../types'
+import type { LayerLike, OLMap } from '../../types'
 import { getCenter } from 'ol/extent'
 import { computed, onBeforeUnmount, ref, toValue, watch } from 'vue'
 
@@ -17,6 +17,10 @@ interface PointermoveContentParams {
   position: PointermovePosition
   feature: FeatureLike
   layer: LayerLike
+}
+
+interface Option {
+  [key: string]: any
 }
 
 type Cursor = CSSProperties['cursor']
