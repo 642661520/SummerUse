@@ -1,21 +1,20 @@
 <script lang="ts" setup>
-import type { ClickContext } from '@summeruse/ol'
+import type { ClickContext, OLMap } from '@summeruse/ol'
+import type { Pixel } from 'ol/pixel'
 import {
   createOpenStreetMapLayer,
   createPointFeature,
-  createStyle,
   createVectorLayer,
   OlMap,
   useMapClick,
 } from '@summeruse/ol'
 import { NCard, NPopover, NTag } from 'naive-ui'
-import { Map as OLMap } from 'ol'
-import { h, ref } from 'vue'
+import { Map } from 'ol'
+import { ref } from 'vue'
 
-const olMap = new OLMap()
+const olMap = new Map()
 olMap.addLayer(createOpenStreetMapLayer())
 
-// 创建几个城市点位
 const beijing = createPointFeature([116.3912, 39.9072], {
   id: 'beijing',
   styleOptions: {
@@ -25,11 +24,7 @@ const beijing = createPointFeature([116.3912, 39.9072], {
       strokeOptions: { color: '#fff', width: 2 },
     },
   },
-  data: {
-    name: '北京',
-    desc: '中华人民共和国首都',
-    population: '2189万',
-  },
+  data: { name: '北京', desc: '中华人民共和国首都', population: '2189万' },
 })
 
 const shanghai = createPointFeature([121.4737, 31.2304], {
@@ -41,11 +36,7 @@ const shanghai = createPointFeature([121.4737, 31.2304], {
       strokeOptions: { color: '#fff', width: 2 },
     },
   },
-  data: {
-    name: '上海',
-    desc: '中国最大的经济中心城市',
-    population: '2487万',
-  },
+  data: { name: '上海', desc: '中国最大的经济中心城市', population: '2487万' },
 })
 
 const guangzhou = createPointFeature([113.2644, 23.1291], {
@@ -57,58 +48,62 @@ const guangzhou = createPointFeature([113.2644, 23.1291], {
       strokeOptions: { color: '#fff', width: 2 },
     },
   },
-  data: {
-    name: '广州',
-    desc: '广东省省会',
-    population: '1868万',
-  },
+  data: { name: '广州', desc: '广东省省会', population: '1868万' },
 })
 
-const { source, layer } = createVectorLayer({
-  style: (feature) => {
-    return createStyle(feature.get('styleOptions'))
-  },
-})
+const { source, layer } = createVectorLayer()
 source.addFeature(beijing)
 source.addFeature(shanghai)
 source.addFeature(guangzhou)
 olMap.addLayer(layer)
 
-// 选中信息
-const selectedInfo = ref<{
+interface CityInfo {
   name: string
   desc: string
   population: string
-} | null>(null)
+}
 
+const selectedInfo = ref<CityInfo | null>(null)
+const isCapital = ref(false)
 const clickPosition = ref({ x: 0, y: 0 })
 const showPopover = ref(false)
 
-// 注册点击处理
+function showAt(data: CityInfo, pixel: Pixel, map: OLMap) {
+  selectedInfo.value = data
+  const rect = map.getTargetElement().getBoundingClientRect()
+  clickPosition.value = { x: pixel[0] + rect.left, y: pixel[1] + rect.top }
+  showPopover.value = true
+}
+
 const { add } = useMapClick(olMap, 'singleclick')
 
-add('city-click', [{
-  priority: 10,
-  handler: (ctx: ClickContext) => {
-    const data = ctx.feature?.get('data')
-    if (data) {
-      selectedInfo.value = data
-      clickPosition.value = {
-        x: ctx.pixel[0],
-        y: ctx.pixel[1],
+add('cities', [
+  {
+    priority: 10,
+    // visible 只允许"北京"通过，展示优先匹配
+    visible: (ctx: ClickContext) => ctx.feature?.get('data')?.name === '北京',
+    handler: (ctx: ClickContext) => {
+      isCapital.value = true
+      showAt(ctx.feature!.get('data'), ctx.pixel, ctx.map)
+    },
+  },
+  {
+    handler: (ctx: ClickContext) => {
+      const data = ctx.feature?.get('data')
+      if (data) {
+        isCapital.value = false
+        showAt(data, ctx.pixel, ctx.map)
       }
-      showPopover.value = true
-    }
+      else {
+        showPopover.value = false
+      }
+    },
   },
-}])
+])
 
-// 点击空白处关闭
-add('blank-click', [{
-  handler: () => {
-    showPopover.value = false
-    selectedInfo.value = null
-  },
-}])
+olMap.on('movestart', () => {
+  showPopover.value = false
+})
 </script>
 
 <template>
@@ -125,12 +120,15 @@ add('blank-click', [{
       :show="showPopover"
       :x="clickPosition.x"
       :y="clickPosition.y"
-      :arrow-style="{ pointerEvents: 'none' }"
-      style="pointer-events: none"
     >
       <NCard v-if="selectedInfo" size="small" :title="selectedInfo.name">
+        <template v-if="isCapital" #header-extra>
+          <NTag type="error" size="small">
+            首都
+          </NTag>
+        </template>
         <p>{{ selectedInfo.desc }}</p>
-        <NTag type="info">
+        <NTag :type="isCapital ? 'error' : 'info'">
           人口: {{ selectedInfo.population }}
         </NTag>
       </NCard>
