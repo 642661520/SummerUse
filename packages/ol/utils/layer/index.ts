@@ -242,22 +242,24 @@ export function createCanvasLayer(olMap: OLMap, refresh: (frameState: FrameState
       if (res === false) {
         return container
       }
-      else if (res === true || !res) {
+
+      if (res === true || !res) {
+        ctx.setTransform(1, 0, 0, 1, 0, 0)
         ctx.clearRect(0, 0, _canvas.width, _canvas.height)
+        return container
       }
-      else if (res) {
+
+      if (res) {
         const { imageBitmap, dpi } = res
-        if (dpi === config.dpi && size[0]! === config.size[0] && size[1]! === config.size[1]) {
-          ctx.clearRect(0, 0, _canvas.width, _canvas.height)
-        }
-        else {
+        if (dpi !== config.dpi || size[0]! !== config.size[0] || size[1]! !== config.size[1]) {
           config.size = [size[0]!, size[1]!]
           config.dpi = dpi
           _canvas.width = size[0]! * dpi
           _canvas.height = size[1]! * dpi
-          ctx.scale(dpi, dpi)
         }
-        ctx.drawImage(imageBitmap, 0, 0, size[0]!, size[1]!)
+        ctx.setTransform(1, 0, 0, 1, 0, 0)
+        ctx.clearRect(0, 0, _canvas.width, _canvas.height)
+        ctx.drawImage(imageBitmap, 0, 0, _canvas.width, _canvas.height)
         imageBitmap.close()
       }
       return container
@@ -267,7 +269,7 @@ export function createCanvasLayer(olMap: OLMap, refresh: (frameState: FrameState
   })
   olMap.addLayer(layer)
 
-  return { layer, source }
+  return { layer }
 }
 
 export type HeatmapLayerOptions = ConstructorParameters<typeof HeatmapLayer>[0]
