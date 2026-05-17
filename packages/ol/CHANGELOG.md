@@ -1,5 +1,13 @@
 # @summeruse/ol
 
+## 0.6.2
+
+### Patch Changes
+
+- c83fda7: 🔧 chore(tsnapi): 添加公共 API 快照文件
+- c85d5df: ♻️ refactor(types): 将 Option 接口从共享类型移至本地定义
+- a362956: 🐛 fix(canvasLayer): 修复画布层变换重置与尺寸适配逻辑
+
 ## 0.6.1
 
 ### Patch Changes
